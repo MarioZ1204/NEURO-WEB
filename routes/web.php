@@ -61,6 +61,8 @@ Route::get('/educacion/polisomnografia-basal', [LandingController::class, 'polis
     ->name('educacion.polisBasal');
 Route::get('/educacion/polisomnografia', [LandingController::class, 'polisomnografia'])
     ->name('educacion.polisomnografia');
+Route::get('/educacion/salud-del-sueno', [LandingController::class, 'saludDelSueno'])
+    ->name('educacion.saludSueno');
 
 // Trabaje con Nosotros
 Route::get('/trabaje-con-nosotros/hoja-de-vida', [LandingController::class, 'hojaDeVida'])
@@ -75,8 +77,7 @@ Route::get('/trabaje-con-nosotros/convenio-institucional', [LandingController::c
     ->name('trabaje.convenio');
 Route::post('/trabaje-con-nosotros/convenio-institucional/enviar', [LandingController::class, 'sendConvenio'])
     ->name('trabaje.convenio.send');
-Route::get('/trabaje-con-nosotros/salud-del-sueno', [LandingController::class, 'saludDelSueno'])
-    ->name('trabaje.saludSueno');
+
 
 // Páginas del FAB
 Route::get('/escribanos', [LandingController::class, 'escribanos'])

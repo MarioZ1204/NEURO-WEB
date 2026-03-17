@@ -484,6 +484,7 @@
                 <div class="dropdown-menu-custom">
                     <a href="{{ route('educacion.polisBasal') }}">Preparación para Polisomnografía Basal</a>
                     <a href="{{ route('educacion.polisomnografia') }}">Preparación para Polisomnografía</a>
+                    <a href="{{ route('educacion.saludSueno') }}">Evalúe su Salud del Sueño</a>
                 </div>
             </div>
 
@@ -496,7 +497,6 @@
                     <a href="{{ route('trabaje.hojaDeVida') }}">Postule su Hoja de Vida</a>
                     <a href="{{ route('trabaje.practicas') }}">Realice sus Prácticas</a>
                     <a href="{{ route('trabaje.convenio') }}">Postule su Convenio Interinstitucional</a>
-                    <a href="{{ route('trabaje.saludSueno') }}">Evalúe su Salud del Sueño</a>
                 </div>
             </div>
 
@@ -541,7 +541,6 @@
 
         <div class="nav-cta">
             <a href="{{ route('busqueda') }}" class="btn-cta-outline" style="padding:8px 14px;" title="Buscar"><i class="fa fa-search"></i></a>
-            <a href="#" onclick="openContactModal(event)" class="btn-cta-outline">PQRS</a>
             <a href="{{ route('landing.inicio') }}#map" class="btn-cta-solid">SOLICITAR CITA</a>
         </div>
 
@@ -578,12 +577,13 @@
         <div class="mob-section">Educación al Paciente</div>
         <a href="{{ route('educacion.polisBasal') }}" class="sub">Preparación para Polisomnografía Basal</a>
         <a href="{{ route('educacion.polisomnografia') }}" class="sub">Preparación para Polisomnografía</a>
+        <a href="{{ route('educacion.saludSueno') }}" class="sub">Evalúe su Salud del Sueño</a>
 
         <div class="mob-section">Trabaje con Nosotros</div>
         <a href="{{ route('trabaje.hojaDeVida') }}" class="sub">Postule su Hoja de Vida</a>
         <a href="{{ route('trabaje.practicas') }}" class="sub">Realice sus Prácticas</a>
         <a href="{{ route('trabaje.convenio') }}" class="sub">Postule su Convenio Interinstitucional</a>
-        <a href="{{ route('trabaje.saludSueno') }}" class="sub">Evalúe su Salud del Sueño</a>
+        
 
         <div class="mob-section">Contacto</div>
         <a href="https://maps.google.com/maps?q=INSTITUTO+NEUROCIENCIAS+DE+NARI%C3%91O+IPS+SAS,+Calle+14A+%2334-13,+Pasto" target="_blank" rel="noopener" class="mob-contact-item"><i class="fa fa-map-marker-alt"></i> C. 14A #34-13, Pasto, Nariño</a>
@@ -599,11 +599,11 @@
 
     <!-- Social Sidebar -->
     <div class="social-sidebar">
-        <div class="social-sidebar-label">Síguenos</div>
+        <div class="social-sidebar-label">SíGANOS</div>
         <a href="https://www.instagram.com/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
         <a href="https://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
         <a href="https://www.youtube.com/" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-        <a href="https://api.whatsapp.com/send?phone=3159729333" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://api.whatsapp.com/send?phone=3053560651" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
     </div>
 
     <script>
@@ -723,17 +723,18 @@
                 <div class="sede-col">
                     <h3>
                         <span class="sede-num" style="background:var(--primary);">1</span>
-                        Sede Principal · Neurología &amp; Epileptología
+                        Sede Principal 
                     </h3>
                     <div class="sede-map-box">
+                        
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d352.5737700240912!2d-77.28638140217625!3d1.2179877944324016!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e2ed5e45192066f%3A0xdbdf007253eaf54d!2sINSTITUTO%20NEUROCIENCIAS%20DE%20NARI%C3%91O%20IPS%20SAS!5e0!3m2!1ses-419!2sco!4v1773679985140!5m2!1ses-419!2sco"
+                            src="https://www.google.com/maps/embed?pb=!4v1773754795231!6m8!1m7!1soZ6fv2LQd3Eq6hqLLrZUJw!2m2!1d1.218293332139965!2d-77.28628173728882!3f173.08680620153123!4f-10.743299841954638!5f0.7820865974627469"  
                             allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
                             title="Sede Principal Instituto Neurociencias">
                         </iframe>
                     </div>
-                    <div class="sede-addr"><i class="fa fa-map-marker-alt"></i> Cll 14 #34-13, Pasto, Nariño · Lun–Vie 7:00am–6:00pm</div>
-                    <a href="https://www.google.com/maps/place/INSTITUTO+NEUROCIENCIAS+DE+NARI%C3%91O+IPS+SAS/@1.218012,-77.2863258,3a,75y,90t/data=!3m8!1e1!3m6!1sAF1QipO!2e10!3e11!6shttps:%2F%2Flh5.googleusercontent.com%2F!7i8704!8i4352!4m7!3m6!1s0x8e2ed5e45192066f:0xdbdf007253eaf54d!8m2!3d1.218012!4d-77.2863258!10e5"
+                    <div class="sede-addr"><i class="fa fa-map-marker-alt"></i> Carrera 34 #13-80, Barrio San Ignacio, Pasto, Nariño </div>
+                    <a href="https://maps.app.goo.gl/2Y62iqQ5WPHYPZ5g7"
                        target="_blank" rel="noopener" class="btn-sv">
                         <i class="fa fa-street-view"></i> Ver en Street View 360°
                     </a>
@@ -742,7 +743,7 @@
                 <!-- Sede 2 -->
                 <div class="sede-col">
                     <h3>
-                        <span class="sede-num" style="background:#b55a00;">2</span>
+                        <span class="sede-num" style="background:var(--primary);">2</span>
                         Sede 2 · Servicios Complementarios
                     </h3>
                     <div class="sede-map-box">
@@ -752,7 +753,7 @@
                             title="Sede 2 Servicios Complementarios">
                         </iframe>
                     </div>
-                    <div class="sede-addr"><i class="fa fa-map-marker-alt"></i> Servicios Complementarios, Pasto, Nariño</div>
+                    <div class="sede-addr"><i class="fa fa-map-marker-alt"></i> Carrera 33 #13-84,Barrio San Pasto, Nariño</div>
                     <a href="https://maps.app.goo.gl/7KrevZf1qQyxNTeH8"
                        target="_blank" rel="noopener" class="btn-sv">
                         <i class="fa fa-street-view"></i> Ver en Street View 360°
@@ -1274,16 +1275,16 @@
     </style>
 
     <div class="colabs-section">
-        <p class="colabs-title">Colaboradores &amp; Aliados Estratégicos</p>
+        <p class="colabs-title">Colaboradores &amp; Aliados </p>
         <div class="colabs-track-wrap">
             <div class="colabs-track">
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C1</div><span>Aliado 1</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C2</div><span>Aliado 2</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C3</div><span>Aliado 3</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C4</div><span>Aliado 4</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C5</div><span>Aliado 5</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C6</div><span>Aliado 6</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C7</div><span>Aliado 7</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C1</div><span>FOMAG</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C2</div><span>PROINSALUD</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C3</div><span>PROTEGEMOS</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C4</div><span>PREVIRED</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C5</div><span>GLOBAL SALUD</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C6</div><span>MEDICA PREFERENCIAL</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C7</div><span>MULTISERVICIOS</span></div></div>
                 <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C1</div><span>Aliado 1</span></div></div>
                 <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C2</div><span>Aliado 2</span></div></div>
                 <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C3</div><span>Aliado 3</span></div></div>
@@ -1340,7 +1341,7 @@
                 </div>
                 <!-- Contact col -->
                 <div class="col-lg-4">
-                    <h6 style="color:#fff; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:16px;">Contáctanos</h6>
+                    <h6 style="color:#fff; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:16px;">Contáctenos</h6>
                     <div style="display:flex; gap:10px; margin-bottom:10px; align-items:flex-start;">
                         <i class="fa fa-map-marker-alt" style="color:#7fa8a4; margin-top:2px; font-size:13px; flex-shrink:0;"></i>
                         <span style="color:#8aada9; font-size:13px; font-weight:300;">Cll 14 #34-13, Pasto, Nariño</span>
@@ -1382,7 +1383,7 @@
                     </div>
                     <div class="col-md-6 text-md-end mt-2 mt-md-0">
                         <p style="font-size:11px; color:#3d5250; margin:0; font-weight:300;">
-                            NIT: En trámite · Vigilado Supersalud
+                            NIT: 901164565-1 · Vigilado Supersalud
                         </p>
                     </div>
                 </div>

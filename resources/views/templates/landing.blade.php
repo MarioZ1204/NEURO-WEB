@@ -662,15 +662,15 @@
             <div class="hero-left-content">
                 <span class="hero-eyebrow">Pasto, Nariño · Colombia</span>
                 <h1 class="hero-title">
-                    Tu salud<br>neurológica,<br>
-                    <em>nuestra prioridad</em>
+                    Instituto<br>Neurociencias,<br>
+                    <em>Su salud, nuestra prioridad</em>
                 </h1>
                 <p class="hero-desc">
-                    Atención especializada en neurología, epileptología y neurorehabilitación, con tecnología de diagnóstico avanzada y un equipo médico comprometido con tu bienestar.
+                    Atención especializada en neurología y epileptología, con tecnología de diagnóstico avanzada y un equipo médico comprometido con su bienestar.
                 </p>
                 <div class="hero-btn-group">
                     <a href="#about" class="hero-btn-primary">
-                        Conócenos
+                        Conózcanos
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </a>
                     <a href="{{ route('landing.inicio') }}#map" class="hero-btn-secondary">Solicitar Cita</a>
@@ -695,13 +695,13 @@
     <div class="hero-slide" data-slide="1">
         <div class="hero-left" style="background: linear-gradient(150deg, #1a2e2c 0%, #2e4a47 100%);">
             <div class="hero-left-content">
-                <span class="hero-eyebrow">Electrodiagnósticos</span>
+                <span class="hero-eyebrow">Equipo Electrodiagnóstico</span>
                 <h1 class="hero-title">
                     Diagnóstico<br>preciso para<br>
-                    <em>tu bienestar</em>
+                    <em>su bienestar</em>
                 </h1>
                 <p class="hero-desc">
-                    EEG, polisomnografía y estudios de conducción nerviosa. Tecnología de punta para diagnósticos certeros que guían el mejor tratamiento.
+                    EEG, polisomnografía, videotelemetría. Tecnología de punta para diagnósticos certeros que guían el mejor tratamiento.
                 </p>
                 <div class="hero-btn-group">
                     <a href="{{ route('landing.electrodiagnosticos') }}" class="hero-btn-primary">
@@ -730,12 +730,12 @@
     <div class="hero-slide" data-slide="2">
         <div class="hero-left" style="background: linear-gradient(150deg, #3d6360 0%, #5e8582 100%);">
             <div class="hero-left-content">
-                <span class="hero-eyebrow">Terapias Integrales</span>
+                <span class="hero-eyebrow">FISIOTERAPIA</span>
                 <h1 class="hero-title">
-                    Neurorehabilitación<br>para <em>cada</em><br>paciente
+                    Terapias<br>para <em>cada</em><br>paciente
                 </h1>
                 <p class="hero-desc">
-                    Fisioterapia, terapia ocupacional, fonoaudiología y más. Recupera tu calidad de vida con el acompañamiento de nuestros especialistas.
+                    Terapia integral, ondas de choque, terapias de tracción y más. Recupere su calidad de vida con el acompañamiento de nuestras especialistas.
                 </p>
                 <div class="hero-btn-group">
                     <a href="{{ route('landing.tiposTerapia') }}" class="hero-btn-primary">
@@ -763,7 +763,7 @@
     <!-- Scroll indicator -->
     <div class="hero-scroll">
         <div class="hero-scroll-line"></div>
-        <span>Scroll</span>
+        <span>Deslizar hacia abajo</span>
     </div>
 
     <!-- Slide counter -->
@@ -796,11 +796,11 @@
                 <span class="stat-label">Años de Experiencia</span>
             </div>
             <div class="stat-item fade-up">
-                <span class="stat-number">8</span>
+                <span class="stat-number">9</span>
                 <span class="stat-label">Especialistas</span>
             </div>
             <div class="stat-item fade-up">
-                <span class="stat-number">12</span>
+                <span class="stat-number">+15</span>
                 <span class="stat-label">Servicios</span>
             </div>
             <div class="stat-item fade-up">
