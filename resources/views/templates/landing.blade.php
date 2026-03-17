@@ -951,14 +951,16 @@
                     </div>
                 </div>
             </div>
+
+            
             <div class="col-lg-4 col-md-6 fade-up">
                 <div class="team-card">
-                    <div class="team-photo"><div class="team-avatar">SL</div></div>
+                    <div class="team-photo"><div class="team-avatar">ML</div></div>
                     <div class="team-info">
-                        <span class="tag">Psicología</span>
-                        <h4>Dr. Sebastián G. Lagos</h4>
-                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Psicólogo · 7 años de experiencia</p>
-                        <p>Coordinadora del área de terapias integrales. Especialista en rehabilitación neurológica, fisioterapia y fonoaudiología para pacientes de todas las edades.</p>
+                        <span class="tag">Medicina General</span>
+                        <h4>Dra. María A. León R.</h4>
+                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Médica · Medicina General</p>
+                        <p>Médica especializada en -----</p>
                     </div>
                 </div>
             </div>
@@ -999,12 +1001,12 @@
 
             <div class="col-lg-4 col-md-6 fade-up">
                 <div class="team-card">
-                    <div class="team-photo" style="background:linear-gradient(150deg,#1a5276,#2980b9);"><div class="team-avatar">ML</div></div>
+                    <div class="team-photo" style="background:linear-gradient(150deg,#1a5276,#2980b9);"><div class="team-avatar">SL</div></div>
                     <div class="team-info">
                         <span class="tag" style="background:#e8f4fd;color:#1a5276;">Medicina General</span>
-                        <h4>Dra. Maria A. León</h4>
-                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Médica · Medicina General</p>
-                        <p>Médica especializada en -----.</p>
+                        <h4>Dr. Sebastian G. Lagos</h4>
+                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Psicólogo · Psicología</p>
+                        <p>Psicólogo especializado en -----.</p>
                     </div>
                 </div>
             </div>
@@ -1095,25 +1097,25 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">¿Cómo puedo pedir una cita médica?</button></h2>
                         <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">Puedes agendar tu cita por WhatsApp al número de tu piso (Primer Piso – Neurología: 305-356-0651 / Segundo Piso – Terapias: 315-972-9333), o usando el formulario de contacto. Atendemos lunes a viernes de 7:00 a.m. a 5:00 p.m. y sábados de 8:00 a.m. a 1:00 p.m.</div>
+                            <div class="accordion-body">Puede agendar su cita por WhatsApp con número de la especialidad que desea (Neurología: 305-356-0651 / Terapias: 315-972-9333), o usando el formulario de contacto. Atendemos de lunes a viernes de 8:00 a.m. a 6:00 p.m. y sábados de 8:00 a.m. a 12:00 m</div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">¿Qué EPS y aseguradoras atienden?</button></h2>
                         <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">Atendemos pacientes de las principales EPS del régimen contributivo y subsidiado con contrato vigente en Nariño, así como pacientes particulares. Comunícate antes de tu cita para verificar el convenio activo.</div>
+                            <div class="accordion-body">Atendemos pacientes de las principales EPS del régimen contributivo y subsidiado con contrato vigente en Nariño, así como pacientes particulares. Comuníquese antes de su cita para verificar el convenio activo.</div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">¿Cuánto tiempo tarda un resultado de EEG?</button></h2>
                         <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">El EEG toma aproximadamente 40 minutos. El informe interpretado estará disponible en 24 a 48 horas hábiles. En casos urgentes podemos entregar resultados el mismo día.</div>
+                            <div class="accordion-body">El EEG toma aproximadamente 40 minutos. El informe interpretado estará disponible en 48 a 72 horas hábiles. En casos urgentes podemos entregar resultados con anticipación.</div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">¿Necesito orden médica para los estudios electrodiagnósticos?</button></h2>
                         <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">Si tu cita es cubierta por EPS, sí necesitas orden médica o autorización. Para pacientes particulares no es obligatoria, aunque se recomienda tener remisión del médico tratante.</div>
+                            <div class="accordion-body">Si su cita es cubierta por EPS, sí necesitas orden médica o autorización. Para pacientes particulares no es obligatoria, aunque se recomienda tener remisión del médico tratante.</div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -1154,7 +1156,7 @@
         <div class="container">
             <span class="section-eyebrow fade-up">Instituto Neurociencias de Nariño</span>
             <h2 class="fade-up">Unimos ciencia, experiencia<br>y precisión para cuidarte</h2>
-            <p class="fade-up">Agenda tu cita o comunícate con nosotros. Tu salud neurológica es nuestra prioridad.</p>
+            <p class="fade-up">Agende su cita o comuníquese con nosotros. Su salud es nuestra prioridad.</p>
             <a href="#map" class="btn-white-lg">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 Solicitar Cita
