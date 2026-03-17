@@ -800,7 +800,7 @@
                 <span class="stat-label">Especialistas</span>
             </div>
             <div class="stat-item fade-up">
-                <span class="stat-number">+15</span>
+                <span class="stat-number">+20</span>
                 <span class="stat-label">Servicios</span>
             </div>
             <div class="stat-item fade-up">
@@ -818,9 +818,9 @@
     <div class="container">
         <div class="row mb-5">
             <div class="col-lg-7">
-                <span class="section-eyebrow fade-up">Lo que ofrecemos</span>
+                <span class="section-eyebrow fade-up">Ofrecemos un</span>
                 <h2 class="section-heading fade-up">Portafolio de<br>Servicios</h2>
-                <p class="section-subtext fade-up">Atención especializada en neurociencias con enfoque humano, personalizado y basado en evidencia científica.</p>
+                <p class="section-subtext fade-up">Con atención especializada en neurología, epileptología y fisioterapia con enfoque humano, personalizado y basado en evidencia científica.</p>
             </div>
         </div>
         <div class="row g-4">
@@ -847,7 +847,7 @@
                     </div>
                     <div class="card-body-custom">
                         <h5>Tipos de Terapia</h5>
-                        <p>Fisioterapia, terapia ocupacional, fonoaudiología y neurorehabilitación para promover la recuperación funcional.</p>
+                        <p>Terapia ingeral, ondas de choque, terapias de tracción...</p>
                         <span class="card-arrow">Ver más →</span>
                     </div>
                 </a>
@@ -861,7 +861,7 @@
                     </div>
                     <div class="card-body-custom">
                         <h5>Electrodiagnósticos</h5>
-                        <p>Electroencefalogramas, polisomnografía y estudios de sueño con tecnología de diagnóstico avanzada.</p>
+                        <p>Electroencefalograma, polisomnografía y estudios de sueño con tecnología de diagnóstico avanzada.</p>
                         <span class="card-arrow">Ver más →</span>
                     </div>
                 </a>
@@ -907,7 +907,7 @@
                 <div class="specialty-item">
                     <div class="specialty-icon"><i class="fas fa-hands-helping"></i></div>
                     <div class="specialty-text">
-                        <h6>Neurorehabilitación</h6>
+                        <h6>Fisioterapia</h6>
                         <p>Terapias integrales</p>
                     </div>
                 </div>
@@ -926,7 +926,7 @@
         <div class="text-center mb-5 fade-up">
             <span class="section-eyebrow" style="justify-content:center;">Nuestros Especialistas</span>
             <h2 class="section-heading" style="text-align:center;">Equipo Médico</h2>
-            <p class="section-subtext" style="max-width:520px; margin:0 auto;">Profesionales altamente capacitados, comprometidos con tu salud neurológica y bienestar.</p>
+            <p class="section-subtext" style="max-width:520px; margin:0 auto;">Profesionales altamente capacitados, comprometidos con su salud y bienestar.</p>
         </div>
         <div class="row g-4">
             <div class="col-lg-4 col-md-6 fade-up">
@@ -962,13 +962,13 @@
                     </div>
                 </div>
             </div>
-            <!-- Fisioterapeutas -->
+
             <div class="col-lg-4 col-md-6 fade-up">
                 <div class="team-card">
                     <div class="team-photo" style="background:linear-gradient(150deg,#1a5276,#2980b9);"><div class="team-avatar">AG</div></div>
                     <div class="team-info">
                         <span class="tag" style="background:#e8f4fd;color:#1a5276;">Fisioterapia</span>
-                        <h4>Lic. Adriana Gelpud</h4>
+                        <h4>Dra. Adriana Gelpud</h4>
                         <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Fisioterapeuta · Neurorehabilitación</p>
                         <p>Especialista en fisioterapia y neurorehabilitación, dedicada a la recuperación funcional de pacientes neurológicos de todas las edades.</p>
                     </div>
@@ -979,7 +979,7 @@
                     <div class="team-photo" style="background:linear-gradient(150deg,#1a5276,#2980b9);"><div class="team-avatar">TR</div></div>
                     <div class="team-info">
                         <span class="tag" style="background:#e8f4fd;color:#1a5276;">Fisioterapia</span>
-                        <h4>Lic. Teresa Rodríguez</h4>
+                        <h4>Dra. Teresa Rodríguez</h4>
                         <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Fisioterapeuta · Terapia Integral</p>
                         <p>Profesional en fisioterapia con enfoque en terapia física integral, rehabilitación pulmonar y manejo del dolor del sistema osteomuscular.</p>
                     </div>
@@ -990,9 +990,45 @@
                     <div class="team-photo" style="background:linear-gradient(150deg,#1a5276,#2980b9);"><div class="team-avatar">KQ</div></div>
                     <div class="team-info">
                         <span class="tag" style="background:#e8f4fd;color:#1a5276;">Fisioterapia</span>
-                        <h4>Lic. Karen Quiroz</h4>
+                        <h4>Dra. Karen Quiroz</h4>
                         <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Fisioterapeuta · Terapia Física</p>
                         <p>Fisioterapeuta especializada en modalidades mecánicas y eléctricas de terapia, con énfasis en rehabilitación de piso pélvico y tracción terapéutica.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 fade-up">
+                <div class="team-card">
+                    <div class="team-photo" style="background:linear-gradient(150deg,#1a5276,#2980b9);"><div class="team-avatar">ML</div></div>
+                    <div class="team-info">
+                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">Medicina General</span>
+                        <h4>Dra. Maria A. León</h4>
+                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Médica · Medicina General</p>
+                        <p>Médica especializada en -----.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 fade-up">
+                <div class="team-card">
+                    <div class="team-photo" style="background:linear-gradient(150deg,#1a5276,#2980b9);"><div class="team-avatar">NP</div></div>
+                    <div class="team-info">
+                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">Neuropsicóloga</span>
+                        <h4>Dra. Nathalia Portilla</h4>
+                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Neuropsicóloga · Neuropsicología</p>
+                        <p>Neuropsicóloga especializada en -----.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 fade-up">
+                <div class="team-card">
+                    <div class="team-photo" style="background:linear-gradient(150deg,#1a5276,#2980b9);"><div class="team-avatar">PSQ</div></div>
+                    <div class="team-info">
+                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">Psiquiatría</span>
+                        <h4>Dra. ----</h4>
+                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Psiquiatra · Psiquiatría</p>
+                        <p>Psiquiatra especializada en -----.</p>
                     </div>
                 </div>
             </div>
@@ -1052,7 +1088,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="text-center mb-5 fade-up">
-                    <span class="section-eyebrow" style="justify-content:center;">Resolvemos tus dudas</span>
+                    <span class="section-eyebrow" style="justify-content:center;">Resolvemos sus dudas</span>
                     <h2 class="section-heading" style="text-align:center;">Preguntas Frecuentes</h2>
                 </div>
                 <div class="accordion faq-accordion fade-up" id="faqAccordion">
