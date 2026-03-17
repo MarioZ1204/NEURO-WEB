@@ -95,7 +95,7 @@
             <span>Electrodiagnósticos</span>
         </div>
         <h1>Electrodiagnósticos</h1>
-        <p>Estudios neurofisiológicos de alta precisión para diagnósticos certeros</p>
+        <p>Estudios de alta precisión</p>
     </div>
 </div>
 
@@ -111,7 +111,7 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="electro-card">
-                    <div class="e-img"><img src="{{ asset('assets/img/EEG.jpg') }}" alt="EEG"><div class="e-label">EEG Convencional</div></div>
+                    <div class="e-img"><img src="{{ asset('assets/img/EEG.png') }}" alt="EEG"><div class="e-label">EEG Convencional</div></div>
                     <div class="e-body">
                         <p>Registro estándar de la actividad eléctrica cerebral. Estudio de referencia para el diagnóstico de epilepsia y evaluación neurológica general.</p>
                         <div class="e-tags"><span class="e-tag">Epilepsia</span><span class="e-tag">Encefalopatía</span><span class="e-tag">Urgencias</span></div>
@@ -121,7 +121,7 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="electro-card">
-                    <div class="e-img"><img src="{{ asset('assets/img/EEG.jpg') }}" alt="EEG Computarizado"><div class="e-label">EEG Computarizado</div></div>
+                    <div class="e-img"><img src="{{ asset('assets/img/EEGC.png') }}" alt="EEG Computarizado"><div class="e-label">EEG Computarizado</div></div>
                     <div class="e-body">
                         <p>Electroencefalograma con procesamiento digital avanzado de la señal. Permite un análisis más detallado de la actividad eléctrica cerebral.</p>
                         <div class="e-tags"><span class="e-tag">Digital</span><span class="e-tag">Análisis espectral</span><span class="e-tag">Mayor precisión</span></div>
@@ -131,7 +131,7 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="electro-card">
-                    <div class="e-img"><img src="{{ asset('assets/img/EEG.jpg') }}" alt="EEG con Mapeo Cerebral"><div class="e-label">EEG Digital con Mapeo Cerebral</div></div>
+                    <div class="e-img"><img src="{{ asset('assets/img/EEGD.png') }}" alt="EEG con Mapeo Cerebral"><div class="e-label">EEG Digital con Mapeo Cerebral</div></div>
                     <div class="e-body">
                         <p>EEG digital con representación topográfica de la actividad eléctrica. Facilita la localización de focos epilépticos y zonas de disfunción cortical.</p>
                         <div class="e-tags"><span class="e-tag">Mapeo Brain</span><span class="e-tag">Localización precisa</span><span class="e-tag">Foco epiléptico</span></div>
@@ -141,7 +141,7 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="electro-card">
-                    <div class="e-img"><img src="{{ asset('assets/img/neu.jpg') }}" alt="Videotelemetría EEG"><div class="e-label">Monitorización EEG por Video</div></div>
+                    <div class="e-img"><img src="{{ asset('assets/img/VTM.png') }}" alt="Videotelemetría EEG"><div class="e-label">Monitorización EEG por Video y Radio</div></div>
                     <div class="e-body">
                         <p>Monitorización electroencefalográfica simultánea con registro de video. Ideal para caracterizar crisis epilépticas y diferenciar eventos paroxísticos.</p>
                         <div class="e-tags"><span class="e-tag">Video-EEG</span><span class="e-tag">Cargado por hora</span><span class="e-tag">Crisis paroxísticas</span></div>
@@ -158,7 +158,7 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="electro-card">
-                    <div class="e-img"><img src="{{ asset('assets/img/SEDE.jpg') }}" alt="Polisomnografía"><div class="e-label">Estudio Fisiológico Completo del Sueño</div></div>
+                    <div class="e-img"><img src="{{ asset('assets/img/PSG1.png') }}" alt="Polisomnografía"><div class="e-label">Estudio Fisiológico Completo del Sueño</div></div>
                     <div class="e-body">
                         <p>Polisomnografía completa nocturna que registra EEG, movimientos oculares, tono muscular, flujo respiratorio, saturación de oxígeno y ECG.</p>
                         <div class="e-tags"><span class="e-tag">Polisomnografía</span><span class="e-tag">Apnea del sueño</span><span class="e-tag">Hipnograma</span></div>
@@ -168,7 +168,7 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="electro-card">
-                    <div class="e-img"><img src="{{ asset('assets/img/SEDE.jpg') }}" alt="Polisomnografía Noche Dividida"><div class="e-label">Polisomnografía Noche Dividida</div></div>
+                    <div class="e-img"><img src="{{ asset('assets/img/PSG2.png') }}" alt="Polisomnografía Noche Dividida"><div class="e-label">Polisomnografía Noche Dividida</div></div>
                     <div class="e-body">
                         <p>Estudio de sueño en dos fases en una sola noche: diagnóstico de apnea en la primera mitad y titulación de CPAP en la segunda mitad.</p>
                         <div class="e-tags"><span class="e-tag">Split-night</span><span class="e-tag">SAHOS</span><span class="e-tag">CPAP</span></div>
@@ -178,7 +178,7 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="electro-card">
-                    <div class="e-img"><img src="{{ asset('assets/img/SEDE.jpg') }}" alt="Titulación CPAP"><div class="e-label">Polisomnograma en Titulación de Dispositivo</div></div>
+                    <div class="e-img"><img src="{{ asset('assets/img/PSG2.png') }}" alt="Titulación CPAP"><div class="e-label">Polisomnograma en Titulación de Dispositivo</div></div>
                     <div class="e-body">
                         <p>Polisomnografía realizada con dispositivo CPAP/BiPAP activo para determinar la presión óptima de tratamiento de la apnea obstructiva del sueño.</p>
                         <div class="e-tags"><span class="e-tag">CPAP titulación</span><span class="e-tag">BiPAP</span><span class="e-tag">Presión óptima</span></div>
@@ -188,7 +188,7 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="electro-card">
-                    <div class="e-img"><img src="{{ asset('assets/img/ABOUT.png') }}" alt="Prueba de Latencia Múltiple"><div class="e-label">Pruebas de Latencia Múltiple de Sueño</div></div>
+                    <div class="e-img"><img src="{{ asset('assets/img/TLM.png') }}" alt="Prueba de Latencia Múltiple"><div class="e-label">Pruebas de Latencia Múltiple de Sueño</div></div>
                     <div class="e-body">
                         <p>Evaluación objetiva de la somnolencia diurna excesiva mediante 4–5 siestas controladas. Confirma diagnóstico de narcolepsia e hipersomnias de origen central.</p>
                         <div class="e-tags"><span class="e-tag">Narcolepsia</span><span class="e-tag">Hipersomnia</span><span class="e-tag">TLMS</span></div>
@@ -198,7 +198,7 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="electro-card">
-                    <div class="e-img"><img src="{{ asset('assets/img/ABOUT.png') }}" alt="Prueba de Mantenimiento de la Vigilia"><div class="e-label">Prueba de Mantenimiento de la Vigilia</div></div>
+                    <div class="e-img"><img src="{{ asset('assets/img/VIG.png') }}" alt="Prueba de Mantenimiento de la Vigilia"><div class="e-label">Prueba de Mantenimiento de la Vigilia</div></div>
                     <div class="e-body">
                         <p>Mide la capacidad del paciente para mantenerse despierto en condiciones de baja estimulación. Usada en conductores profesionales y operadores de maquinaria.</p>
                         <div class="e-tags"><span class="e-tag">PMV</span><span class="e-tag">Seguridad vial</span><span class="e-tag">Control de tratamiento</span></div>
@@ -208,7 +208,7 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="electro-card">
-                    <div class="e-img"><img src="{{ asset('assets/img/neu.jpg') }}" alt="Actigrafía"><div class="e-label">Monitoreo Sueño-Vigilia (Actigrafía)</div></div>
+                    <div class="e-img"><img src="{{ asset('assets/img/ACT.png') }}" alt="Actigrafía"><div class="e-label">Monitoreo Sueño-Vigilia (Actigrafía)</div></div>
                     <div class="e-body">
                         <p>Registro ambulatorio del ciclo sueño-vigilia durante 7–14 días mediante un acelerómetro de muñeca. Útil para evaluar ritmos circadianos y patrones de insomnio.</p>
                         <div class="e-tags"><span class="e-tag">Actigrafía</span><span class="e-tag">Circadiano</span><span class="e-tag">7–14 días</span></div>

@@ -772,7 +772,7 @@
                             <i class="fa fa-envelope" style="font-size:20px; color:#c8dedd;"></i>
                         </div>
                         <h6 style="font-weight:700; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:10px; color:#c8dedd;">Correo Electrónico</h6>
-                        <a href="mailto:neurocienciasweb1@gmail.com" style="color:#fff; text-decoration:none; font-size:13px; font-weight:300; opacity:0.9;">neurocienciasweb1@gmail.com</a>
+                        <a href="mailto:neurocienciasnarino@gmail.com" style="color:#fff; text-decoration:none; font-size:13px; font-weight:300; opacity:0.9;">neurocienciasnarino@gmail.com</a>
                     </div>
                     <div class="col-lg-4 col-md-4 text-center">
                         <div style="width:56px; height:56px; background:rgba(255,255,255,0.12); border-radius:50%; display:flex; align-items:center; justify-content:center; margin: 0 auto 16px;">
@@ -1285,13 +1285,21 @@
                 <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C5</div><span>GLOBAL SALUD</span></div></div>
                 <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C6</div><span>MEDICA PREFERENCIAL</span></div></div>
                 <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C7</div><span>MULTISERVICIOS</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C1</div><span>Aliado 1</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C2</div><span>Aliado 2</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C3</div><span>Aliado 3</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C4</div><span>Aliado 4</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C5</div><span>Aliado 5</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C6</div><span>Aliado 6</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C7</div><span>Aliado 7</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C1</div><span>FOMAG</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C2</div><span>PROINSALUD</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C3</div><span>PROTEGEMOS</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C4</div><span>PREVIRED</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C5</div><span>GLOBAL SALUD</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C6</div><span>MEDICA PREFERENCIAL</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C7</div><span>MULTISERVICIOS</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C1</div><span>FOMAG</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C2</div><span>PROINSALUD</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C3</div><span>PROTEGEMOS</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C4</div><span>PREVIRED</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C5</div><span>GLOBAL SALUD</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C6</div><span>MEDICA PREFERENCIAL</span></div></div>
+                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C7</div><span>MULTISERVICIOS</span></div></div>
+
             </div>
         </div>
     </div>

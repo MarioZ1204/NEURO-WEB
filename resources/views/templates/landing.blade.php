@@ -971,7 +971,7 @@
                     <div class="team-info">
                         <span class="tag" style="background:#e8f4fd;color:#1a5276;">Fisioterapia</span>
                         <h4>Dra. Adriana Gelpud</h4>
-                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Fisioterapeuta · Neurorehabilitación</p>
+                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Fisioterapeuta · Terapia Física</p>
                         <p>Especialista en fisioterapia y neurorehabilitación, dedicada a la recuperación funcional de pacientes neurológicos de todas las edades.</p>
                     </div>
                 </div>
@@ -982,7 +982,7 @@
                     <div class="team-info">
                         <span class="tag" style="background:#e8f4fd;color:#1a5276;">Fisioterapia</span>
                         <h4>Dra. Teresa Rodríguez</h4>
-                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Fisioterapeuta · Terapia Integral</p>
+                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Fisioterapeuta · Terapia Física</p>
                         <p>Profesional en fisioterapia con enfoque en terapia física integral, rehabilitación pulmonar y manejo del dolor del sistema osteomuscular.</p>
                     </div>
                 </div>
@@ -1003,7 +1003,7 @@
                 <div class="team-card">
                     <div class="team-photo" style="background:linear-gradient(150deg,#1a5276,#2980b9);"><div class="team-avatar">SL</div></div>
                     <div class="team-info">
-                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">Medicina General</span>
+                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">PSICÓLOGO</span>
                         <h4>Dr. Sebastian G. Lagos</h4>
                         <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Psicólogo · Psicología</p>
                         <p>Psicólogo especializado en -----.</p>
@@ -1015,7 +1015,7 @@
                 <div class="team-card">
                     <div class="team-photo" style="background:linear-gradient(150deg,#1a5276,#2980b9);"><div class="team-avatar">NP</div></div>
                     <div class="team-info">
-                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">Neuropsicóloga</span>
+                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">Neuropsicología</span>
                         <h4>Dra. Nathalia Portilla</h4>
                         <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Neuropsicóloga · Neuropsicología</p>
                         <p>Neuropsicóloga especializada en -----.</p>
@@ -1027,7 +1027,7 @@
                 <div class="team-card">
                     <div class="team-photo" style="background:linear-gradient(150deg,#1a5276,#2980b9);"><div class="team-avatar">PSQ</div></div>
                     <div class="team-info">
-                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">Psiquiatría</span>
+                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">Psiquiatra</span>
                         <h4>Dra. ----</h4>
                         <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Psiquiatra · Psiquiatría</p>
                         <p>Psiquiatra especializada en -----.</p>

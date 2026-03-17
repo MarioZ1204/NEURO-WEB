@@ -56,10 +56,10 @@ class LandingController extends Controller
                 "<p><strong>Asunto:</strong> " . e($validated['subject']) . "</p>" .
                 "<p><strong>Mensaje:</strong></p><p>" . nl2br(e($validated['message'])) . "</p>";
 
-            file_put_contents(storage_path('logs/contact_debug.log'), date('Y-m-d H:i:s') . " - Enviando email a neurocienciasweb1@gmail.com\n", FILE_APPEND);
+            file_put_contents(storage_path('logs/contact_debug.log'), date('Y-m-d H:i:s') . " - Enviando email a neurocienciasnarino@gmail.com\n", FILE_APPEND);
 
             Mail::send([], [], function ($message) use ($validated, $html) {
-                $message->to('neurocienciasweb1@gmail.com')
+                $message->to('neurocienciasnarino@gmail.com')
                     ->subject('🔔 NUEVO FORMULARIO - ' . ucfirst($validated['type']) . ' - ' . $validated['subject'])
                     ->replyTo($validated['email'], $validated['name'])
                     ->html($html);
@@ -229,7 +229,7 @@ class LandingController extends Controller
             '<p><strong>Mensaje:</strong></p><p>' . nl2br(e($request->mensaje)) . '</p>';
         try {
             Mail::send([], [], function ($m) use ($request, $html) {
-                $m->to('neurocienciasweb1@gmail.com')
+                $m->to('neurocienciasnarino@gmail.com')
                     ->subject('Escríbanos: ' . $request->asunto)
                     ->replyTo($request->correo, $request->nombre . ' ' . $request->apellido)
                     ->html($html);

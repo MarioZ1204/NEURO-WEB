@@ -14,7 +14,7 @@ class TestEmail extends Command
     {
         try {
             Mail::raw('Test email from Laravel', function($message) {
-                $message->to('neurocienciasweb1@gmail.com')
+                $message->to('neurocienciasnarino@gmail.com')
                     ->subject('Test Email from NeuroWeb');
             });
             
