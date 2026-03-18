@@ -720,7 +720,7 @@
             <div class="sedes-cols">
 
                 <!-- Sede 1 -->
-                <div class="sede-col">
+                <!-- <div class="sede-col">
                     <h3>
                         <span class="sede-num" style="background:var(--primary);">1</span>
                         Sede Principal 
@@ -738,10 +738,35 @@
                        target="_blank" rel="noopener" class="btn-sv">
                         <i class="fa fa-street-view"></i> Ver en Street View 360°
                     </a>
-                </div>
+                </div> -->
+
+<div class="sede-col">
+    <h3>
+        <span class="sede-num" style="background:var(--primary);">1</span>
+        Sede Principal 
+    </h3>
+    <div class="sede-map-box" style="position:relative;">
+        <a href="https://maps.app.goo.gl/2Y62iqQ5WPHYPZ5g7" target="_blank" rel="noopener"
+           style="display:block; width:100%; height:100%;">
+            <img src="SEDE.jpg" alt="Sede Principal Instituto Neurociencias"
+                 style="width:100%; height:100%; object-fit:cover; display:block;">
+            <div style="position:absolute; inset:0; background:rgba(0,0,0,0.4);
+                        display:flex; align-items:center; justify-content:center;
+                        opacity:0; transition:opacity .3s;"
+                 onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
+                <i class="fa fa-map-marker-alt" style="color:#fff; font-size:2.5rem;"></i>
+            </div>
+        </a>
+    </div>
+    <div class="sede-addr"><i class="fa fa-map-marker-alt"></i> Carrera 34 #13-80, Barrio San Ignacio, Pasto, Nariño</div>
+    <a href="https://maps.app.goo.gl/2Y62iqQ5WPHYPZ5g7" target="_blank" rel="noopener" class="btn-sv">
+        <i class="fa fa-street-view"></i> Ver en Street View 360°
+    </a>
+</div>
+
 
                 <!-- Sede 2 -->
-                <div class="sede-col">
+                <!-- <div class="sede-col">
                     <h3>
                         <span class="sede-num" style="background:var(--primary);">2</span>
                         Sede 2 · Servicios Complementarios
@@ -758,7 +783,33 @@
                        target="_blank" rel="noopener" class="btn-sv">
                         <i class="fa fa-street-view"></i> Ver en Street View 360°
                     </a>
-                </div>
+                </div> -->
+
+<div class="sede-col">
+    <h3>
+        <span class="sede-num" style="background:var(--primary);">1</span>
+        Sede 2 · Servicios Complementarios
+    </h3>
+    <div class="sede-map-box" style="position:relative;">
+        <a href="https://maps.app.goo.gl/2Y62iqQ5WPHYPZ5g7" target="_blank" rel="noopener"
+           style="display:block; width:100%; height:100%;">
+            <img src="SEDE1.jpg" alt="Sede Principal Instituto Neurociencias"
+                 style="width:100%; height:100%; object-fit:cover; display:block;">
+            <div style="position:absolute; inset:0; background:rgba(0,0,0,0.4);
+                        display:flex; align-items:center; justify-content:center;
+                        opacity:0; transition:opacity .3s;"
+                 onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
+                <i class="fa fa-map-marker-alt" style="color:#fff; font-size:2.5rem;"></i>
+            </div>
+        </a>
+    </div>
+    <div class="sede-addr"><i class="fa fa-map-marker-alt"></i> Carrera 34 #13-80, Barrio San Ignacio, Pasto, Nariño</div>
+    <a href="https://maps.app.goo.gl/2Y62iqQ5WPHYPZ5g7" target="_blank" rel="noopener" class="btn-sv">
+        <i class="fa fa-street-view"></i> Ver en Street View 360°
+    </a>
+</div>
+
+
 
             </div><!-- /.sedes-cols -->
         </div><!-- /.sedes-section -->
