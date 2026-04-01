@@ -16,6 +16,9 @@ Route::get('/', function () {
 Route::get('/acerca-de-nosotros', [LandingController::class, 'aboutUs'])
     ->name('landing.aboutUs');
 
+Route::get('/portafolio-de-servicios', [LandingController::class, 'portafolio'])
+    ->name('landing.portafolio');
+
 // Rutas de servicios
 Route::get('/servicios/tipos-consulta', [LandingController::class, 'tiposConsulta'])
     ->name('landing.tiposConsulta');

@@ -11,6 +11,10 @@ class LandingController extends Controller
     public function aboutUs() {
         return view('templates.aboutUs');
     }
+    public function portafolio() {
+    return view('templates.portafolio');
+    }
+
 
     // Procesa el envío del formulario de contacto (PQRS)
     public function sendContact(Request $request)

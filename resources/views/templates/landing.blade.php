@@ -631,6 +631,7 @@
     .team-info h4 { font-size:17px; font-weight:800; color:var(--dark); margin-bottom:6px; }
     .team-info .exp { font-size:13px; color:var(--text-light); margin-bottom:12px; }
     .team-info p { font-size:13px; color:#666; line-height:1.7; margin:0; }
+    .team-img {width: 100%;height: 100%;object-fit: cover;border-radius: inherit;display: block;}
 
     /* ===== TESTIMONIALS ===== */
     .testimonials-section { padding:100px 0; background:var(--primary-ultra); }
@@ -931,7 +932,9 @@
         <div class="row g-4">
             <div class="col-lg-4 col-md-6 fade-up">
                 <div class="team-card">
-                    <div class="team-photo"><div class="team-avatar">JZ</div></div>
+                        <div class="team-photo">
+                            <img src="{{ asset('assets/img/jose-zambrano.jpg') }}" alt="Dr. José A. Zambrano" class="team-img" class="team-avatar">
+                        </div>
                     <div class="team-info">
                         <span class="tag">Neurología</span>
                         <h4>Dr. José A. Zambrano A.</h4>

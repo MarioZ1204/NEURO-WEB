@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Instituto Neurociencias de Nariño IPS S.A.S - Atención especializada en neurología, epileptología y neurorehabilitación en Pasto, Nariño.">
     <meta name="author" content="Instituto Neurociencias de Nariño">
-    <!-- Open Graph / WhatsApp -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Instituto Neurociencias de Nariño IPS S.A.S">
     <meta property="og:title" content="Instituto Neurociencias de Nariño IPS S.A.S">
@@ -454,7 +453,7 @@
 
             {{-- Consulta Especializada (2 columnas) --}}
             <div class="nav-item-drop">
-                <a href="{{ route('landing.tiposConsulta') }}" class="nav-link-custom">
+                <a href="{{ route('especialidades') }}" class="nav-link-custom">
                     Consulta Especializada <span class="arrow">▼</span>
                 </a>
                 <div class="dropdown-menu-custom drop-2col">
@@ -556,7 +555,7 @@
 
         <div class="mob-section">Nuestra Institución</div>
         <a href="{{ route('landing.aboutUs') }}" class="sub">Acerca de Nosotros</a>
-        <a href="{{ route('landing.aboutUs') }}" class="sub">Portafolio de Servicios</a>
+        <a href="{{ route('landing.portafolio') }} class="sub">Portafolio de Servicios</a>
         <a href="{{ route('marcoLegal') }}" class="sub">Marco Legal</a>
         <a href="{{ route('estadosFinancieros') }}" class="sub">Estados Financieros</a>
         <a href="{{ route('articulos') }}" class="sub">Artículos y Revistas</a>
@@ -748,7 +747,7 @@
     <div class="sede-map-box" style="position:relative;">
         <a href="https://maps.app.goo.gl/2Y62iqQ5WPHYPZ5g7" target="_blank" rel="noopener"
            style="display:block; width:100%; height:100%;">
-            <img src="SEDE.jpg" alt="Sede Principal Instituto Neurociencias"
+            <img src="{{ asset('assets/img/SEDE.jpg') }}" alt="Sede Principal Instituto Neurociencias"
                  style="width:100%; height:100%; object-fit:cover; display:block;">
             <div style="position:absolute; inset:0; background:rgba(0,0,0,0.4);
                         display:flex; align-items:center; justify-content:center;
@@ -793,7 +792,7 @@
     <div class="sede-map-box" style="position:relative;">
         <a href="https://maps.app.goo.gl/2Y62iqQ5WPHYPZ5g7" target="_blank" rel="noopener"
            style="display:block; width:100%; height:100%;">
-            <img src="SEDE1.jpg" alt="Sede Principal Instituto Neurociencias"
+            <img src="{{ asset('assets/img/SEDE1.jpg') }}" alt="Sede Principal Instituto Neurociencias"
                  style="width:100%; height:100%; object-fit:cover; display:block;">
             <div style="position:absolute; inset:0; background:rgba(0,0,0,0.4);
                         display:flex; align-items:center; justify-content:center;
