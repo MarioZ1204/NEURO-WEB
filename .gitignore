@@ -17,3 +17,8 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# Archivos locales que no deben subirse
+*.zip
+DO_NOT_UPLOAD_HERE
+/storage/logs/*.log
