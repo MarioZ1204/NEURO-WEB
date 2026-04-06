@@ -617,7 +617,7 @@
             overflow: hidden;
         }
         .qr-header {
-            background: linear-gradient(135deg, #cc0000, #ee3333);
+            background: linear-gradient(135deg, #2e7d5b, #43a97d);
             padding: 22px 28px 18px;
             color: #fff;
         }
@@ -644,7 +644,7 @@
             margin-bottom: -2px;
             font-family: 'Poppins', sans-serif;
         }
-        .qr-tab.active { color: #cc0000; border-bottom-color: #cc0000; }
+        .qr-tab.active { color: #2e7d5b; border-bottom-color: #2e7d5b; }
         .qr-body { padding: 28px 24px 24px; text-align: center; }
         .qr-panel { display: none; }
         .qr-panel.active { display: block; }
@@ -666,9 +666,9 @@
         .qr-placeholder span { font-size: 11px; }
         .qr-bank-badge {
             display: inline-flex; align-items: center; gap: 6px;
-            background: #fff3f3; border: 1.5px solid #ffcccc;
+            background: #eef7f2; border: 1.5px solid #b8dcc8;
             border-radius: 20px; padding: 5px 14px;
-            font-size: 11.5px; font-weight: 700; color: #cc0000;
+            font-size: 11.5px; font-weight: 700; color: #2e7d5b;
             margin-bottom: 14px;
         }
         .qr-instructions {
@@ -718,7 +718,7 @@
                             <li>Abre la app <strong>Bancolombia</strong></li>
                             <li>Selecciona <strong>Pagar con QR</strong></li>
                             <li>Escanea el código y confirma el valor</li>
-                            <li>Envía el comprobante a <a href="mailto:neurocienciasnarino@gmail.com" style="color:#cc0000;">neurocienciasnarino@gmail.com</a></li>
+                            <li>Envía el comprobante a <a href="mailto:neurocienciasnarino@gmail.com" style="color:#2e7d5b;">neurocienciasnarino@gmail.com</a></li>
                         </ol>
                     </div>
                 </div>
