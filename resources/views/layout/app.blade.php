@@ -541,6 +541,7 @@
 
         <div class="nav-cta">
             <a href="{{ route('busqueda') }}" class="btn-cta-outline" style="padding:8px 14px;" title="Buscar"><i class="fa fa-search"></i></a>
+            <button onclick="openQRModal()" class="btn-cta-outline" style="padding:8px 14px;" title="Pagos y Donaciones"><i class="fa fa-qrcode"></i></button>
             <a href="{{ route('landing.inicio') }}#map" class="btn-cta-solid">SOLICITAR CITA</a>
         </div>
 
@@ -593,9 +594,178 @@
 
         <div class="cta-group">
             <a href="#" onclick="openContactModal(event); document.getElementById('mobileMenu').classList.remove('open');" class="btn-cta-outline" style="text-align:center;">PQRS</a>
+            <button onclick="openQRModal(); document.getElementById('mobileMenu').classList.remove('open');" class="btn-cta-outline" style="text-align:center; width:100%;"><i class="fa fa-qrcode" style="margin-right:6px;"></i>Pagos y Donaciones</button>
             <a href="{{ route('landing.inicio') }}#map" class="btn-cta-solid" style="text-align:center;">SOLICITAR CITA</a>
         </div>
     </div>
+
+    <!-- ===== Modal: Pagos y Donaciones QR ===== -->
+    <style>
+        .qr-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.55);
+            z-index: 2100; align-items: center;
+            justify-content: center; padding: 16px;
+        }
+        .qr-overlay.open { display: flex; }
+        .qr-modal {
+            background: #fff; border-radius: 18px;
+            width: 100%; max-width: 460px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            position: relative;
+            animation: llSlidein 0.3s ease;
+            overflow: hidden;
+        }
+        .qr-header {
+            background: linear-gradient(135deg, #cc0000, #ee3333);
+            padding: 22px 28px 18px;
+            color: #fff;
+        }
+        .qr-header h3 { font-size: 17px; font-weight: 800; margin: 0 36px 4px 0; font-family: 'Poppins', sans-serif; }
+        .qr-header p { font-size: 12px; color: rgba(255,255,255,0.78); margin: 0; }
+        .qr-close {
+            position: absolute; top: 14px; right: 16px;
+            background: rgba(255,255,255,0.15); border: none; color: #fff;
+            width: 30px; height: 30px; border-radius: 50%; font-size: 15px;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        .qr-close:hover { background: rgba(255,255,255,0.30); }
+        .qr-tabs {
+            display: flex; border-bottom: 2px solid #f0f0f0;
+        }
+        .qr-tab {
+            flex: 1; padding: 13px; text-align: center;
+            font-size: 12px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.8px; cursor: pointer;
+            color: #999; border: none; background: #fff;
+            transition: color 0.2s, border-bottom 0.2s;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .qr-tab.active { color: #cc0000; border-bottom-color: #cc0000; }
+        .qr-body { padding: 28px 24px 24px; text-align: center; }
+        .qr-panel { display: none; }
+        .qr-panel.active { display: block; }
+        .qr-img-box {
+            width: 200px; height: 200px;
+            margin: 0 auto 16px;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            background: #fafafa;
+        }
+        .qr-img-box img { width: 100%; height: 100%; object-fit: contain; }
+        .qr-placeholder {
+            display: flex; flex-direction: column; align-items: center;
+            color: #bbb; gap: 8px;
+        }
+        .qr-placeholder i { font-size: 56px; color: #ddd; }
+        .qr-placeholder span { font-size: 11px; }
+        .qr-bank-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: #fff3f3; border: 1.5px solid #ffcccc;
+            border-radius: 20px; padding: 5px 14px;
+            font-size: 11.5px; font-weight: 700; color: #cc0000;
+            margin-bottom: 14px;
+        }
+        .qr-instructions {
+            font-size: 12px; color: #666; line-height: 1.7;
+            background: #fafafa; border-radius: 10px;
+            padding: 12px 14px; text-align: left;
+            border: 1px solid #f0f0f0;
+        }
+        .qr-instructions ol { margin: 6px 0 0 16px; padding: 0; }
+        .qr-instructions li { margin-bottom: 4px; }
+        @media (max-width: 480px) {
+            .qr-modal { border-radius: 14px; }
+            .qr-body { padding: 20px 16px 18px; }
+        }
+    </style>
+
+    <div class="qr-overlay" id="qrOverlay" onclick="if(event.target===this)closeQRModal()">
+        <div class="qr-modal">
+            <div class="qr-header">
+                <h3><i class="fa fa-qrcode" style="margin-right:8px;"></i>Pagos y Donaciones</h3>
+                <p>Escanea el QR desde tu app Bancolombia</p>
+            </div>
+            <button class="qr-close" onclick="closeQRModal()" aria-label="Cerrar">&#x2715;</button>
+
+            <div class="qr-tabs">
+                <button class="qr-tab active" onclick="switchQRTab('pagos', this)">Pagos de Servicios</button>
+                <button class="qr-tab" onclick="switchQRTab('donaciones', this)">Donaciones</button>
+            </div>
+
+            <div class="qr-body">
+                <!-- Panel Pagos -->
+                <div class="qr-panel active" id="qrPanelPagos">
+                    <div class="qr-bank-badge">
+                        <i class="fa fa-university"></i> Bancolombia
+                    </div>
+                    <div class="qr-img-box">
+                        {{-- Reemplaza la imagen con el QR real de pagos --}}
+                        {{-- <img src="{{ asset('assets/img/qr-pagos.png') }}" alt="QR Pagos Bancolombia"> --}}
+                        <div class="qr-placeholder">
+                            <i class="fa fa-qrcode"></i>
+                            <span>QR próximamente</span>
+                        </div>
+                    </div>
+                    <div class="qr-instructions">
+                        <strong style="color:#333;">¿Cómo pagar?</strong>
+                        <ol>
+                            <li>Abre la app <strong>Bancolombia</strong></li>
+                            <li>Selecciona <strong>Pagar con QR</strong></li>
+                            <li>Escanea el código y confirma el valor</li>
+                            <li>Envía el comprobante a <a href="mailto:neurocienciasnarino@gmail.com" style="color:#cc0000;">neurocienciasnarino@gmail.com</a></li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Panel Donaciones -->
+                <div class="qr-panel" id="qrPanelDonaciones">
+                    <div class="qr-bank-badge">
+                        <i class="fa fa-heart"></i> Bancolombia
+                    </div>
+                    <div class="qr-img-box">
+                        {{-- Reemplaza la imagen con el QR real de donaciones --}}
+                        {{-- <img src="{{ asset('assets/img/qr-donaciones.png') }}" alt="QR Donaciones Bancolombia"> --}}
+                        <div class="qr-placeholder">
+                            <i class="fa fa-qrcode"></i>
+                            <span>QR próximamente</span>
+                        </div>
+                    </div>
+                    <div class="qr-instructions">
+                        <strong style="color:#333;">¿Cómo donar?</strong>
+                        <ol>
+                            <li>Abre la app <strong>Bancolombia</strong></li>
+                            <li>Selecciona <strong>Pagar con QR</strong></li>
+                            <li>Escanea el código e ingresa el valor que desees donar</li>
+                            <li>Tu donación apoya la atención neurológica en Nariño</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openQRModal() {
+            document.getElementById('qrOverlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeQRModal() {
+            document.getElementById('qrOverlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        function switchQRTab(panel, btn) {
+            document.querySelectorAll('.qr-tab').forEach(function(t){ t.classList.remove('active'); });
+            document.querySelectorAll('.qr-panel').forEach(function(p){ p.classList.remove('active'); });
+            btn.classList.add('active');
+            document.getElementById('qrPanel' + panel.charAt(0).toUpperCase() + panel.slice(1)).classList.add('active');
+        }
+    </script>
 
     <!-- Social Sidebar -->
     <div class="social-sidebar">
