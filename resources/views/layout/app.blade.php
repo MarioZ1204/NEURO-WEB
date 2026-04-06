@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Instituto Neurociencias de Nariño IPS S.A.S - Atención especializada en neurología, epileptología y neurorehabilitación en Pasto, Nariño.">
     <meta name="author" content="Instituto Neurociencias de Nariño">
+    <!-- Open Graph / WhatsApp -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Instituto Neurociencias de Nariño IPS S.A.S">
     <meta property="og:title" content="Instituto Neurociencias de Nariño IPS S.A.S">
@@ -444,7 +445,7 @@
                 </a>
                 <div class="dropdown-menu-custom">
                     <a href="{{ route('landing.aboutUs') }}">Acerca de Nosotros</a>
-                    <a href="{{ route('landing.aboutUs') }}">Portafolio de Servicios</a>
+                    <a href="{{ route('landing.portafolio') }}">Portafolio de Servicios</a>
                     <a href="{{ route('marcoLegal') }}">Marco Legal</a>
                     <a href="{{ route('estadosFinancieros') }}">Estados Financieros</a>
                     <a href="{{ route('articulos') }}">Artículos y Revistas</a>
@@ -555,7 +556,7 @@
 
         <div class="mob-section">Nuestra Institución</div>
         <a href="{{ route('landing.aboutUs') }}" class="sub">Acerca de Nosotros</a>
-        <a href="{{ route('landing.portafolio') }} class="sub">Portafolio de Servicios</a>
+        <a href="{{ route('landing.portafolio') }}" class="sub">Portafolio de Servicios</a>
         <a href="{{ route('marcoLegal') }}" class="sub">Marco Legal</a>
         <a href="{{ route('estadosFinancieros') }}" class="sub">Estados Financieros</a>
         <a href="{{ route('articulos') }}" class="sub">Artículos y Revistas</a>
@@ -790,7 +791,7 @@
         Sede 2 · Servicios Complementarios
     </h3>
     <div class="sede-map-box" style="position:relative;">
-        <a href="https://maps.app.goo.gl/2Y62iqQ5WPHYPZ5g7" target="_blank" rel="noopener"
+        <a href="https://maps.app.goo.gl/5df4ev2jYdbgvMN98" target="_blank" rel="noopener"
            style="display:block; width:100%; height:100%;">
             <img src="{{ asset('assets/img/SEDE1.jpg') }}" alt="Sede Principal Instituto Neurociencias"
                  style="width:100%; height:100%; object-fit:cover; display:block;">
@@ -857,14 +858,17 @@
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            gap: 10px;
+            gap: 0;
+            padding-bottom: 0;
         }
         .fab-options {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 0;
             align-items: flex-end;
+            padding-bottom: 10px;
         }
+        
         .fab-option {
             display: flex;
             align-items: center;
@@ -874,18 +878,9 @@
             pointer-events: none;
             transform: translateY(10px);
             transition: opacity 0.25s ease, transform 0.25s ease;
+            margin-bottom: 10px;
         }
         /* Stagger: bottom (WhatsApp=child 5) appears first */
-        .fab-wrapper:hover .fab-option:nth-child(1),
-        .fab-wrapper.fab-open .fab-option:nth-child(1) { opacity:1; pointer-events:all; transform:translateY(0); transition-delay:0.20s; }
-        .fab-wrapper:hover .fab-option:nth-child(2),
-        .fab-wrapper.fab-open .fab-option:nth-child(2) { opacity:1; pointer-events:all; transform:translateY(0); transition-delay:0.15s; }
-        .fab-wrapper:hover .fab-option:nth-child(3),
-        .fab-wrapper.fab-open .fab-option:nth-child(3) { opacity:1; pointer-events:all; transform:translateY(0); transition-delay:0.10s; }
-        .fab-wrapper:hover .fab-option:nth-child(4),
-        .fab-wrapper.fab-open .fab-option:nth-child(4) { opacity:1; pointer-events:all; transform:translateY(0); transition-delay:0.05s; }
-        .fab-wrapper:hover .fab-option:nth-child(5),
-        .fab-wrapper.fab-open .fab-option:nth-child(5) { opacity:1; pointer-events:all; transform:translateY(0); transition-delay:0.00s; }
         .fab-option-btn {
             width: 46px; height: 46px;
             border-radius: 50%;
@@ -1236,16 +1231,29 @@
     </div>
 
     <script>
-        /* FAB: toggle on tap for touch devices */
-        document.getElementById('fabMainBtn').addEventListener('click', function(e) {
+        var fabBtn = document.getElementById('fabMainBtn');
+        var fabWrapper = document.getElementById('fabWrapper');
+        
+        fabBtn.addEventListener('mouseenter', function() {
+            fabWrapper.classList.add('fab-open');
+        });
+        
+        fabWrapper.addEventListener('mouseleave', function() {
+            fabWrapper.classList.remove('fab-open');
+        });
+        
+        /* Toggle en touch */
+        fabBtn.addEventListener('click', function(e) {
             if (window.matchMedia('(hover: none)').matches) {
-                document.getElementById('fabWrapper').classList.toggle('fab-open');
+                fabWrapper.classList.toggle('fab-open');
                 e.stopPropagation();
             }
         });
+        
         document.addEventListener('click', function(e) {
-            var w = document.getElementById('fabWrapper');
-            if (w && !w.contains(e.target)) w.classList.remove('fab-open');
+            if (!fabWrapper.contains(e.target)) {
+                fabWrapper.classList.remove('fab-open');
+            }
         });
 
         /* Lo llamamos: open / close */
@@ -1302,63 +1310,111 @@
         }
     </script>
 
-    <!-- ===== COLABORADORES & ALIADOS ===== -->
-    <style>
-        .colabs-section { padding: 48px 0; background: #f8faf9; border-top: 1px solid #e2eded; overflow: hidden; }
-        .colabs-title { text-align: center; font-size: 10.5px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #94a3a2; margin-bottom: 30px; }
-        .colabs-track-wrap { overflow: hidden; position: relative; }
-        .colabs-track-wrap::before, .colabs-track-wrap::after { content: ''; position: absolute; top: 0; bottom: 0; width: 90px; z-index: 2; pointer-events: none; }
-        .colabs-track-wrap::before { left: 0; background: linear-gradient(to right, #f8faf9, transparent); }
-        .colabs-track-wrap::after  { right: 0; background: linear-gradient(to left,  #f8faf9, transparent); }
-        .colabs-track { display: flex; align-items: center; width: max-content; animation: colabScroll 26s linear infinite; }
-        .colabs-track:hover { animation-play-state: paused; }
-        @keyframes colabScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-        .colab-item { width: 158px; height: 82px; margin: 0 16px; display: flex; align-items: center; justify-content: center; background: #fff; border-radius: 12px; border: 1px solid #e8f0ef; padding: 14px 18px; transition: box-shadow 0.25s, border-color 0.25s; flex-shrink: 0; }
-        .colab-item:hover { box-shadow: 0 6px 22px rgba(74,107,104,0.12); border-color: #c8dedd; }
-        .colab-ph { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-        .colab-ph-icon { width: 40px; height: 40px; border-radius: 9px; background: linear-gradient(135deg, #c8dedd, #eef5f4); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: #4a6b68; }
-        .colab-ph span { font-size: 8.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #94a3a2; }
-        /* ===== BACK TO TOP ===== */
-        #backToTop { position: fixed; bottom: 88px; left: 50%; transform: translateX(-50%) translateY(18px); z-index: 1041; background: var(--primary, #4a6b68); color: #fff; border: none; padding: 10px 24px; border-radius: 30px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; cursor: pointer; box-shadow: 0 4px 22px rgba(74,107,104,0.38); opacity: 0; pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.2s; display: flex; align-items: center; gap: 7px; font-family: 'Poppins', sans-serif; white-space: nowrap; }
-        #backToTop.show { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
-        #backToTop:hover { background: var(--primary-dark, #2e4a47); box-shadow: 0 6px 28px rgba(74,107,104,0.5); }
-    </style>
-
-    <div class="colabs-section">
-        <p class="colabs-title">Colaboradores &amp; Aliados </p>
-        <div class="colabs-track-wrap">
-            <div class="colabs-track">
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C1</div><span>FOMAG</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C2</div><span>PROINSALUD</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C3</div><span>PROTEGEMOS</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C4</div><span>PREVIRED</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C5</div><span>GLOBAL SALUD</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C6</div><span>MEDICA PREFERENCIAL</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C7</div><span>MULTISERVICIOS</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C1</div><span>FOMAG</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C2</div><span>PROINSALUD</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C3</div><span>PROTEGEMOS</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C4</div><span>PREVIRED</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C5</div><span>GLOBAL SALUD</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C6</div><span>MEDICA PREFERENCIAL</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C7</div><span>MULTISERVICIOS</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C1</div><span>FOMAG</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C2</div><span>PROINSALUD</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C3</div><span>PROTEGEMOS</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C4</div><span>PREVIRED</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C5</div><span>GLOBAL SALUD</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C6</div><span>MEDICA PREFERENCIAL</span></div></div>
-                <div class="colab-item"><div class="colab-ph"><div class="colab-ph-icon">C7</div><span>MULTISERVICIOS</span></div></div>
-
+        <!-- ===== COLABORADORES & ALIADOS ===== -->
+        <style>
+            .colabs-section { padding: 48px 0; background: #ffffff; border-top: 1px solid #e2eded; overflow: hidden; }
+            .colabs-title { text-align: center; font-size: 10.5px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #94a3a2; margin-bottom: 30px; }
+            .colabs-track-wrap { overflow: hidden; position: relative; }
+            .colabs-track-wrap::before, .colabs-track-wrap::after { content: ''; position: absolute; top: 0; bottom: 0; width: 90px; z-index: 2; pointer-events: none; }
+            .colabs-track-wrap::before { left: 0; background: linear-gradient(to right, #ffffff, transparent); }
+            .colabs-track-wrap::after  { right: 0; background: linear-gradient(to left,  #ffffff, transparent); }
+            .colabs-track { display: flex; align-items: center; width: max-content; animation: colabScroll 26s linear infinite; }
+            .colabs-track:hover { animation-play-state: paused; }
+            @keyframes colabScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+            .colab-item { width: 180px; height: 100px; margin: 0 20px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; border-radius: 0; padding: 8px; flex-shrink: 0; }
+            .colab-item:hover { box-shadow: none; border-color: transparent; }
+            .colab-item img { max-width: 160px; max-height: 90px; object-fit: contain; filter: grayscale(30%); transition: filter 0.25s, transform 0.25s; }
+            .colab-item:hover img { filter: grayscale(0%); transform: scale(1.05); }
+        
+            /* ===== BACK TO TOP ===== */
+            #backToTop {
+                position: fixed;
+                bottom: 30px;
+                right: 90px;
+                left: auto;
+                transform: translateY(18px);
+                z-index: 1041;
+                background: var(--primary, #4a6b68);
+                color: #fff;
+                border: none;
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                box-shadow: 0 4px 22px rgba(74,107,104,0.38);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.2s;
+            }
+            #backToTop.show {
+                opacity: 1;
+                pointer-events: all;
+                transform: translateY(0);
+            }
+            #backToTop:hover {
+                background: var(--primary-dark, #2e4a47);
+                box-shadow: 0 6px 28px rgba(74,107,104,0.5);
+            }
+        </style>
+        
+        <div class="colabs-section">
+            <p class="colabs-title">Colaboradores &amp; Aliados</p>
+            <div class="colabs-track-wrap">
+                <div class="colabs-track">
+        
+                    {{-- Primera pasada --}}
+                    @foreach([
+                        ['FOMAG',                              'assets/img/fomag.png',                'https://www.fomag.gov.co'],
+                        ['PROINSALUD',                         'assets/img/proinsalud.jpg',           'https://www.proinsalud.co/'],
+                        ['PROTEGEMOS',                         'assets/img/protegemos.jpg',           'https://revistaprotegemos.com.co'],
+                        ['PREVIRED',                           'assets/img/previred.png',             'https://previred.com.co'],
+                        ['GLOBAL SALUD',                       'assets/img/global-salud.jpg',         'https://www.globalsalud.com.co'],
+                        ['MEDICAL PREFERENCIAL',               'assets/img/medical-preferencial.jpg', 'https://www.facebook.com/people/Medical-Preferencial-by-Claudia-Mora/61561901228149/#'],
+                        ['MULTISERVICIOS',                     'assets/img/multiservicios.png',       'https://www.multiservicios.com'],
+                        ['UNIDAD CARDIO QUIRURGICA DE NARIÑO', 'assets/img/ucqn.jpg',                 'https://www.facebook.com/cardioquirurgica/?locale=es_LA'],
+                        ['VIDA SANA',                          'assets/img/vidassanas.png',           'https://www.instagram.com/vidassanaspasto'],
+                        ['NIDO',                               'assets/img/nido.jpg',                 'https://www.facebook.com/p/Nido-Pasto-100092497038539'],
+                    ] as $colab)
+                        <a href="{{ $colab[2] }}" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+                            <div class="colab-item">
+                                <img src="{{ asset($colab[1]) }}" alt="{{ $colab[0] }}">
+                            </div>
+                        </a>
+                    @endforeach
+        
+                    {{-- Duplicado para el loop infinito --}}
+                    @foreach([
+                        ['FOMAG',                              'assets/img/fomag.png',                'https://www.fomag.gov.co'],
+                        ['PROINSALUD',                         'assets/img/proinsalud.jpg',           'https://www.proinsalud.co/'],
+                        ['PROTEGEMOS',                         'assets/img/protegemos.jpg',           'https://revistaprotegemos.com.co'],
+                        ['PREVIRED',                           'assets/img/previred.png',             'https://previred.com.co'],
+                        ['GLOBAL SALUD',                       'assets/img/global-salud.jpg',         'https://www.globalsalud.com.co'],
+                        ['MEDICAL PREFERENCIAL',               'assets/img/medical-preferencial.jpg', 'https://www.facebook.com/people/Medical-Preferencial-by-Claudia-Mora/61561901228149/#'],
+                        ['MULTISERVICIOS',                     'assets/img/multiservicios.png',       'https://www.multiservicios.com'],
+                        ['UNIDAD CARDIO QUIRURGICA DE NARIÑO', 'assets/img/ucqn.jpg',                 'https://www.facebook.com/cardioquirurgica/?locale=es_LA'],
+                        ['VIDA SANA',                          'assets/img/vidassanas.png',           'https://www.instagram.com/vidassanaspasto'],
+                        ['NIDO',                               'assets/img/nido.jpg',                 'https://www.facebook.com/p/Nido-Pasto-100092497038539'],
+                    ] as $colab)
+                        <a href="{{ $colab[2] }}" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+                            <div class="colab-item">
+                                <img src="{{ asset($colab[1]) }}" alt="{{ $colab[0] }}">
+                            </div>
+                        </a>
+                    @endforeach
+        
+                </div>
             </div>
         </div>
-    </div>
-
-    <!-- Volver arriba -->
-    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Volver arriba">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Volver arriba
-    </button>
+        
+        <!-- Volver arriba -->
+        <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Volver arriba">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
 
 
     <footer style="background:#0f1f1e; color:#ccc; padding: 60px 0 0;">

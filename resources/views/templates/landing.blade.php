@@ -5,9 +5,6 @@
 <style>
     body { padding-top: var(--navbar-h, 80px); }
 
-    /* =============================================
-       HERO SECTION — Full screen immersive
-    ============================================= */
     .hero-section {
         position: relative;
         overflow: hidden;
@@ -133,7 +130,7 @@
         border-color: rgba(255,255,255,0.6);
     }
 
-    /* RIGHT PHOTO PANEL */
+
     .hero-right {
         width: 58%;
         min-height: calc(85vh - 80px);
@@ -155,7 +152,6 @@
                     linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 40%);
     }
 
-    /* Diagonal blend */
     .hero-diagonal {
         position: absolute;
         left: calc(42% - 40px);
@@ -167,7 +163,6 @@
     }
     .hero-diagonal svg { width: 100%; height: 100%; }
 
-    /* Scroll indicator */
     .hero-scroll {
         position: absolute;
         bottom: 30px;
@@ -194,7 +189,7 @@
         50% { transform: scaleY(0.6); opacity: 0.3; }
     }
 
-    /* Vigilado badge */
+
     .hero-vigilado {
         position: absolute;
         bottom: 28px; right: 28px;
@@ -272,9 +267,6 @@
     }
     .hero-counter strong { color: #fff; font-size: 18px; font-weight: 800; }
 
-    /* =============================================
-       STATS BAR
-    ============================================= */
     .stats-bar { background: #fff; padding: 0; }
     .stats-inner {
         display: grid;
@@ -315,9 +307,6 @@
         color: #94a3a2;
     }
 
-    /* =============================================
-       SECTION HEADINGS
-    ============================================= */
     .section-eyebrow {
         display: inline-flex;
         align-items: center;
@@ -351,9 +340,6 @@
         font-weight: 300;
     }
 
-    /* =============================================
-       SERVICES
-    ============================================= */
     .services-section {
         padding: 100px 0;
         background: #f7fafa;
@@ -448,9 +434,6 @@
     }
     .service-card:hover .card-arrow { gap: 12px; }
 
-    /* =============================================
-       SPECIALTIES STRIP
-    ============================================= */
     .specialties-strip {
         background: #0f1f1e;
         padding: 55px 0;
@@ -480,9 +463,6 @@
     }
     .specialty-text p { font-size: 11.5px; color: #6b8080; margin: 0; font-weight: 300; }
 
-    /* =============================================
-       ABOUT
-    ============================================= */
     .about-section {
         padding: 110px 0;
         background: #fff;
@@ -543,9 +523,6 @@
         font-weight: 900;
     }
 
-    /* =============================================
-       CTA BANNER
-    ============================================= */
     .cta-banner {
         position: relative;
         padding: 100px 0;
@@ -591,9 +568,7 @@
     }
     .btn-ghost-lg:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.65); color: #fff; transform: translateY(-2px); }
 
-    /* =============================================
-       RESPONSIVE
-    ============================================= */
+
     @media (max-width: 991px) {
         .hero-slide { flex-direction: column; min-height: auto; }
         .hero-left { width: 100%; min-height: auto; padding: 55px 30px 50px; }
@@ -657,7 +632,6 @@
 ============================================= -->
 <section class="hero-section" id="top">
 
-    <!-- SLIDE 1 -->
     <div class="hero-slide active" data-slide="0">
         <div class="hero-left" style="background: linear-gradient(150deg, #2e4a47 0%, #4a6b68 100%);">
             <div class="hero-left-content">
@@ -692,7 +666,8 @@
         </div>
     </div>
 
-    <!-- SLIDE 2 -->
+
+
     <div class="hero-slide" data-slide="1">
         <div class="hero-left" style="background: linear-gradient(150deg, #1a2e2c 0%, #2e4a47 100%);">
             <div class="hero-left-content">
@@ -714,7 +689,7 @@
             </div>
         </div>
         <div class="hero-right">
-            <img src="{{ asset('assets/img/EEG.jpg') }}" alt="Electrodiagnósticos">
+            <img src="{{ asset('assets/img/EEG-1.png') }}" alt="Electrodiagnósticos">
             <div class="hero-deco-circle"></div>
             <div class="hero-vigilado">
                 <img src="{{ asset('assets/img/SuperS.png') }}" alt="Vigilado Supersalud">
@@ -727,7 +702,9 @@
         </div>
     </div>
 
-    <!-- SLIDE 3 -->
+
+
+
     <div class="hero-slide" data-slide="2">
         <div class="hero-left" style="background: linear-gradient(150deg, #3d6360 0%, #5e8582 100%);">
             <div class="hero-left-content">
@@ -760,19 +737,16 @@
             </svg>
         </div>
     </div>
-
-    <!-- Scroll indicator -->
+    
     <div class="hero-scroll">
         <div class="hero-scroll-line"></div>
         <span>Deslizar hacia abajo</span>
     </div>
 
-    <!-- Slide counter -->
     <div class="hero-counter">
         <strong id="heroCurrentNum">01</strong> / 03
     </div>
 
-    <!-- Controls -->
     <button class="hero-prev" id="heroPrev" aria-label="Anterior">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
@@ -828,7 +802,7 @@
             <div class="col-lg-4 col-md-6 fade-up">
                 <a href="{{ route('landing.tiposConsulta') }}" class="service-card">
                     <div class="card-img">
-                        <img src="{{ asset('assets/img/neu.jpg') }}" alt="Tipos de Consulta">
+                        <img src="{{ asset('assets/img/TipoC.png') }}" alt="Tipos de Consulta">
                         <div class="card-img-overlay"></div>
                         <span class="card-num">01</span>
                     </div>
@@ -856,7 +830,7 @@
             <div class="col-lg-4 col-md-6 fade-up">
                 <a href="{{ route('landing.electrodiagnosticos') }}" class="service-card">
                     <div class="card-img">
-                        <img src="{{ asset('assets/img/EEG.jpg') }}" alt="Electrodiagnósticos">
+                        <img src="{{ asset('assets/img/Electro-1.png') }}" alt="Electrodiagnósticos">
                         <div class="card-img-overlay"></div>
                         <span class="card-num">03</span>
                     </div>
@@ -932,14 +906,12 @@
         <div class="row g-4">
             <div class="col-lg-4 col-md-6 fade-up">
                 <div class="team-card">
-                        <div class="team-photo">
-                            <img src="{{ asset('assets/img/jose-zambrano.jpg') }}" alt="Dr. José A. Zambrano" class="team-img" class="team-avatar">
-                        </div>
+                    <div class="team-photo"><div class="team-avatar">JZ</div></div>
                     <div class="team-info">
-                        <span class="tag">Neurología</span>
+                        <span class="tag">Neurólogo Clínico - Experto en Medicina del Sueño</span>
                         <h4>Dr. José A. Zambrano A.</h4>
-                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Neurólogo · 12 años de experiencia</p>
-                        <p>Especialista en neurología clínica y epileptología. Certificado por el Tribunal Médico de Colombia, con formación internacional en enfermedades neurodegenerativas.</p>
+                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; +18 años de experiencia</p>
+                        <p>Miembro de la Junta Directiva de la Seccional Sur Occidente de la Asociación Colombiana de Medicina del Sueño</p>
                     </div>
                 </div>
             </div>
@@ -947,10 +919,10 @@
                 <div class="team-card">
                     <div class="team-photo"><div class="team-avatar">JZL</div></div>
                     <div class="team-info">
-                        <span class="tag">Epileptología</span>
+                        <span class="tag">Epileptólogo - Neurólogo</span>
                         <h4>Dr. José A. Zambrano León</h4>
-                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Epileptólogo · 9 años de experiencia</p>
-                        <p>Especialista en epilepsia, con posgrado en neurofisiología clínica. Responsable de los estudios electrodiagnósticos, EEG y potenciales evocados.</p>
+                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; +9 años de experiencia</p>
+                        <p>-------------.</p>
                     </div>
                 </div>
             </div>
@@ -972,10 +944,10 @@
                 <div class="team-card">
                     <div class="team-photo" style="background:linear-gradient(150deg,#1a5276,#2980b9);"><div class="team-avatar">AG</div></div>
                     <div class="team-info">
-                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">Fisioterapia</span>
+                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">Fisioterapeuta</span>
                         <h4>Dra. Adriana Gelpud</h4>
-                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Fisioterapeuta · Terapia Física</p>
-                        <p>Especialista en fisioterapia y neurorehabilitación, dedicada a la recuperación funcional de pacientes neurológicos de todas las edades.</p>
+                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; +7 años de experiencia</p>
+                        <p>Con experiencia en aplicación de ondas de choque, tracción mecánica, rehabilitación de piso pélvico y terapia respiratoria. </p>
                     </div>
                 </div>
             </div>
@@ -983,10 +955,10 @@
                 <div class="team-card">
                     <div class="team-photo" style="background:linear-gradient(150deg,#1a5276,#2980b9);"><div class="team-avatar">TR</div></div>
                     <div class="team-info">
-                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">Fisioterapia</span>
+                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">Fisioterapeuta - Esp. Salud Ocupacional</span>
                         <h4>Dra. Teresa Rodríguez</h4>
-                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Fisioterapeuta · Terapia Física</p>
-                        <p>Profesional en fisioterapia con enfoque en terapia física integral, rehabilitación pulmonar y manejo del dolor del sistema osteomuscular.</p>
+                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; +8 años de experiencia</p>
+                        <p>Énfasis en traumatología y ortopedia con experiencia en rehabilitación y acondicionamiento físico.</p>
                     </div>
                 </div>
             </div>
@@ -994,10 +966,10 @@
                 <div class="team-card">
                     <div class="team-photo" style="background:linear-gradient(150deg,#1a5276,#2980b9);"><div class="team-avatar">KQ</div></div>
                     <div class="team-info">
-                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">Fisioterapia</span>
+                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">Fisioterapeuta - Mg. Fisioterapia Pediátrica</span>
                         <h4>Dra. Karen Quiroz</h4>
-                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Fisioterapeuta · Terapia Física</p>
-                        <p>Fisioterapeuta especializada en modalidades mecánicas y eléctricas de terapia, con énfasis en rehabilitación de piso pélvico y tracción terapéutica.</p>
+                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; +6 años de experiencia </p>
+                        <p>Rehabilitación funcional, enfocada en la evaluación</p>
                     </div>
                 </div>
             </div>
@@ -1054,30 +1026,30 @@
             <div class="col-lg-4 col-md-6 fade-up">
                 <div class="testi-card">
                     <div class="testi-stars">★★★★★</div>
-                    <p class="testi-text">&ldquo;Llevaba años sin un diagnóstico claro. Aquí me atendieron con paciencia, encontraron la causa de mis crisis y hoy llevo 8 meses sin episodios. Un cambio de vida total.&rdquo;</p>
+                    <p class="testi-text">&ldquo; -- &rdquo;</p>
                     <div class="testi-author">
-                        <div class="testi-avatar">CM</div>
-                        <div><div class="testi-name">Carmen Muñoz</div><div class="testi-detail">Paciente de Neurología · Pasto</div></div>
+                        <div class="testi-avatar"> </div>
+                        <div><div class="testi-name">  </div><div class="testi-detail">   </div></div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 fade-up">
                 <div class="testi-card">
                     <div class="testi-stars">★★★★★</div>
-                    <p class="testi-text">&ldquo;Mi hijo de 6 años comenzó terapia de lenguaje y en tres meses su comunicación mejoró notablemente. El equipo de fonoaudiología es increíble. Muy recomendado.&rdquo;</p>
+                    <p class="testi-text">&ldquo;  &rdquo;</p>
                     <div class="testi-author">
-                        <div class="testi-avatar">JT</div>
-                        <div><div class="testi-name">Jorge Torres</div><div class="testi-detail">Padre de paciente · Terapia del Lenguaje</div></div>
+                        <div class="testi-avatar">  </div>
+                        <div><div class="testi-name">  </div><div class="testi-detail">   </div></div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 fade-up">
                 <div class="testi-card">
                     <div class="testi-stars">★★★★★</div>
-                    <p class="testi-text">&ldquo;El electroencefalograma fue rápido y sin molestias. El médico me explicó los resultados detalladamente. La atención humana que recibí aquí superó todas mis expectativas.&rdquo;</p>
+                    <p class="testi-text">&ldquo;   &rdquo;</p>
                     <div class="testi-author">
-                        <div class="testi-avatar">RG</div>
-                        <div><div class="testi-name">Rosa Guerrero</div><div class="testi-detail">Paciente de Electrodiagnóstico · Tumaco</div></div>
+                        <div class="testi-avatar">  </div>
+                        <div><div class="testi-name">  </div><div class="testi-detail">   </div></div>
                     </div>
                 </div>
             </div>

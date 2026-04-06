@@ -43,50 +43,23 @@
     </div>
 </div>
 
-<!-- Portafolio de Servicios -->
-<section style="background:#f8faf9; padding: 70px 0;">
-    <div class="container">
-        <p style="font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--primary-light); font-weight:700; margin-bottom:10px;">Lo que ofrecemos</p>
-        <h2 style="font-size:clamp(22px,3vw,36px); font-weight:800; color:var(--dark); margin-bottom:40px;">Nuestros Servicios</h2>
-        <div class="row g-4">
-            <div class="col-lg-4 col-md-6">
-                <a href="{{ route('landing.tiposConsulta') }}" style="text-decoration:none;">
-                    <div class="info-card" style="cursor:pointer; transition: transform 0.3s, box-shadow 0.3s;"
-                         onmouseover="this.style.transform='translateY(-6px)'; this.style.boxShadow='0 15px 40px rgba(74,107,104,0.2)'"
-                         onmouseout="this.style.transform=''; this.style.boxShadow=''">
-                        <img src="{{ asset('assets/img/neu.jpg') }}" style="width:100%; height:160px; object-fit:cover; border-radius:10px; margin-bottom:20px;" alt="">
-                        <h4>Tipos de Consulta</h4>
-                        <p>Neurología general, epileptología y evaluación integral del sistema nervioso.</p>
-                        <span style="color:var(--primary); font-size:12px; font-weight:700; letter-spacing:1px;">VER MÁS ›</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <a href="{{ route('landing.tiposTerapia') }}" style="text-decoration:none;">
-                    <div class="info-card" style="cursor:pointer; transition: transform 0.3s, box-shadow 0.3s;"
-                         onmouseover="this.style.transform='translateY(-6px)'; this.style.boxShadow='0 15px 40px rgba(74,107,104,0.2)'"
-                         onmouseout="this.style.transform=''; this.style.boxShadow=''">
-                        <img src="{{ asset('assets/img/fisio.webp') }}" style="width:100%; height:160px; object-fit:cover; border-radius:10px; margin-bottom:20px;" alt="">
-                        <h4>Tipos de Terapia</h4>
-                        <p>Fisioterapia, terapia ocupacional, fonoaudiología y neurorehabilitación integral.</p>
-                        <span style="color:var(--primary); font-size:12px; font-weight:700; letter-spacing:1px;">VER MÁS ›</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <a href="{{ route('landing.electrodiagnosticos') }}" style="text-decoration:none;">
-                    <div class="info-card" style="cursor:pointer; transition: transform 0.3s, box-shadow 0.3s;"
-                         onmouseover="this.style.transform='translateY(-6px)'; this.style.boxShadow='0 15px 40px rgba(74,107,104,0.2)'"
-                         onmouseout="this.style.transform=''; this.style.boxShadow=''">
-                        <img src="{{ asset('assets/img/EEG.jpg') }}" style="width:100%; height:160px; object-fit:cover; border-radius:10px; margin-bottom:20px;" alt="">
-                        <h4>Electrodiagnósticos</h4>
-                        <p>EEG, polisomnografía, electromiografía y velocidad de conducción nerviosa.</p>
-                        <span style="color:var(--primary); font-size:12px; font-weight:700; letter-spacing:1px;">VER MÁS ›</span>
-                    </div>
-                </a>
-            </div>
-        </div>
+
+<div style="text-align:center; padding: 20px 0;">
+    <div style="margin-bottom:12px;">
+        <a href="https://www.calameo.com/books/008186078f24f27814297" target="_blank"
+           style="font-size:13px;font-weight:700;color:var(--primary-light);letter-spacing:2px;text-transform:uppercase;text-decoration:none;">
+            Ver en pantalla completa ›
+        </a>
     </div>
-</section>
+    <iframe src="//v.calameo.com/?bkcode=008186078f24f27814297&mode=mini"
+            width="100%"
+            height="620"
+            frameborder="0"
+            scrolling="no"
+            allowtransparency
+            allowfullscreen
+            style="margin:0 auto; border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,0.12); display:block;">
+    </iframe>
+</div>
 
 @endsection

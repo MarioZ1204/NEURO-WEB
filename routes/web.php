@@ -81,7 +81,6 @@ Route::get('/trabaje-con-nosotros/convenio-institucional', [LandingController::c
 Route::post('/trabaje-con-nosotros/convenio-institucional/enviar', [LandingController::class, 'sendConvenio'])
     ->name('trabaje.convenio.send');
 
-
 // Páginas del FAB
 Route::get('/escribanos', [LandingController::class, 'escribanos'])
     ->name('escribanos');

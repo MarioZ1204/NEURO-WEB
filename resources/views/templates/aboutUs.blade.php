@@ -134,14 +134,10 @@
                     <li><span class="dot"></span>Equipos de diagnóstico de última generación</li>
                     <li><span class="dot"></span>Atención humanizada y centrada en el paciente</li>
                 </ul>
-                <div style="margin-top:24px;">
-                    <a href="{{ route('landing.portafolio') }}" class="btn-cta-solid" style="border-radius:25px;padding:13px 35px;font-size:13px;text-decoration:none;">
-                        Ver Portafolio de Servicios
-                    </a>
-                </div>
             </div>
         </div>
     </div>
 </section>
+
 
 @endsection
