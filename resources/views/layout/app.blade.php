@@ -541,7 +541,7 @@
 
         <div class="nav-cta">
             <a href="{{ route('busqueda') }}" class="btn-cta-outline" style="padding:8px 14px;" title="Buscar"><i class="fa fa-search"></i></a>
-            <button onclick="openQRModal()" class="btn-cta-outline" style="padding:8px 14px;" title="Pagos y Donaciones"><i class="fa fa-qrcode"></i></button>
+            <button onclick="openQRModal()" class="btn-cta-outline" style="padding:8px 14px;" title="Pagos y Donaciones">REALICE SU PAGO<i class="fa fa-qrcode"></i></button>
             <a href="{{ route('landing.inicio') }}#map" class="btn-cta-solid">SOLICITAR CITA</a>
         </div>
 
