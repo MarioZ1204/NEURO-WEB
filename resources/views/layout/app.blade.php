@@ -880,6 +880,11 @@
             transition: opacity 0.25s ease, transform 0.25s ease;
             margin-bottom: 10px;
         }
+        .fab-wrapper.fab-open .fab-option {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
         /* Stagger: bottom (WhatsApp=child 5) appears first */
         .fab-option-btn {
             width: 46px; height: 46px;
@@ -1330,9 +1335,9 @@
             #backToTop {
                 position: fixed;
                 bottom: 30px;
-                right: 90px;
-                left: auto;
-                transform: translateY(18px);
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%) translateY(18px);
                 z-index: 1041;
                 background: var(--primary, #4a6b68);
                 color: #fff;
@@ -1352,7 +1357,7 @@
             #backToTop.show {
                 opacity: 1;
                 pointer-events: all;
-                transform: translateY(0);
+                transform: translateX(-50%) translateY(0);
             }
             #backToTop:hover {
                 background: var(--primary-dark, #2e4a47);
