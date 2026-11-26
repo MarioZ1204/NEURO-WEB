@@ -5,7 +5,7 @@
 <style>
     body { padding-top: var(--navbar-h, 80px); }
     .page-hero {
-        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
         padding: 80px 0 60px;
         text-align: center;
         color: #fff;
@@ -17,56 +17,50 @@
     .breadcrumb-custom a:hover { color: #fff; }
 
     .terapia-card {
-        background: #fff;
+        background: #ffffff;
         border-radius: 16px;
-        padding: 30px;
+        padding: 28px;
         box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-        transition: transform 0.3s, box-shadow 0.3s;
-        height: 100%;
-        display: flex; align-items: flex-start; gap: 20px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        min-height: 240px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 18px;
+        border: 1px solid rgba(74,107,104,0.08);
     }
-    .terapia-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(74,107,104,0.18); }
+    .terapia-card:hover { transform: translateY(-6px); box-shadow: 0 15px 40px rgba(74,107,104,0.18); }
     .terapia-icon {
-        width: 60px; height: 60px;
-        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        width: 54px; height: 54px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         border-radius: 14px;
         display: flex; align-items: center; justify-content: center;
         flex-shrink: 0;
     }
-    .terapia-icon i { color: #fff; font-size: 22px; }
+    .terapia-icon i { color: #ffffff; font-size: 22px; }
     .terapia-content h5 {
-        font-size: 15px;
+        font-size: 16px;
         font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 0.5px;
         color: var(--dark);
-        margin-bottom: 10px;
+        margin-bottom: 12px;
     }
     .terapia-content p {
-        font-size: 13.5px;
-        color: #666;
-        line-height: 1.75;
+        font-size: 14px;
+        color: #5a6f6d;
+        line-height: 1.8;
         margin: 0;
     }
-    .terapia-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .terapia-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
     .terapia-tag {
-        background: #f0f4f3;
-        color: var(--primary);
-        padding: 3px 10px;
-        border-radius: 20px;
+        background: rgba(74,107,104,0.08);
+        color: var(--primary-dark);
+        padding: 6px 14px;
+        border-radius: 999px;
         font-size: 11px;
-        font-weight: 600;
+        font-weight: 700;
     }
-    .highlight-banner {
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        padding: 50px;
-        border-radius: 20px;
-        color: #fff;
-        text-align: center;
-        margin-top: 50px;
-    }
-    .highlight-banner h3 { font-size: 24px; font-weight: 800; margin-bottom: 12px; }
-    .highlight-banner p { font-size: 15px; color: var(--primary-pale); margin-bottom: 25px; }
 </style>
 
 <!-- Page Hero -->
@@ -75,12 +69,12 @@
         <div class="breadcrumb-custom">
             <a href="{{ route('landing.inicio') }}">Inicio</a>
             <span>›</span>
-            <a href="{{ route('landing.aboutUs') }}">Servicios</a>
+            <a href="{{ route('landing.portafolio') }}">Servicios</a>
             <span>›</span>
             <span>Tipos de Terapia</span>
         </div>
         <h1>Tipos de Terapia</h1>
-        <p>Servicios terapéuticos integrales para tu recuperación y bienestar</p>
+        <p>Rehabilitación y procedimientos terapéuticos para recuperar función y bienestar</p>
     </div>
 </div>
 
@@ -222,7 +216,7 @@
 
             <div class="col-lg-6">
                 <div class="terapia-card">
-                    <div class="terapia-icon" style="background:linear-gradient(135deg,#5c35a0,#7e57c2);"><i class="fa fa-syringe"></i></div>
+                    <div class="terapia-icon" ><i class="fa fa-syringe"></i></div>
                     <div class="terapia-content">
                         <h5>Inyección de Anestésico — Nervio Periférico</h5>
                         <p>Inyección de agente anestésico local para bloqueo de nervio periférico. Se realiza por punto de inyección para manejo del dolor neuropático y diagnóstico diferencial.</p>
@@ -233,7 +227,7 @@
 
             <div class="col-lg-6">
                 <div class="terapia-card">
-                    <div class="terapia-icon" style="background:linear-gradient(135deg,#5c35a0,#7e57c2);"><i class="fa fa-dot-circle"></i></div>
+                    <div class="terapia-icon" ><i class="fa fa-dot-circle"></i></div>
                     <div class="terapia-content">
                         <h5>Bloqueo Unión Mioneural</h5>
                         <p>Bloqueo de la unión neuromuscular mediante infiltración de agente farmacológico por punto. Indicado en espasticidad focal, contracturas musculares y dolor miofascial.</p>
@@ -244,7 +238,7 @@
 
             <div class="col-lg-6">
                 <div class="terapia-card">
-                    <div class="terapia-icon" style="background:linear-gradient(135deg,#1455a0,#1976d2);"><i class="fa fa-flask"></i></div>
+                    <div class="terapia-icon" ><i class="fa fa-flask"></i></div>
                     <div class="terapia-content">
                         <h5>Inyección de Toxina Botulínica</h5>
                         <p>Aplicación de material miorelajante (toxina botulínica tipo A) para tratamiento de espasticidad, distonías, espasmo hemifacial y otras indicaciones neurológicas.</p>
@@ -255,7 +249,7 @@
 
             <div class="col-lg-6">
                 <div class="terapia-card">
-                    <div class="terapia-icon" style="background:linear-gradient(135deg,#1455a0,#1976d2);"><i class="fa fa-microchip"></i></div>
+                    <div class="terapia-icon" ><i class="fa fa-microchip"></i></div>
                     <div class="terapia-content">
                         <h5>Revisión de Neuroestimulador</h5>
                         <p>Revisión técnica y programación de dispositivos de neuroestimulación implantados. Incluye verificación de parámetros, batería y respuesta clínica del paciente.</p>
@@ -264,16 +258,40 @@
                 </div>
             </div>
 
+            <div class="col-lg-6" id="fonoaudiologia">
+                <div class="terapia-card">
+                    <div class="terapia-icon"><i class="fa fa-comments"></i></div>
+                    <div class="terapia-content">
+                        <h5>Unidad de Fonoaudiología</h5>
+                        <p>Evaluación y tratamiento de lenguaje, habla, voz y deglución, con énfasis en pacientes neurológicos y de rehabilitación.</p>
+                        <div class="terapia-tags"><span class="terapia-tag">Lenguaje</span><span class="terapia-tag">Deglución</span><span class="terapia-tag">Comunicación</span></div>
+                        <a href="{{ route('consulta.fonoaudiologia') }}" style="display:inline-block;margin-top:10px;font-size:13px;font-weight:700;color:var(--primary);text-decoration:none;">Conocer más ›</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6" id="terapia-ocupacional">
+                <div class="terapia-card">
+                    <div class="terapia-icon"><i class="fa fa-hands"></i></div>
+                    <div class="terapia-content">
+                        <h5>Unidad de Terapia Ocupacional</h5>
+                        <p>Intervención para recuperar autonomía en actividades cotidianas, motricidad fina y participación funcional.</p>
+                        <div class="terapia-tags"><span class="terapia-tag">Autonomía</span><span class="terapia-tag">Motricidad fina</span><span class="terapia-tag">Vida diaria</span></div>
+                        <a href="{{ route('consulta.terapiaOcupacional') }}" style="display:inline-block;margin-top:10px;font-size:13px;font-weight:700;color:var(--primary);text-decoration:none;">Conocer más ›</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        <!-- Highlight CTA -->
-        <div class="highlight-banner">
-            <h3>¿Necesitas orientación sobre qué terapia es la indicada?</h3>
-            <p>Contáctanos y nuestro equipo te guiará para encontrar el plan terapéutico más adecuado para tu condición.</p>
-            <a href="#map" style="display:inline-block; background:#fff; color:var(--primary); padding:12px 30px; border-radius:30px; font-weight:800; font-size:13px; letter-spacing:1px; text-transform:uppercase; text-decoration:none; margin-right:10px; transition: background 0.2s;">Contáctanos</a>
-            <a href="{{ route('landing.inicio') }}" style="display:inline-block; background:transparent; color:#fff; border:2px solid rgba(255,255,255,0.5); padding:10px 28px; border-radius:30px; font-weight:700; font-size:13px; letter-spacing:1px; text-transform:uppercase; text-decoration:none;">Volver al inicio</a>
-        </div>
+        @include('components.page-cta', [
+            'title' => '¿Necesita orientación sobre qué terapia es la indicada?',
+            'subtitle' => 'Nuestro equipo le guía para encontrar el plan terapéutico más adecuado.',
+            'secondaryHref' => route('landing.inicio'),
+            'secondaryLabel' => 'Volver al inicio',
+        ])
     </div>
 </section>
 
 @endsection
+

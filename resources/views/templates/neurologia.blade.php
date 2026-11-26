@@ -126,34 +126,34 @@
                 </style>
                 
                 <div class="info-card mb-5">
-                    <div style="display:flex;gap:32px;align-items:stretch;">
+                    <div class="consulta-proc-row">
                 
-                        {{-- Columna izquierda: 60% --}}
-                        <div style="flex:0 0 60%;">
+                        {{-- Columna izquierda --}}
+                        <div class="consulta-proc-copy">
                             <p style="font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--primary-light);font-weight:700;margin-bottom:12px;">Procedimiento de atención</p>
                             <h3 style="font-size:18px;font-weight:800;color:var(--dark);margin-bottom:24px;">La consulta se desarrolla a través de las siguientes etapas:</h3>
                             <div class="row g-2">
                                 @foreach([
                                     ['Valoración clínica integral', 'Recolección detallada de la historia clínica, el especialista realizará una entrevista detallada sobre su historial médico, incluyendo motivo de consulta, antecedentes personales, familiares y farmacológicos, síntomas actuales y antecedentes familiares.'],
                                     ['Examen neurológico completo', 'Evaluación del estado mental, funciones cognitivas, nervios craneales, fuerza muscular, reflejos, coordinación, equilibrio, marcha, sensibilidad, pares craneales y estado mental.'],
-                                    ['Apoyo diagnóstico (si aplica)', 'Solicitud e interpretación de estudios complementarios:
+                                    ['Apoyo diagnóstico (si aplica)', 'Solicitud e interpretación de estudios complementarios (<a href="'.route('landing.electrodiagnosticos').'">ver electrodiagnósticos</a>):
                                         <ul style="margin-top:6px;padding-left:16px;">
-                                            <li><a href="/servicios/electrodiagnosticos" target="_blank">Electroencefalograma convencional, computarizado y con mapeo cerebral.</a></li>
-                                            <li><a href="/servicios/electrodiagnosticos" target="_blank">Estudio fisiológico completo del sueño [polisomnografía] basal o con titulación de dispositivo médico.</a></li>
-                                            <li><a href="/servicios/electrodiagnosticos" target="_blank">Pruebas de latencia múltiple de sueño.</a></li>
-                                            <li><a href="/servicios/electrodiagnosticos" target="_blank">Prueba de mantenimiento de la vigilia.</a></li>
-                                            <li><a href="/servicios/electrodiagnosticos" target="_blank">Monitoreo de actividad sueño vigilia [actigrafía].</a></li>
-                                            <li><a href="/servicios/electrodiagnosticos" target="_blank">Monitoreo de presión positiva durante el sueño.</a></li>
-                                            <li><a href="/servicios/electrodiagnosticos" target="_blank">Monitorización electroencefalográfica por video y radio.</a></li>
-                                            <li><a href="/servicios/electrodiagnosticos" target="_blank">Neuroimágenes.</a></li>
-                                            <li><a href="/servicios/electrodiagnosticos" target="_blank">Electromiografía u otros exámenes especializados.</a></li>
+                                            <li>Electroencefalograma convencional, computarizado y con mapeo cerebral.</li>
+                                            <li>Estudio fisiológico completo del sueño (polisomnografía) basal o con titulación.</li>
+                                            <li>Pruebas de latencia múltiple de sueño.</li>
+                                            <li>Prueba de mantenimiento de la vigilia.</li>
+                                            <li>Monitoreo de actividad sueño-vigilia (actigrafía).</li>
+                                            <li>Monitoreo de presión positiva durante el sueño.</li>
+                                            <li>Monitorización electroencefalográfica por video.</li>
+                                            <li>Neuroimágenes.</li>
+                                            <li>Electromiografía u otros exámenes especializados.</li>
                                         </ul>'],
                                     ['Diagnóstico y plan terapéutico – procedimientos especiales en neurología', 'Definición del diagnóstico, formulación médica si es necesario, recomendaciones terapéuticas o realización de tratamientos como:
                                         <ul style="margin-top:6px;padding-left:16px;">
-                                            <li><a href="/servicios/neuroestimulador" target="_blank">Revisión de neuroestimulador y establecimiento de plan de seguimiento.</a></li>
-                                            <li><a href="/servicios/toxina-botulinica" target="_blank">Inyección de material miorrelajante (toxina botulínica) para tratamientos de patologías neurológicas y establecimiento de plan de seguimiento.</a></li>
-                                            <li><a href="/servicios/bloqueo-nervio" target="_blank">Inyección de agente anestésico para nervio periférico y establecimiento de plan de seguimiento.</a></li>
-                                            <li><a href="/servicios/bloqueo-mioneural" target="_blank">Bloqueo unión mioneural por puntos y establecimiento de plan de seguimiento.</a></li>
+                                            <li>Revisión de neuroestimulador y establecimiento de plan de seguimiento.</li>
+                                            <li>Inyección de material miorrelajante (toxina botulínica) para tratamientos de patologías neurológicas y establecimiento de plan de seguimiento.</li>
+                                            <li>Inyección de agente anestésico para nervio periférico y establecimiento de plan de seguimiento.</li>
+                                            <li>Bloqueo unión mioneural por puntos y establecimiento de plan de seguimiento.</li>
                                         </ul>'],
                                         
                                     ] as $i => $step)
@@ -172,11 +172,12 @@
                             </div>
                         </div>
                 
-                        {{-- Columna derecha: 40% --}}
-                        <div style="flex:0 0 40%;display:flex;align-items:center;justify-content:center;">
-                            <img src="{{ asset('assets/img/consulta.jpg') }}" alt="Procedimiento neurológico"
-                                style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
-                        </div>
+                        {{-- Columna derecha: foto de neurología --}}
+                        @include('components.consulta-side-photo', [
+                            'src' => 'assets/img/consulta-neurologia.png',
+                            'alt' => 'Consulta de neurología — Instituto Neurociencias de Nariño',
+                            'caption' => 'Consulta de neurología en nuestra sede',
+                        ])
                 
                     </div>
                     
@@ -191,42 +192,38 @@
                         </div>
                 </div>
 
-
-<div class="row justify-content-center">
-    <div class="col-md-10 col-lg-8">
-        <div class="info-card mb-5" style="border-left:4px solid var(--primary);">
-            <p style="font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--primary-light);font-weight:700;margin-bottom:12px;">Procedimientos</p>
-            <h3 style="font-size:18px;font-weight:800;color:var(--dark);margin-bottom:20px;">Procedimientos Especiales en Neurología</h3>
-            <p style="font-size:13.5px;color:#666;margin-bottom:20px;">Intervenciones mínimamente invasivas realizadas por el médico neurólogo especialista.</p>
-            <div class="row g-3">
-                @foreach([
-                    ['fa-syringe', 'Inyección de anestésico — Nervio Periférico', 'Bloqueo de nervio periférico mediante inyección de agente anestésico local, por punto. Indicado en dolor neuropático y diagnóstico diferencial.', '/servicios/bloqueo-nervio'],
-                    ['fa-dot-circle', 'Bloqueo Unión Mioneural', 'Bloqueo de la unión neuromuscular por punto. Indicado en espasticidad focal, contracturas musculares y dolor miofascial.', '/servicios/bloqueo-mioneural'],
-                    ['fa-flask', 'Inyección de Toxina Botulínica', 'Aplicación de material miorelajante (toxina botulínica tipo A) para tratamiento de espasticidad, distonias y espasmo hemifacial.', '/servicios/toxina-botulinica'],
-                    ['fa-microchip', 'Revisión de Neuroestimulador', 'Revisión técnica y programación de dispositivos de neuroestimulación implantados (DBS). Verificación de parámetros, batería y respuesta clínica.', '/servicios/neuroestimulador'],
-                ] as $proc)
-                    <div class="col-md-6">
-                        <a href="{{ $proc[3] }}" target="_blank" style="text-decoration:none;display:block;">
-                            <div style="display:flex;gap:14px;align-items:flex-start;background:#f8faf9;border-radius:12px;padding:16px;transition:box-shadow 0.2s,transform 0.2s;">
-                                <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                                    <i class="fa {{ $proc[0] }}" style="color:#fff;font-size:16px;"></i>
-                                </div>
-                                <div>
-                                    <p style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:4px;">{{ $proc[1] }}</p>
-                                    <p style="font-size:12.5px;color:#666;line-height:1.7;margin:0;">{{ $proc[2] }}</p>
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <div class="info-card mb-5" style="border-left:4px solid var(--primary);">
+                    <p style="font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--primary-light);font-weight:700;margin-bottom:12px;">Procedimientos</p>
+                    <h3 style="font-size:18px;font-weight:800;color:var(--dark);margin-bottom:20px;">Procedimientos Especiales en Neurología</h3>
+                    <p style="font-size:13.5px;color:#666;margin-bottom:20px;">Intervenciones mínimamente invasivas realizadas por el médico neurólogo especialista.</p>
+                    <div class="row g-3">
+                        @foreach([
+                            ['fa-syringe', 'Inyección de anestésico — Nervio Periférico', 'Bloqueo de nervio periférico mediante inyección de agente anestésico local, por punto. Indicado en dolor neuropático y diagnóstico diferencial.'],
+                            ['fa-dot-circle', 'Bloqueo Unión Mioneural', 'Bloqueo de la unión neuromuscular por punto. Indicado en espasticidad focal, contracturas musculares y dolor miofascial.'],
+                            ['fa-flask', 'Inyección de Toxina Botulínica', 'Aplicación de material miorelajante (toxina botulínica tipo A) para tratamiento de espasticidad, distonias y espasmo hemifacial.'],
+                            ['fa-microchip', 'Revisión de Neuroestimulador', 'Revisión técnica y programación de dispositivos de neuroestimulación implantados (DBS). Verificación de parámetros, batería y respuesta clínica.'],
+                        ] as $proc)
+                            <div class="col-md-6">
+                                <div style="display:flex;gap:14px;align-items:flex-start;background:#f8faf9;border-radius:12px;padding:16px;">
+                                    <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                        <i class="fa {{ $proc[0] }}" style="color:#fff;font-size:16px;"></i>
+                                    </div>
+                                    <div>
+                                        <p style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:4px;">{{ $proc[1] }}</p>
+                                        <p style="font-size:12.5px;color:#666;line-height:1.7;margin:0;">{{ $proc[2] }}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </a>
+                        @endforeach
                     </div>
-                @endforeach
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-    <div style="text-align:center;margin-top:40px;">
-        <a href="{{ route('landing.inicio') }}#map" class="btn-cta-solid" style="border-radius:25px;padding:13px 35px;font-size:13px;text-decoration:none;">Solicitar Cita</a>
-        <a href="{{ route('especialidades') }}" class="btn-cta-outline" style="border-radius:25px;padding:11px 33px;font-size:13px;text-decoration:none;margin-left:12px;">Ver todas las especialidades</a>
+        @include('components.page-cta', ['secondaryHref' => route('especialidades'), 'secondaryLabel' => 'Ver todas las especialidades'])
     </div>
 </section>
 @endsection
+

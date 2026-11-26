@@ -22,3 +22,5 @@ yarn-error.log
 *.zip
 DO_NOT_UPLOAD_HERE
 /storage/logs/*.log
+
+.env.bak

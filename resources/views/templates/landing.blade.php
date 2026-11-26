@@ -2,32 +2,80 @@
 @section('title', 'INICIO')
 @section('content')
 
+<!-- BANNER DE AVISO: usa banners activos desde admin (si existen) -->
+@if(isset($banners) && $banners->count())
+    @php
+        $b = $banners->first();
+        $bannerSeconds = max(5, min(300, (int) setting('banner_seconds', 30)));
+    @endphp
+    <div id="site-banner"
+         data-banner-id="{{ $b->id }}"
+         data-banner-seconds="{{ $bannerSeconds }}"
+         style="display:none; position:fixed;top:80px;left:0;right:0;z-index:1050;align-items:center;justify-content:center;">
+        <div style="position:relative;max-width:1100px;margin:0 auto;">
+            <img id="site-banner-img" src="{{ $b->imageUrl() }}" alt="banner" style="width:100%;height:auto;border-radius:8px;box-shadow:0 12px 36px rgba(0,0,0,0.24);display:block;">
+            <button id="site-banner-close" aria-label="Cerrar aviso" style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.6);border:0;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">×</button>
+        </div>
+    </div>
+@else
+    <!-- No banners activos -->
+    <div id="site-banner" style="display:none;"></div>
+@endif
+
 <style>
     body { padding-top: var(--navbar-h, 80px); }
-
+    
+ /* Las slides siempre están en el DOM, apiladas con la misma altura */
     .hero-section {
         position: relative;
         overflow: hidden;
-        min-height: calc(100vh - 80px);
+        height: calc(100vh - var(--navbar-h, 80px));
+        min-height: 560px;
     }
-    .hero-slide {
-        display: none;
-        min-height: calc(100vh - 80px);
-        position: relative;
-        align-items: stretch;
-    }
-    .hero-slide.active { display: flex; }
 
-    /* LEFT PANEL */
+    .hero-slide {
+        display: flex !important;
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        align-items: stretch;
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(1.03);
+        transition: opacity 1.05s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.05s, transform 1.2s ease;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .hero-slide.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: scale(1);
+        z-index: 2;
+    }
+
     .hero-left {
         width: 42%;
-        min-height: calc(100vh - 80px);
+        flex-shrink: 0;
         display: flex;
         align-items: center;
         padding: 70px 55px 70px 65px;
         position: relative;
         z-index: 2;
         overflow: hidden;
+        opacity: 0;
+        transform: translateX(-30px);
+        transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        transition-delay: 0.12s;
+        border-radius: 0 40px 40px 0;
+        background: linear-gradient(150deg, #2e4a47 0%, #4a6b68 100%);
+    }
+    .hero-left.hero-variant-2 { background: linear-gradient(150deg, #1a2e2c 0%, #2e4a47 100%); }
+    .hero-left.hero-variant-3 { background: linear-gradient(150deg, #3d6360 0%, #5e8582 100%); }
+    .hero-slide.active .hero-left {
+        opacity: 1;
+        transform: translateX(0);
     }
     .hero-left::before {
         content: '';
@@ -48,6 +96,14 @@
         pointer-events: none;
     }
     .hero-left-content { position: relative; z-index: 1; }
+    .hero-slide.active .hero-eyebrow { animation: heroCopyIn 0.7s ease both; }
+    .hero-slide.active .hero-title { animation: heroCopyIn 0.75s ease 0.08s both; }
+    .hero-slide.active .hero-desc { animation: heroCopyIn 0.75s ease 0.16s both; }
+    .hero-slide.active .hero-btn-group { animation: heroCopyIn 0.75s ease 0.24s both; }
+    @keyframes heroCopyIn {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
     .hero-eyebrow {
         display: inline-flex;
         align-items: center;
@@ -87,69 +143,119 @@
         max-width: 380px;
     }
     .hero-btn-group { display: flex; gap: 14px; flex-wrap: wrap; }
-    .hero-btn-primary {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: #fff;
-        color: #2e4a47;
-        padding: 14px 30px;
-        border-radius: 40px;
-        font-weight: 700;
-        font-size: 12px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    }
-    .hero-btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 30px rgba(0,0,0,0.22);
-        color: #2e4a47;
-    }
+    .hero-btn-primary,
     .hero-btn-secondary {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        background: transparent;
-        color: rgba(255,255,255,0.85);
-        padding: 14px 28px;
-        border-radius: 40px;
-        font-weight: 600;
-        font-size: 12px;
+        justify-content: center;
+        gap: 10px;
+        padding: 14px 30px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-family: inherit;
         letter-spacing: 1px;
         text-transform: uppercase;
         text-decoration: none;
-        border: 1.5px solid rgba(255,255,255,0.35);
-        transition: all 0.3s ease;
+        cursor: pointer;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+        border: 1.5px solid transparent;
+    }
+    .hero-btn-primary {
+        background: #ffffff;
+        color: #2e4a47;
+        font-weight: 700;
+        border-color: transparent;
+        box-shadow: 0 18px 38px rgba(74,107,104,0.16);
+    }
+    .hero-btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 20px 46px rgba(74,107,104,0.2);
+        background: #f6fbf9;
+        color: #1f3f3a;
+    }
+    .hero-btn-secondary {
+        background: rgba(255,255,255,0.14);
+        color: #ffffff;
+        font-weight: 700;
+        border-color: rgba(255,255,255,0.35);
     }
     .hero-btn-secondary:hover {
-        background: rgba(255,255,255,0.12);
-        color: #fff;
-        border-color: rgba(255,255,255,0.6);
+        transform: translateY(-2px);
+        background: rgba(255,255,255,0.22);
+        border-color: rgba(255,255,255,0.55);
     }
-
 
     .hero-right {
-        width: 58%;
-        min-height: calc(85vh - 80px);
+        flex: 1;
+        min-width: 0;
         position: relative;
         overflow: hidden;
+        height: 100%;
+        transition: transform 0.45s ease;
+        background: radial-gradient(circle at top right, rgba(255,255,255,0.08), transparent 30%);
+        border-radius: 0 40px 40px 0;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
     }
+
     .hero-right img {
-        width: 100%; height: 100%;
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
-        object-position: center top;
-        transition: transform 8s ease;
+        object-position: center center;
+        transform: scale(1);
+        transition: transform 7s ease-out;
+        opacity: 0.98;
     }
-    .hero-slide.active .hero-right img { transform: scale(1.04); }
+    .hero-slide.active .hero-right img {
+        transform: scale(1.1);
+    }
+
+    .hero-right::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.08), transparent 32%),
+                    linear-gradient(to right, rgba(0,0,0,0.24) 0%, transparent 42%),
+                    linear-gradient(to top, rgba(0,0,0,0.28) 0%, transparent 40%);
+        pointer-events: none;
+        z-index: 5;
+    }
     .hero-right::after {
         content: '';
         position: absolute;
         inset: 0;
-        background: linear-gradient(to right, rgba(0,0,0,0.25) 0%, transparent 40%),
-                    linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 40%);
+        background: linear-gradient(to right, rgba(0,0,0,0.12) 0%, transparent 42%),
+                    linear-gradient(to top, rgba(0,0,0,0.16) 0%, transparent 45%);
+        pointer-events: none;
+        z-index: 6;
+    }
+
+    .hero-vigilado {
+        position: absolute;
+        bottom: 28px; right: 28px;
+        z-index: 15;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 150px;
+        max-width: 180px;
+        background: rgba(255,255,255,0.94);
+        backdrop-filter: blur(14px);
+        padding: 8px 14px;
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,0.82);
+        box-shadow: 0 14px 35px rgba(0,0,0,0.14);
+        overflow: hidden;
+        white-space: nowrap;
+        line-height: 0;
+    }
+    .hero-vigilado img {
+        height: 28px;
+        width: auto;
+        max-width: 100%;
+        display: block;
     }
 
     .hero-diagonal {
@@ -189,18 +295,6 @@
         50% { transform: scaleY(0.6); opacity: 0.3; }
     }
 
-
-    .hero-vigilado {
-        position: absolute;
-        bottom: 28px; right: 28px;
-        z-index: 10;
-        background: rgba(255,255,255,0.92);
-        backdrop-filter: blur(8px);
-        padding: 8px 14px;
-        border-radius: 8px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    }
-    .hero-vigilado img { height: 30px; }
 
     /* Decorative ring */
     .hero-deco-circle {
@@ -346,19 +440,29 @@
         overflow: hidden;
     }
     .service-card {
-        background: #fff;
-        border-radius: 20px;
+        background: #ffffff;
+        border-radius: 26px;
         overflow: hidden;
-        box-shadow: 0 2px 20px rgba(0,0,0,0.04);
-        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        border: 1px solid rgba(74,107,104,0.08);
+        transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.7s ease, box-shadow 0.35s ease, border-color 0.35s ease;
         text-decoration: none;
         color: inherit;
         display: block;
         height: 100%;
     }
+    .services-section.js-anim .service-card {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    .services-section.js-anim .service-card.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .services-section.js-anim .service-card.is-visible:hover,
     .service-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 50px rgba(74,107,104,0.16);
+        transform: translateY(-8px);
+        box-shadow: 0 24px 60px rgba(29,49,47,0.1);
+        border-color: rgba(74,107,104,0.16);
         color: inherit;
     }
     .service-card .card-img {
@@ -375,7 +479,7 @@
     .service-card .card-img-overlay {
         position: absolute;
         inset: 0;
-        background: linear-gradient(to top, rgba(15,31,30,0.55) 0%, transparent 55%);
+        background: linear-gradient(to top, rgba(15,31,30,0.36) 0%, transparent 58%);
         opacity: 0;
         transition: opacity 0.4s ease;
     }
@@ -386,32 +490,32 @@
         font-size: 11px;
         font-weight: 800;
         letter-spacing: 1px;
-        color: rgba(255,255,255,0.9);
-        background: rgba(74,107,104,0.75);
+        color: rgba(255,255,255,0.95);
+        background: rgba(74,107,104,0.88);
         backdrop-filter: blur(6px);
-        padding: 4px 10px;
-        border-radius: 20px;
+        padding: 5px 12px;
+        border-radius: 999px;
         z-index: 2;
     }
     .service-card .card-body-custom {
-        padding: 28px 26px 26px;
+        padding: 32px 28px 30px;
         position: relative;
     }
     .service-card .card-body-custom::before {
         content: '';
         position: absolute;
-        top: 0; left: 26px;
-        width: 40px; height: 3px;
+        top: 0; left: 28px;
+        width: 48px; height: 4px;
         background: #4a6b68;
-        border-radius: 0 0 2px 2px;
+        border-radius: 999px;
         transition: width 0.3s ease;
     }
-    .service-card:hover .card-body-custom::before { width: 80px; }
+    .service-card:hover .card-body-custom::before { width: 92px; }
     .service-card h5 {
-        font-size: 15px;
+        font-size: 16px;
         font-weight: 800;
         color: #0f1f1e;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
     }
     .service-card p {
         font-size: 13.5px;
@@ -438,30 +542,79 @@
         background: #0f1f1e;
         padding: 55px 0;
     }
+    .specialties-strip .strip-label {
+        text-align: center;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: #9FE1CB;
+        margin-bottom: 28px;
+    }
     .specialty-item {
         display: flex;
         align-items: center;
-        gap: 16px;
-        padding: 0 35px;
+        gap: 14px;
+        padding: 0 18px;
         border-right: 1px solid rgba(255,255,255,0.07);
+        height: 100%;
     }
     .specialty-item:last-child { border-right: none; }
     .specialty-icon {
-        width: 50px; height: 50px;
+        width: 46px; height: 46px;
         background: rgba(74,107,104,0.35);
         border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
         color: #c8dedd;
-        font-size: 19px;
+        font-size: 17px;
         flex-shrink: 0;
     }
     .specialty-text h6 {
-        font-size: 13px;
+        font-size: 12.5px;
         font-weight: 700;
         color: #fff;
         margin: 0 0 3px;
     }
-    .specialty-text p { font-size: 11.5px; color: #6b8080; margin: 0; font-weight: 300; }
+    .specialty-text p { font-size: 11px; color: #6b8080; margin: 0; font-weight: 300; }
+
+    .services-row-label {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--primary);
+        margin: 8px 0 16px;
+    }
+
+    .home-staff-list {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(29,49,47,0.08);
+        overflow: hidden;
+    }
+    .home-staff-row {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr 1.4fr;
+        gap: 18px;
+        padding: 22px 28px;
+        border-bottom: 1px solid #eef3f2;
+        align-items: start;
+    }
+    .home-staff-row:last-child { border-bottom: none; }
+    .home-staff-row:hover { background: #f7fbfa; }
+    .home-staff-name { font-size: 16px; font-weight: 800; color: var(--dark); }
+    .home-staff-spec {
+        font-size: 12px; font-weight: 700; color: var(--primary);
+        text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .home-staff-meta span {
+        display: inline-block; font-size: 12px; color: #888; margin-bottom: 6px;
+    }
+    .home-staff-meta p { font-size: 13px; color: #666; line-height: 1.7; margin: 0; }
+    @media (max-width: 768px) {
+        .home-staff-row { grid-template-columns: 1fr; gap: 6px; padding: 18px 20px; }
+        .specialty-item { border-right: none; padding: 10px 12px; }
+    }
 
     .about-section {
         padding: 110px 0;
@@ -554,6 +707,7 @@
         margin: 0 8px 12px;
         transition: all 0.3s ease;
         box-shadow: 0 6px 30px rgba(0,0,0,0.18);
+        cursor: pointer; font-family: inherit; border: 0;
     }
     .btn-white-lg:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.25); color: #2e4a47; }
     .btn-ghost-lg {
@@ -565,20 +719,51 @@
         text-transform: uppercase; text-decoration: none;
         margin: 0 8px 12px;
         transition: all 0.3s ease;
+        cursor: pointer; font-family: inherit;
     }
     .btn-ghost-lg:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.65); color: #fff; transform: translateY(-2px); }
 
 
     @media (max-width: 991px) {
-        .hero-slide { flex-direction: column; min-height: auto; }
-        .hero-left { width: 100%; min-height: auto; padding: 55px 30px 50px; }
-        .hero-right { width: 100%; min-height: 60vw; }
+        .hero-section {
+            height: auto;
+            min-height: 0;
+        }
+        .hero-slide {
+            flex-direction: column;
+            position: absolute;
+            inset: 0;
+            height: 100%;
+            min-height: 100%;
+        }
+        .hero-slide.active {
+            position: relative;
+            height: auto;
+            min-height: 0;
+        }
+        .hero-left {
+            width: 100%;
+            flex: 0 0 auto;
+            padding: 48px 28px 36px;
+            border-radius: 0;
+        }
+        .hero-right {
+            width: 100%;
+            flex: 0 0 auto;
+            min-height: 0;
+            height: auto;
+            aspect-ratio: 16 / 10;
+            border-radius: 0;
+        }
+        .hero-desc { max-width: none; }
         .hero-diagonal { display: none; }
         .hero-scroll { display: none; }
         .hero-prev { left: 20px; bottom: 20px; }
         .hero-next { left: 74px; bottom: 20px; }
         .hero-dots { left: 130px; bottom: 32px; }
-        .hero-counter { right: 20px; }
+        .hero-counter { right: 20px; top: 20px; }
+        .hero-vigilado { bottom: 72px; right: 16px; }
+        .hero-deco-circle { top: 16px; right: 16px; width: 70px; height: 70px; }
         .stats-inner { grid-template-columns: repeat(2, 1fr); }
         .stat-item:nth-child(2n) { border-right: none; }
         .stat-item { border-bottom: 1px solid #eaf2f1; }
@@ -586,27 +771,37 @@
         .about-checks { grid-template-columns: 1fr; }
         .specialty-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); padding: 20px 0; }
     }
+
     @media (max-width: 575px) {
-        .hero-left { padding: 45px 22px; }
-        .hero-title { font-size: 30px; }
-        .hero-prev { left: 15px; }
-        .hero-next { left: 65px; }
+        .hero-left { padding: 40px 20px 28px; }
+        .hero-title { font-size: 28px; }
+        .hero-desc { font-size: 13.5px; margin-bottom: 28px; }
+        .hero-btn-group { gap: 10px; }
+        .hero-btn-primary,
+        .hero-btn-secondary { padding: 12px 22px; font-size: 11px; }
+        .hero-right { aspect-ratio: 4 / 3; }
+        .hero-prev { left: 15px; bottom: 16px; width: 40px; height: 40px; }
+        .hero-next { left: 63px; bottom: 16px; width: 40px; height: 40px; }
         .hero-dots { display: none; }
+        .hero-counter { right: 15px; top: 15px; }
+        .hero-vigilado { bottom: 64px; right: 12px; padding: 6px 10px; }
+        .hero-vigilado img { height: 24px; }
     }
 
     /* ===== TEAM ===== */
     .team-section { padding: 100px 0; background: var(--white); }
-    .team-card { background:#fff; border-radius:20px; overflow:hidden; box-shadow:0 6px 30px rgba(74,107,104,0.09); transition:transform 0.35s,box-shadow 0.35s; height:100%; }
-    .team-card:hover { transform:translateY(-8px); box-shadow:0 18px 50px rgba(74,107,104,0.18); }
-    .team-photo { height:220px; display:flex; align-items:center; justify-content:center; background:linear-gradient(150deg,var(--primary-dark) 0%,var(--primary) 100%); position:relative; overflow:hidden; }
-    .team-photo::after { content:''; position:absolute; bottom:-20px; left:50%; transform:translateX(-50%); width:100px; height:40px; background:#fff; border-radius:50%; box-shadow:0 -6px 0 #fff; }
-    .team-avatar { width:100px; height:100px; border-radius:50%; border:4px solid rgba(255,255,255,0.3); display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.15); font-size:36px; font-weight:900; color:#fff; position:relative; z-index:1; }
+    .team-card { background:#ffffff; border-radius:26px; overflow:hidden; box-shadow:0 24px 60px rgba(29,49,47,0.08); transition: transform 0.35s, box-shadow 0.35s; height:100%; }
+    .team-card:hover { transform: translateY(-8px); box-shadow:0 34px 72px rgba(29,49,47,0.12); }
+    .team-photo { height:220px; display:flex; align-items:center; justify-content:center; background: linear-gradient(150deg, #2e4a47 0%, #4a6b68 100%); position:relative; overflow:hidden; }
+    .team-photo::after { content:''; position:absolute; bottom:-20px; left:50%; transform:translateX(-50%); width:100px; height:40px; background:#ffffff; border-radius:50%; box-shadow:0 -6px 0 #ffffff; }
+    .team-avatar { width:100px; height:100px; border-radius:50%; border:4px solid rgba(255,255,255,0.28); display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.16); font-size:36px; font-weight:900; color:#ffffff; position:relative; z-index:1; }
     .team-info { padding:32px 28px 28px; text-align:center; }
-    .team-info .tag { display:inline-block; background:var(--primary-ultra); color:var(--primary); font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:4px 14px; border-radius:20px; margin-bottom:12px; }
-    .team-info h4 { font-size:17px; font-weight:800; color:var(--dark); margin-bottom:6px; }
+    .team-info .tag { display:inline-block; background:rgba(74,107,104,0.1); color:var(--primary-dark); font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:6px 16px; border-radius:999px; margin-bottom:14px; }
+    .team-info h4 { font-size:18px; font-weight:800; color:var(--dark); margin-bottom:8px; }
     .team-info .exp { font-size:13px; color:var(--text-light); margin-bottom:12px; }
     .team-info p { font-size:13px; color:#666; line-height:1.7; margin:0; }
-    .team-img {width: 100%;height: 100%;object-fit: cover;border-radius: inherit;display: block;}
+    .team-img {width: 100%;height: 100%;object-fit: cover;border-radius: inherit;display: block;position:relative;z-index:1;}
+    .team-photo:has(img)::after { display: none; }
 
     /* ===== TESTIMONIALS ===== */
     .testimonials-section { padding:100px 0; background:var(--primary-ultra); }
@@ -631,24 +826,26 @@
      HERO SECTION
 ============================================= -->
 <section class="hero-section" id="top">
+    
+    
 
     <div class="hero-slide active" data-slide="0">
-        <div class="hero-left" style="background: linear-gradient(150deg, #2e4a47 0%, #4a6b68 100%);">
+        <div class="hero-left hero-variant-1">
             <div class="hero-left-content">
-                <span class="hero-eyebrow">Pasto, Nariño · Colombia</span>
+                <span class="hero-eyebrow">{{ setting('hero_eyebrow') }}</span>
                 <h1 class="hero-title">
-                    Instituto<br>Neurociencias,<br>
-                    <em>Su salud, nuestra prioridad</em>
+                    {{ setting('hero_line1') }}<br>{{ setting('hero_line2') }}<br>
+                    <em>{{ setting('hero_em') }}</em>
                 </h1>
                 <p class="hero-desc">
-                    Atención especializada en neurología y epileptología, con tecnología de diagnóstico avanzada y un equipo médico comprometido con su bienestar.
+                    {{ setting('hero_desc') }}
                 </p>
                 <div class="hero-btn-group">
                     <a href="#about" class="hero-btn-primary">
                         Conózcanos
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </a>
-                    <a href="{{ route('landing.inicio') }}#map" class="hero-btn-secondary">Solicitar Cita</a>
+                    <button type="button" class="hero-btn-secondary" data-bs-toggle="modal" data-bs-target="#solicitarCitaModal">Solicitar Cita</button>
                 </div>
             </div>
         </div>
@@ -669,7 +866,7 @@
 
 
     <div class="hero-slide" data-slide="1">
-        <div class="hero-left" style="background: linear-gradient(150deg, #1a2e2c 0%, #2e4a47 100%);">
+        <div class="hero-left hero-variant-2">
             <div class="hero-left-content">
                 <span class="hero-eyebrow">Equipo Electrodiagnóstico</span>
                 <h1 class="hero-title">
@@ -684,7 +881,7 @@
                         Ver servicios
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </a>
-                    <a href="{{ route('landing.inicio') }}#map" class="hero-btn-secondary">Solicitar Cita</a>
+                    <button type="button" class="hero-btn-secondary" data-bs-toggle="modal" data-bs-target="#solicitarCitaModal">Solicitar Cita</button>
                 </div>
             </div>
         </div>
@@ -706,7 +903,7 @@
 
 
     <div class="hero-slide" data-slide="2">
-        <div class="hero-left" style="background: linear-gradient(150deg, #3d6360 0%, #5e8582 100%);">
+        <div class="hero-left hero-variant-3">
             <div class="hero-left-content">
                 <span class="hero-eyebrow">FISIOTERAPIA</span>
                 <h1 class="hero-title">
@@ -720,7 +917,7 @@
                         Ver terapias
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </a>
-                    <a href="{{ route('landing.inicio') }}#map" class="hero-btn-secondary">Solicitar Cita</a>
+                    <button type="button" class="hero-btn-secondary" data-bs-toggle="modal" data-bs-target="#solicitarCitaModal">Solicitar Cita</button>
                 </div>
             </div>
         </div>
@@ -787,61 +984,28 @@
 </section>
 
 <!-- =============================================
-     SERVICES SECTION
+     SERVICES SECTION — 3 filas
 ============================================= -->
 <section class="services-section" id="services">
     <div class="container">
-        <div class="row mb-5">
-            <div class="col-lg-7">
-                <span class="section-eyebrow fade-up">Ofrecemos un</span>
-                <h2 class="section-heading fade-up">Portafolio de<br>Servicios</h2>
-                <p class="section-subtext fade-up">Con atención especializada en neurología, epileptología y fisioterapia con enfoque humano, personalizado y basado en evidencia científica.</p>
-            </div>
+        <div class="text-center mb-5 fade-up">
+            <h2 class="section-heading" style="text-align:center;">{{ setting('services_title') }}</h2>
+            <p class="section-subtext" style="max-width:560px; margin:0 auto;">{{ setting('services_subtitle') }}</p>
         </div>
-        <div class="row g-4">
-            <div class="col-lg-4 col-md-6 fade-up">
-                <a href="{{ route('landing.tiposConsulta') }}" class="service-card">
-                    <div class="card-img">
-                        <img src="{{ asset('assets/img/TipoC.png') }}" alt="Tipos de Consulta">
-                        <div class="card-img-overlay"></div>
-                        <span class="card-num">01</span>
-                    </div>
-                    <div class="card-body-custom">
-                        <h5>Tipos de Consulta</h5>
-                        <p>Consulta especializada en neurología y epileptología. Diagnóstico y manejo integral de trastornos del sistema nervioso.</p>
-                        <span class="card-arrow">Ver más →</span>
-                    </div>
-                </a>
+
+        @php
+            $serviceSections = \App\Models\HomeService::sections();
+            $serviceGroups = array_filter($homeServices ?? \App\Models\HomeService::publishedBySection(), fn ($rows) => count($rows) > 0);
+            $lastServiceKey = array_key_last($serviceGroups);
+        @endphp
+        @foreach($serviceGroups as $sectionKey => $rows)
+            <p class="services-row-label fade-up">{{ $serviceSections[$sectionKey] ?? $sectionKey }}</p>
+            <div class="row g-4 {{ $sectionKey === $lastServiceKey ? '' : 'mb-4' }}">
+                @foreach($rows as $service)
+                    <div class="{{ $sectionKey === 'consulta' ? 'col-lg-3' : 'col-lg-4' }} col-md-6" @if($service->preview_focus) data-preview-focus @endif><a href="{{ $service->linkUrl() }}" class="service-card">@if($service->imageUrl())<div class="card-img"><img src="{{ $service->imageUrl() }}" alt="{{ $service->title }}" loading="lazy"><div class="card-img-overlay"></div></div>@endif<div class="card-body-custom"><h5>{{ $service->title }}</h5><p>{{ $service->description }}</p><span class="card-arrow">Ver más →</span></div></a></div>
+                @endforeach
             </div>
-            <div class="col-lg-4 col-md-6 fade-up">
-                <a href="{{ route('landing.tiposTerapia') }}" class="service-card">
-                    <div class="card-img">
-                        <img src="{{ asset('assets/img/fisio.webp') }}" alt="Tipos de Terapia">
-                        <div class="card-img-overlay"></div>
-                        <span class="card-num">02</span>
-                    </div>
-                    <div class="card-body-custom">
-                        <h5>Tipos de Terapia</h5>
-                        <p>Terapia ingeral, ondas de choque, terapias de tracción...</p>
-                        <span class="card-arrow">Ver más →</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-4 col-md-6 fade-up">
-                <a href="{{ route('landing.electrodiagnosticos') }}" class="service-card">
-                    <div class="card-img">
-                        <img src="{{ asset('assets/img/Electro-1.png') }}" alt="Electrodiagnósticos">
-                        <div class="card-img-overlay"></div>
-                        <span class="card-num">03</span>
-                    </div>
-                    <div class="card-body-custom">
-                        <h5>Electrodiagnósticos</h5>
-                        <p>Electroencefalograma, polisomnografía y estudios de sueño con tecnología de diagnóstico avanzada.</p>
-                        <span class="card-arrow">Ver más →</span>
-                    </div>
-                </a>
-            </div>
-        </div>
+        @endforeach
     </div>
 </section>
 
@@ -850,8 +1014,9 @@
 ============================================= -->
 <section class="specialties-strip">
     <div class="container">
-        <div class="row g-0">
-            <div class="col-lg-3 col-sm-6 mb-3 mb-lg-0">
+        <p class="strip-label">Servicios especializados</p>
+        <div class="row g-0 justify-content-center">
+            <div class="col-lg-2 col-md-4 col-6 mb-3 mb-lg-0">
                 <div class="specialty-item">
                     <div class="specialty-icon"><i class="fas fa-brain"></i></div>
                     <div class="specialty-text">
@@ -860,30 +1025,48 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6 mb-3 mb-lg-0">
+            <div class="col-lg-2 col-md-4 col-6 mb-3 mb-lg-0">
                 <div class="specialty-item">
-                    <div class="specialty-icon"><i class="fas fa-heartbeat"></i></div>
+                    <div class="specialty-icon"><i class="fas fa-bolt"></i></div>
                     <div class="specialty-text">
                         <h6>Epileptología</h6>
                         <p>Diagnóstico y manejo</p>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6 mb-3 mb-lg-0">
+            <div class="col-lg-2 col-md-4 col-6 mb-3 mb-lg-0">
                 <div class="specialty-item">
-                    <div class="specialty-icon"><i class="fas fa-wave-square"></i></div>
+                    <div class="specialty-icon"><i class="fas fa-moon"></i></div>
                     <div class="specialty-text">
-                        <h6>Electrodiagnósticos</h6>
-                        <p>EEG, EMG, Polisomnografía</p>
+                        <h6>Somnología</h6>
+                        <p>Clínica del sueño</p>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6">
+            <div class="col-lg-2 col-md-4 col-6 mb-3 mb-lg-0">
+                <div class="specialty-item">
+                    <div class="specialty-icon"><i class="fas fa-wave-square"></i></div>
+                    <div class="specialty-text">
+                        <h6>Electrodiagnóstico</h6>
+                        <p>EEG, VTM, PSG</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6 mb-3 mb-lg-0">
                 <div class="specialty-item">
                     <div class="specialty-icon"><i class="fas fa-hands-helping"></i></div>
                     <div class="specialty-text">
-                        <h6>Fisioterapia</h6>
-                        <p>Terapias integrales</p>
+                        <h6>Terapia física</h6>
+                        <p>Rehabilitación integral</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6">
+                <div class="specialty-item">
+                    <div class="specialty-icon"><i class="fas fa-puzzle-piece"></i></div>
+                    <div class="specialty-text">
+                        <h6>Neuropsicología</h6>
+                        <p>Evaluación cognitiva</p>
                     </div>
                 </div>
             </div>
@@ -903,112 +1086,28 @@
             <h2 class="section-heading" style="text-align:center;">Equipo Médico</h2>
             <p class="section-subtext" style="max-width:520px; margin:0 auto;">Profesionales altamente capacitados, comprometidos con su salud y bienestar.</p>
         </div>
-        <div class="row g-4">
-            <div class="col-lg-4 col-md-6 fade-up">
-                <div class="team-card">
-                    <div class="team-photo"><div class="team-avatar">JZ</div></div>
-                    <div class="team-info">
-                        <span class="tag">Neurólogo Clínico - Experto en Medicina del Sueño</span>
-                        <h4>Dr. José A. Zambrano A.</h4>
-                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; +18 años de experiencia</p>
-                        <p>Miembro de la Junta Directiva de la Seccional Sur Occidente de la Asociación Colombiana de Medicina del Sueño</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 fade-up">
-                <div class="team-card">
-                    <div class="team-photo"><div class="team-avatar">JZL</div></div>
-                    <div class="team-info">
-                        <span class="tag">Epileptólogo - Neurólogo</span>
-                        <h4>Dr. José A. Zambrano León</h4>
-                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; +9 años de experiencia</p>
-                        <p>-------------.</p>
-                    </div>
-                </div>
-            </div>
 
-            
-            <div class="col-lg-4 col-md-6 fade-up">
-                <div class="team-card">
-                    <div class="team-photo"><div class="team-avatar">ML</div></div>
-                    <div class="team-info">
-                        <span class="tag">Medicina General</span>
-                        <h4>Dra. María A. León R.</h4>
-                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Médica · Medicina General</p>
-                        <p>Médica especializada en -----</p>
+        <div class="home-staff-list fade-up">
+            @forelse(($teamMembers ?? collect()) as $doc)
+                <div class="home-staff-row" @if($doc->preview_focus) data-preview-focus @endif>
+                    <div class="home-staff-name">{{ $doc->name }}</div>
+                    <div class="home-staff-spec">{{ $doc->specialty }}</div>
+                    <div class="home-staff-meta">
+                        @if($doc->experience)
+                            <span>{{ $doc->experience }}</span>
+                        @endif
+                        @if($doc->bio)
+                            <p>{{ $doc->bio }}</p>
+                        @endif
                     </div>
                 </div>
-            </div>
+            @empty
+                <p style="text-align:center;color:#888;">El equipo se actualizará próximamente.</p>
+            @endforelse
+        </div>
 
-            <div class="col-lg-4 col-md-6 fade-up">
-                <div class="team-card">
-                    <div class="team-photo" style="background:linear-gradient(150deg,#1a5276,#2980b9);"><div class="team-avatar">AG</div></div>
-                    <div class="team-info">
-                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">Fisioterapeuta</span>
-                        <h4>Dra. Adriana Gelpud</h4>
-                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; +7 años de experiencia</p>
-                        <p>Con experiencia en aplicación de ondas de choque, tracción mecánica, rehabilitación de piso pélvico y terapia respiratoria. </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 fade-up">
-                <div class="team-card">
-                    <div class="team-photo" style="background:linear-gradient(150deg,#1a5276,#2980b9);"><div class="team-avatar">TR</div></div>
-                    <div class="team-info">
-                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">Fisioterapeuta - Esp. Salud Ocupacional</span>
-                        <h4>Dra. Teresa Rodríguez</h4>
-                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; +8 años de experiencia</p>
-                        <p>Énfasis en traumatología y ortopedia con experiencia en rehabilitación y acondicionamiento físico.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 fade-up">
-                <div class="team-card">
-                    <div class="team-photo" style="background:linear-gradient(150deg,#1a5276,#2980b9);"><div class="team-avatar">KQ</div></div>
-                    <div class="team-info">
-                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">Fisioterapeuta - Mg. Fisioterapia Pediátrica</span>
-                        <h4>Dra. Karen Quiroz</h4>
-                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; +6 años de experiencia </p>
-                        <p>Rehabilitación funcional, enfocada en la evaluación</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 fade-up">
-                <div class="team-card">
-                    <div class="team-photo" style="background:linear-gradient(150deg,#1a5276,#2980b9);"><div class="team-avatar">SL</div></div>
-                    <div class="team-info">
-                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">PSICÓLOGO</span>
-                        <h4>Dr. Sebastian G. Lagos</h4>
-                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Psicólogo · Psicología</p>
-                        <p>Psicólogo especializado en -----.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 fade-up">
-                <div class="team-card">
-                    <div class="team-photo" style="background:linear-gradient(150deg,#1a5276,#2980b9);"><div class="team-avatar">NP</div></div>
-                    <div class="team-info">
-                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">Neuropsicología</span>
-                        <h4>Dra. Nathalia Portilla</h4>
-                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Neuropsicóloga · Neuropsicología</p>
-                        <p>Neuropsicóloga especializada en -----.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 fade-up">
-                <div class="team-card">
-                    <div class="team-photo" style="background:linear-gradient(150deg,#1a5276,#2980b9);"><div class="team-avatar">PSQ</div></div>
-                    <div class="team-info">
-                        <span class="tag" style="background:#e8f4fd;color:#1a5276;">Psiquiatra</span>
-                        <h4>Dra. ----</h4>
-                        <p class="exp"><i class="fas fa-star" style="color:var(--primary);font-size:11px;"></i>&nbsp; Psiquiatra · Psiquiatría</p>
-                        <p>Psiquiatra especializada en -----.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="text-center mt-4 fade-up">
+            <a href="{{ route('directorioMedico') }}" class="btn-cta-outline" style="border-radius:25px;padding:12px 28px;font-size:13px;text-decoration:none;">Ver directorio completo</a>
         </div>
     </div>
 </section>
@@ -1020,42 +1119,150 @@
     <div class="container">
         <div class="text-center mb-5 fade-up">
             <span class="section-eyebrow" style="justify-content:center;">Lo que dicen nuestros pacientes</span>
-            <h2 class="section-heading" style="text-align:center;">Testimonios</h2>
+            <h2 class="section-heading" style="text-align:center;">Reseñas</h2>
         </div>
-        <div class="row g-4">
-            <div class="col-lg-4 col-md-6 fade-up">
-                <div class="testi-card">
-                    <div class="testi-stars">★★★★★</div>
-                    <p class="testi-text">&ldquo; -- &rdquo;</p>
-                    <div class="testi-author">
-                        <div class="testi-avatar"> </div>
-                        <div><div class="testi-name">  </div><div class="testi-detail">   </div></div>
+        <div class="row g-4" id="testimoniosContainer">
+            @if($testimonials && $testimonials->count() > 0)
+                @foreach($testimonials as $testimonial)
+                    <div class="col-lg-4 col-md-6 fade-up">
+                        <div class="testi-card" @if($testimonial->preview_focus) data-preview-focus @endif>
+                            <div class="testi-stars">{{ str_repeat('★', $testimonial->rating) }}</div>
+                            <p class="testi-text">&ldquo;{{ $testimonial->text }}&rdquo;</p>
+                            
+                            {{-- Mostrar vista previa del archivo adjunto si existe --}}
+                            @if($testimonial->file_path)
+                                @php
+                                    $extension = strtolower(pathinfo($testimonial->file_path, PATHINFO_EXTENSION));
+                                    $isImage = in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'webp'])
+                                        || ($testimonial->file_type && str_contains($testimonial->file_type, 'image'));
+                                    $isPdf = $extension === 'pdf'
+                                        || ($testimonial->file_type && str_contains($testimonial->file_type, 'pdf'));
+                                    $fileUrl = $testimonial->file_url;
+                                @endphp
+                                
+                                @if($isImage)
+                                    {{-- Para imágenes: mostrar miniatura --}}
+                                    <a href="{{ $fileUrl }}" target="_blank" style="display: block; margin: 16px 0; border-radius: 8px; overflow: hidden; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                                        <img src="{{ $fileUrl }}" alt="{{ pathinfo($testimonial->file_path, PATHINFO_FILENAME) }}" style="width: 100%; height: 180px; object-fit: cover; display: block; cursor: pointer;" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\"background:#f0f0f0; height:180px; display:flex; align-items:center; justify-content:center; border-radius:8px;\">Error cargando imagen</div>';">
+                                    </a>
+                                @elseif($isPdf)
+                                    {{-- Para PDFs: vista previa con PDF.js --}}
+                                    <a href="{{ $fileUrl }}" target="_blank" rel="noopener" style="display: block; margin: 16px 0; border-radius: 8px; overflow: hidden; background: white; border: 2px solid #d0e8e5; transition: all 0.3s ease; cursor: pointer; height: 180px; position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.08);" onmouseover="this.style.borderColor='#4a6b68'; this.style.boxShadow='0 4px 12px rgba(74,107,104,0.2)';" onmouseout="this.style.borderColor='#d0e8e5'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)';">
+                                        <div style="overflow: hidden; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, #f9fafb 0%, #f3f4f6 100%);">
+                                            <canvas class="pdf-preview-canvas" data-pdf-url="{{ $fileUrl }}" id="pdf-preview-{{ $testimonial->id }}" style="max-width: 100%; max-height: 100%; display: block; object-fit: contain;"></canvas>
+                                        </div>
+                                        <div style="position: absolute; bottom: 6px; right: 6px; background: #4a6b68; color: white; padding: 3px 7px; border-radius: 3px; font-size: 9px; font-weight: 600;">PDF</div>
+                                    </a>
+                                @else
+                                    {{-- Para otros documentos: mostrar preview con ícono --}}
+                                    <a href="{{ $fileUrl }}" target="_blank" style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 16px 0; padding: 24px; background: linear-gradient(135deg, #f0f7f6 0%, #e8f4f2 100%); border-radius: 8px; text-decoration: none; color: inherit; transition: all 0.3s ease; cursor: pointer; border: 2px solid #d0e8e5;" onmouseover="this.style.background='linear-gradient(135deg, #e8f4f2 0%, #e0f0ed 100%)'; this.style.borderColor='#4a6b68';" onmouseout="this.style.background='linear-gradient(135deg, #f0f7f6 0%, #e8f4f2 100%)'; this.style.borderColor='#d0e8e5';">
+                                        <div style="display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; background: #4a6b68; border-radius: 10px; color: white; font-size: 32px; margin-bottom: 12px;">
+                                            <i class="fas {{ $testimonial->file_icon }}"></i>
+                                        </div>
+                                        <div style="font-size: 13px; font-weight: 600; color: #0f1f1e; text-align: center; word-break: break-word; margin-bottom: 4px;">
+                                            {{ pathinfo($testimonial->file_path, PATHINFO_FILENAME) }}
+                                        </div>
+                                        <div style="font-size: 11px; color: #666; text-align: center;">
+                                            {{ $testimonial->file_size_formatted }} • Click para ver
+                                        </div>
+                                    </a>
+                                @endif
+                            @endif
+                            
+                            <div class="testi-author">
+                                <div class="testi-avatar" style="background: linear-gradient(135deg, #4a6b68, #7a9b98); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 18px;">{{ strtoupper(substr($testimonial->name, 0, 1)) }}{{ strtoupper(substr(explode(' ', $testimonial->name)[1] ?? '', 0, 1)) }}</div>
+                                <div><div class="testi-name">{{ $testimonial->name }}</div><div class="testi-detail">{{ $testimonial->detail }}</div></div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @else
+                <!-- Testimonios por defecto si no hay en BD -->
+                <div class="col-lg-4 col-md-6 fade-up">
+                    <div class="testi-card">
+                        <div class="testi-stars">★★★★★</div>
+                        <p class="testi-text">&ldquo;Excelente atención médica. El Dr. me ayudó a controlar mi epilepsia de manera efectiva. El equipo es muy profesional y amable.&rdquo;</p>
+                        <div class="testi-author">
+                            <div class="testi-avatar" style="background: linear-gradient(135deg, #4a6b68, #7a9b98); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 18px;">JM</div>
+                            <div><div class="testi-name">Juan Martínez</div><div class="testi-detail">Paciente de Neurología</div></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 fade-up">
-                <div class="testi-card">
-                    <div class="testi-stars">★★★★★</div>
-                    <p class="testi-text">&ldquo;  &rdquo;</p>
-                    <div class="testi-author">
-                        <div class="testi-avatar">  </div>
-                        <div><div class="testi-name">  </div><div class="testi-detail">   </div></div>
+                <div class="col-lg-4 col-md-6 fade-up">
+                    <div class="testi-card">
+                        <div class="testi-stars">★★★★★</div>
+                        <p class="testi-text">&ldquo;Las terapias me han ayudado enormemente con mis problemas de sueño. Recomiendo este instituto a todos mis amigos y familia.&rdquo;</p>
+                        <div class="testi-author">
+                            <div class="testi-avatar" style="background: linear-gradient(135deg, #5a7b78, #8aabad); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 18px;">RC</div>
+                            <div><div class="testi-name">Rosa Cortés</div><div class="testi-detail">Paciente de Terapias</div></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 fade-up">
-                <div class="testi-card">
-                    <div class="testi-stars">★★★★★</div>
-                    <p class="testi-text">&ldquo;   &rdquo;</p>
-                    <div class="testi-author">
-                        <div class="testi-avatar">  </div>
-                        <div><div class="testi-name">  </div><div class="testi-detail">   </div></div>
+                <div class="col-lg-4 col-md-6 fade-up">
+                    <div class="testi-card">
+                        <div class="testi-stars">★★★★★</div>
+                        <p class="testi-text">&ldquo;Personal muy atento y comprometido. Los estudios electrodiagnósticos fueron rápidos y sin complicaciones. Muy satisfecho.&rdquo;</p>
+                        <div class="testi-author">
+                            <div class="testi-avatar" style="background: linear-gradient(135deg, #3a5b58, #6a8b88); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 18px;">CP</div>
+                            <div><div class="testi-name">Carlos Peña</div><div class="testi-detail">Paciente de Electrodiagnósticos</div></div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 </section>
+
+@if($testimonials && $testimonials->contains(fn($t) => $t->file_path && (strtolower(pathinfo($t->file_path, PATHINFO_EXTENSION)) === 'pdf' || ($t->file_type && str_contains($t->file_type, 'pdf')))))
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+(function() {
+    if (typeof pdfjsLib === 'undefined') return;
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    function showPdfFallback(canvas) {
+        var ctx = canvas.getContext('2d');
+        canvas.width = 300;
+        canvas.height = 180;
+        ctx.fillStyle = '#f0f7f6';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#4a6b68';
+        ctx.font = 'bold 24px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('PDF', canvas.width / 2, canvas.height / 2 - 10);
+        ctx.font = '12px Arial';
+        ctx.fillText('Clic para abrir', canvas.width / 2, canvas.height / 2 + 16);
+    }
+
+    document.querySelectorAll('.pdf-preview-canvas').forEach(function(canvas) {
+        var url = canvas.dataset.pdfUrl;
+        if (!url) return;
+
+        pdfjsLib.getDocument({ url: url, withCredentials: true }).promise.then(function(pdf) {
+            return pdf.getPage(1).then(function(page) {
+                var maxHeight = 180;
+                var container = canvas.parentElement;
+                var maxWidth = container ? container.clientWidth : 300;
+                var viewport = page.getViewport({ scale: 1 });
+                var scale = Math.min(maxHeight / viewport.height, maxWidth / viewport.width);
+                viewport = page.getViewport({ scale: scale });
+
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+                return page.render({
+                    canvasContext: canvas.getContext('2d'),
+                    viewport: viewport
+                }).promise;
+            });
+        }).catch(function() {
+            showPdfFallback(canvas);
+        });
+    });
+})();
+</script>
+@endif
 
 <!-- =============================================
      FAQ
@@ -1072,7 +1279,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">¿Cómo puedo pedir una cita médica?</button></h2>
                         <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">Puede agendar su cita por WhatsApp con número de la especialidad que desea (Neurología: 305-356-0651 / Terapias: 315-972-9333), o usando el formulario de contacto. Atendemos de lunes a viernes de 8:00 a.m. a 6:00 p.m. y sábados de 8:00 a.m. a 12:00 m</div>
+                            <div class="accordion-body">Puede agendar su cita por WhatsApp, escribiendo al número de la especialidad que desea (Neurología/Epileptología: 305-356-0651) (Terapias/Psicología/Neuropsicología: 315-972-9333), o usando el formulario de contacto. Atendemos de lunes a viernes de 7:30 a.m. a 7:00 p.m. y sábados de 7:30 a.m. a 12:00 m.</div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -1082,15 +1289,9 @@
                         </div>
                     </div>
                     <div class="accordion-item">
-                        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">¿Cuánto tiempo tarda un resultado de EEG?</button></h2>
-                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">El EEG toma aproximadamente 40 minutos. El informe interpretado estará disponible en 48 a 72 horas hábiles. En casos urgentes podemos entregar resultados con anticipación.</div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
                         <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">¿Necesito orden médica para los estudios electrodiagnósticos?</button></h2>
                         <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">Si su cita es cubierta por EPS, sí necesitas orden médica o autorización. Para pacientes particulares no es obligatoria, aunque se recomienda tener remisión del médico tratante.</div>
+                            <div class="accordion-body">Si su cita es cubierta por EPS, sí necesita orden médica o autorización. Para pacientes particulares no es obligatoria, aunque se recomienda tener remisión del médico tratante.</div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -1130,55 +1331,167 @@
     <div class="inner">
         <div class="container">
             <span class="section-eyebrow fade-up">Instituto Neurociencias de Nariño</span>
-            <h2 class="fade-up">Unimos ciencia, experiencia<br>y precisión para cuidarte</h2>
-            <p class="fade-up">Agende su cita o comuníquese con nosotros. Su salud es nuestra prioridad.</p>
-            <a href="#map" class="btn-white-lg">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Solicitar Cita
-            </a>
-            <a href="#" onclick="openContactModal(event)" class="btn-ghost-lg">
-                Enviar PQRS
-            </a>
+            <h2 class="fade-up" style="max-width:760px;margin-left:auto;margin-right:auto;">{{ setting('cta_title') }}</h2>
+            @if(setting('cta_desc'))<p class="fade-up">{{ setting('cta_desc') }}</p>@endif
+            <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+                <div class="dropdown">
+                    <button class="btn-white-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        Llámenos
+                    </button>
+                    <ul class="dropdown-menu p-2" style="min-width:260px; z-index:2100;">
+                        <li><a class="dropdown-item" href="tel:{{ setting('phone_fixed') }}">PBX: {{ setting('phone_fixed_display') }}</a></li>
+                        <li><a class="dropdown-item" href="tel:{{ setting('wa1_tel') }}">{{ setting('wa1_label') }}: {{ setting('wa1_display') }}</a></li>
+                        <li><a class="dropdown-item" href="tel:{{ setting('wa2_tel') }}">{{ setting('wa2_label') }}: {{ setting('wa2_display') }}</a></li>
+                    </ul>
+                </div>
+
+                <div class="dropdown">
+                    <button class="btn-white-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Escríbanos</button>
+                    <ul class="dropdown-menu p-2" style="min-width:240px; z-index:2100;">
+                        <li><a class="dropdown-item" href="https://wa.me/{{ setting('wa1') }}" target="_blank">WhatsApp {{ setting('wa1_label') }}: {{ setting('wa1_display') }}</a></li>
+                        <li><a class="dropdown-item" href="https://wa.me/{{ setting('wa2') }}" target="_blank">WhatsApp {{ setting('wa2_label') }}: {{ setting('wa2_display') }}</a></li>
+                    </ul>
+                </div>
+
+                <button class="btn-white-lg" type="button" onclick="openLlamamos()">Lo llamamos</button>
+            </div>
         </div>
     </div>
 </section>
 
-<script>
-    // ========== Hero Slider ==========
-    (function() {
-        var slides = document.querySelectorAll('.hero-slide');
-        var dots = document.querySelectorAll('.hero-dot');
-        var counter = document.getElementById('heroCurrentNum');
-        var current = 0;
-        var timer;
-        var nums = ['01','02','03'];
+    <script>
+        (function () {
+            var slides  = document.querySelectorAll('.hero-slide');
+            var dots    = document.querySelectorAll('.hero-dot');
+            var counter = document.getElementById('heroCurrentNum');
+            var hero    = document.querySelector('.hero-section');
+            var current = 0;
+            var timer;
+            var nums    = ['01', '02', '03'];
 
-        function goTo(idx) {
-            slides[current].classList.remove('active');
-            dots[current].classList.remove('active');
-            current = (idx + slides.length) % slides.length;
-            slides[current].classList.add('active');
-            dots[current].classList.add('active');
-            if (counter) counter.textContent = nums[current];
-        }
-        function autoNext() {
-            timer = setInterval(function() { goTo(current + 1); }, 5500);
-        }
-        document.getElementById('heroNext').addEventListener('click', function() {
-            clearInterval(timer); goTo(current + 1); autoNext();
-        });
-        document.getElementById('heroPrev').addEventListener('click', function() {
-            clearInterval(timer); goTo(current - 1); autoNext();
-        });
-        dots.forEach(function(dot) {
-            dot.addEventListener('click', function() {
+            function goTo(idx) {
+                slides[current].classList.remove('active');
+                dots[current].classList.remove('active');
+                current = (idx + slides.length) % slides.length;
+                slides[current].classList.add('active');
+                dots[current].classList.add('active');
+                if (counter) counter.textContent = nums[current];
+            }
+
+            function autoNext() {
                 clearInterval(timer);
-                goTo(parseInt(this.getAttribute('data-idx')));
-                autoNext();
-            });
-        });
-        autoNext();
-    })();
-</script>
+                if (window.__INNAR_PREVIEW) return;
+                timer = setInterval(function () { goTo(current + 1); }, 5500);
+            }
 
+            document.getElementById('heroNext').addEventListener('click', function () {
+                clearInterval(timer); goTo(current + 1); autoNext();
+            });
+            document.getElementById('heroPrev').addEventListener('click', function () {
+                clearInterval(timer); goTo(current - 1); autoNext();
+            });
+            dots.forEach(function (dot) {
+                dot.addEventListener('click', function () {
+                    clearInterval(timer);
+                    goTo(parseInt(this.getAttribute('data-idx'), 10));
+                    autoNext();
+                });
+            });
+
+            var startX = 0;
+            var THRESHOLD = 50;
+            hero.addEventListener('touchstart', function (e) {
+                startX = e.touches[0].clientX;
+            }, { passive: true });
+            hero.addEventListener('touchend', function (e) {
+                var diff = startX - e.changedTouches[0].clientX;
+                if (Math.abs(diff) < THRESHOLD) return;
+                clearInterval(timer);
+                goTo(diff > 0 ? current + 1 : current - 1);
+                autoNext();
+            }, { passive: true });
+
+            function startHero() { autoNext(); }
+            if (document.documentElement.classList.contains('splash-pending')) {
+                document.addEventListener('innar:splash-done', startHero, { once: true });
+            } else {
+                startHero();
+            }
+
+            var cards = document.querySelectorAll('.service-card');
+            var services = document.querySelector('.services-section');
+            if (services) services.classList.add('js-anim');
+            function showCards() {
+                cards.forEach(function (card, i) {
+                    setTimeout(function () { card.classList.add('is-visible'); }, i * 90);
+                });
+            }
+            if (services && 'IntersectionObserver' in window) {
+                var io = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (!entry.isIntersecting) return;
+                        showCards();
+                        io.disconnect();
+                    });
+                }, { threshold: 0.12 });
+                io.observe(services);
+            } else {
+                showCards();
+            }
+            setTimeout(function () {
+                cards.forEach(function (card) { card.classList.add('is-visible'); });
+            }, 2500);
+        })();
+    </script>
+    <script>
+        (function(){
+            try {
+                var banner = document.getElementById('site-banner');
+                var closeBtn = document.getElementById('site-banner-close');
+                if (!banner || !closeBtn) return;
+
+                var bannerId = banner.getAttribute('data-banner-id') || '0';
+                var storageKey = 'siteBannerClosed:' + bannerId;
+                var seconds = parseInt(banner.getAttribute('data-banner-seconds') || '30', 10);
+                if (isNaN(seconds) || seconds < 5) seconds = 30;
+                if (seconds > 300) seconds = 300;
+
+                // No mostrar si el usuario cerró este banner con ×
+                var isPreview = !!window.__INNAR_PREVIEW;
+                var closed = false;
+                if (!isPreview) {
+                    try { closed = localStorage.getItem(storageKey) === '1'; } catch(e) { closed = false; }
+                }
+                if (closed) return;
+
+                var autoTimer;
+                function showBanner() {
+                    banner.style.display = 'flex';
+                    if (isPreview) return;
+                    autoTimer = setTimeout(function(){
+                        banner.style.display = 'none';
+                    }, seconds * 1000);
+                }
+
+                closeBtn.addEventListener('click', function(e){
+                    e.preventDefault();
+                    banner.style.display = 'none';
+                    if (!isPreview) {
+                        try { localStorage.setItem(storageKey, '1'); } catch(err){}
+                    }
+                    if (autoTimer) clearTimeout(autoTimer);
+                });
+
+                if (document.documentElement.classList.contains('splash-pending')) {
+                    document.addEventListener('innar:splash-done', showBanner, { once: true });
+                } else {
+                    showBanner();
+                }
+            } catch (e) { console.error('Banner init error', e); }
+        })();
+    </script>
 @endsection
+
+
+

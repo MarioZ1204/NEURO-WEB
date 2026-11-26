@@ -50,7 +50,7 @@
                         <li>Crisis convulsivas o sospecha de las mismas</li>
                         <li>Diagnóstico previo de Epilepsia</li>
                         <li>Episodios de pérdida de conciencia o desconexión</li>
-                        <li>Movimientos involuntarios o eventos paroxísticos no claros</li>
+                        <li>Movimientos involuntarios o eventos súbitos no claros</li>
                         <li>Epilepsia de difícil control (refractaria)</li>
                         <li>Evaluación para cirugía de epilepsia</li>
                         <li>Seguimiento de tratamiento anticonvulsivante</li>
@@ -79,7 +79,7 @@
 
                       
 <div class="info-card mb-5">
-    <div style="display:flex;gap:32px;align-items:stretch;">
+    <div class="consulta-proc-row">
         
                         <style>
                     .info-card ul li a {
@@ -107,8 +107,8 @@
                     }
                 </style>
 
-        {{-- Columna izquierda: 60% --}}
-        <div style="flex:0 0 60%;">
+        {{-- Columna izquierda --}}
+        <div class="consulta-proc-copy">
             <p style="font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--primary-light);font-weight:700;margin-bottom:12px;">Procedimientos de atención</p>
             <h3 style="font-size:18px;font-weight:800;color:var(--dark);margin-bottom:20px;">La consulta se desarrolla a través de las siguientes etapas:</h3>
             <div class="row g-3">
@@ -117,24 +117,24 @@
                     ['Caracterización de las crisis', 'Clasificación del tipo de crisis (focal, generalizada u otras), identificación de posibles desencadenantes y evaluación del impacto en la vida del paciente.'],
                     ['Examen neurológico', 'Valoración integral del estado neurológico para identificar signos asociados o déficits.'],
                     ['Apoyo diagnóstico (si es necesario)', 'Solicitud e interpretación de estudios como: Electroencefalograma (EEG), Video-EEG, Resonancia magnética cerebral, Otros estudios especializados'],
-                    ['Diagnóstico y plan de manejo', '<span>Solicitud e interpretación de estudios complementarios:</span>
+                    ['Diagnóstico y plan de manejo', '<span>Solicitud e interpretación de estudios complementarios (<a href="'.route('landing.electrodiagnosticos').'">ver electrodiagnósticos</a>):</span>
                         <ul style="margin-top:6px;padding-left:16px;">
-                            <li><a href="/servicios/electrodiagnosticos" target="_blank">Electroencefalograma convencional, computarizado y con mapeo cerebral.</a></li>
-                            <li><a href="/servicios/electrodiagnosticos" target="_blank">Estudio fisiológico completo del sueño [polisomnografía] basal o con titulación de dispositivo médico.</a></li>
-                            <li><a href="/servicios/electrodiagnosticos" target="_blank">Pruebas de latencia múltiple de sueño.</a></li>
-                            <li><a href="/servicios/electrodiagnosticos" target="_blank">Prueba de mantenimiento de la vigilia.</a></li>
-                            <li><a href="/servicios/electrodiagnosticos" target="_blank">Monitoreo de actividad sueño vigilia [actigrafía].</a></li>
-                            <li><a href="/servicios/electrodiagnosticos" target="_blank">Monitoreo de presión positiva durante el sueño.</a></li>
-                            <li><a href="/servicios/electrodiagnosticos" target="_blank">Monitorización electroencefalográfica por video y radio.</a></li>
-                            <li><a href="/servicios/electrodiagnosticos" target="_blank">Neuroimágenes.</a></li>
-                            <li><a href="/servicios/electrodiagnosticos" target="_blank">Electromiografía u otros exámenes especializados.</a></li>
+                            <li>Electroencefalograma convencional, computarizado y con mapeo cerebral.</li>
+                            <li>Estudio fisiológico completo del sueño (polisomnografía) basal o con titulación de dispositivo médico.</li>
+                            <li>Pruebas de latencia múltiple de sueño.</li>
+                            <li>Prueba de mantenimiento de la vigilia.</li>
+                            <li>Monitoreo de actividad sueño-vigilia (actigrafía).</li>
+                            <li>Monitoreo de presión positiva durante el sueño.</li>
+                            <li>Monitorización electroencefalográfica por video.</li>
+                            <li>Neuroimágenes.</li>
+                            <li>Electromiografía u otros exámenes especializados.</li>
                         </ul>'],
-                    ['Diagnóstico y plan terapéutico – procedimientos especiales en epileptología', '<span>Definición del diagnóstico, formulación médica si es necesario, recomendaciones terapéuticas o realización de tratamientos como:</span>
+                    ['Diagnóstico y plan terapéutico – procedimientos especiales', '<span>Definición del diagnóstico, formulación médica si es necesario y tratamientos especializados como:</span>
                         <ul style="margin-top:6px;padding-left:16px;">
-                            <li><a href="/servicios/neuroestimulador" target="_blank">Revisión de neuroestimulador.</a></li>
-                            <li><a href="/servicios/toxina-botulinica" target="_blank">Inyección de material miorrelajante (toxina botulínica) para tratamientos de patologías neurológicas.</a></li>
-                            <li><a href="/servicios/bloqueo-nervio" target="_blank">Inyección de agente anestésico para nervio periférico.</a></li>
-                            <li><a href="/servicios/bloqueo-mioneural" target="_blank">Bloqueo unión mioneural por puntos y establecimiento de plan de seguimiento.</a></li>
+                            <li>Revisión de neuroestimulador y plan de seguimiento.</li>
+                            <li>Inyección de toxina botulínica para patologías neurológicas.</li>
+                            <li>Inyección de agente anestésico para nervio periférico.</li>
+                            <li>Bloqueo unión mioneural por puntos y plan de seguimiento.</li>
                         </ul>'],
                     ['Resultados esperados del servicio', '
                         <ul style="margin-top:6px;padding-left:16px;">
@@ -173,11 +173,12 @@
             </div>
         </div>
 
-        {{-- Columna derecha: 40% --}}
-        <div style="flex:0 0 40%;display:flex;align-items:center;justify-content:center;">
-            <img src="{{ asset('img/consultaN.jpg') }}" alt="Consulta de epileptología"
-                style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
-        </div>
+        {{-- Columna derecha: foto propia de epileptología --}}
+        @include('components.consulta-side-photo', [
+            'src' => 'assets/img/consulta-epileptologia.jpg',
+            'alt' => 'Consulta de epileptología — Instituto Neurociencias de Nariño',
+            'caption' => 'Consulta de epileptología en nuestra sede',
+        ])
 
     </div>
 </div>
@@ -186,10 +187,8 @@
             <p style="font-size:14px;color:#555;margin:0;line-height:1.8;"><i class="fa fa-exclamation-triangle" style="color:var(--primary);margin-right:8px;"></i><strong>Importante:</strong> La epilepsia no es una enfermedad mental ni contagiosa. Con el tratamiento correcto, la mayoría de pacientes puede llevar una vida normal. Si usted o un familiar ha tenido dos o más crisis sin causa aparente, consulte con nuestro equipo de epileptología.</p>
         </div>
 
-        <div style="text-align:center;">
-            <a href="{{ route('landing.inicio') }}#map" class="btn-cta-solid" style="border-radius:25px;padding:13px 35px;font-size:13px;text-decoration:none;">Solicitar Cita</a>
-            <a href="{{ route('especialidades') }}" class="btn-cta-outline" style="border-radius:25px;padding:11px 33px;font-size:13px;text-decoration:none;margin-left:12px;">Ver todas las especialidades</a>
-        </div>
+        @include('components.page-cta', ['secondaryHref' => route('especialidades'), 'secondaryLabel' => 'Ver todas las especialidades'])
     </div>
 </section>
 @endsection
+

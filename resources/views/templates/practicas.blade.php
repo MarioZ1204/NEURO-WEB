@@ -13,7 +13,7 @@
     .cf-req { color:#cc0033; }
     .cf-input, .cf-select, .cf-textarea {
         width:100%; padding:11px 14px; border:1.5px solid #dce8e7; border-radius:9px;
-        font-size:13px; font-family:'Poppins',sans-serif; color:#2c3e3d;
+        font-size:16px; font-family:'Poppins',sans-serif; color:#2c3e3d;
         background:#fff; outline:none; box-sizing:border-box; transition:border-color 0.2s,box-shadow 0.2s;
     }
     .cf-input:focus, .cf-select:focus, .cf-textarea:focus { border-color:var(--primary); box-shadow:0 0 0 3px rgba(74,107,104,0.10); }
@@ -32,7 +32,7 @@
             <span>Prácticas Universitarias</span>
         </div>
         <h1>Prácticas Universitarias</h1>
-        <p>Aprende junto a los mejores especialistas en neurociencias del suroccidente colombiano</p>
+        <p>Aprenda junto a los mejores especialistas en neurociencias del suroccidente colombiano</p>
     </div>
 </div>
 
@@ -55,14 +55,14 @@
             <div class="col-lg-6">
                 <div class="info-card h-100">
                     <p style="font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--primary-light);font-weight:700;">Requisitos</p>
-                    <h3 style="font-size:18px;font-weight:800;color:var(--dark);margin:12px 0 18px;">¿Qué necesitas?</h3>
+                    <h3 style="font-size:18px;font-weight:800;color:var(--dark);margin:12px 0 18px;">¿Qué necesita?</h3>
                     <div style="display:flex;gap:12px;margin-bottom:14px;">
                         <i class="fa fa-university" style="color:var(--primary);font-size:16px;flex-shrink:0;margin-top:2px;"></i>
                         <p style="font-size:13.5px;color:#555;margin:0;">Estar matriculado en un programa de salud o ciencias afines (Medicina, Psicología, Fisioterapia, etc.)</p>
                     </div>
                     <div style="display:flex;gap:12px;margin-bottom:14px;">
                         <i class="fa fa-file-alt" style="color:var(--primary);font-size:16px;flex-shrink:0;margin-top:2px;"></i>
-                        <p style="font-size:13.5px;color:#555;margin:0;">Convenio firmado entre tu universidad y el Instituto (o solicitar uno nuevo)</p>
+                        <p style="font-size:13.5px;color:#555;margin:0;">Convenio firmado entre su universidad y el Instituto (o solicitar uno nuevo)</p>
                     </div>
                     <div style="display:flex;gap:12px;margin-bottom:14px;">
                         <i class="fa fa-shield-alt" style="color:var(--primary);font-size:16px;flex-shrink:0;margin-top:2px;"></i>
@@ -144,7 +144,7 @@
                             <div class="col-12">
                                 <div style="display:flex;align-items:flex-start;gap:10px;font-size:12.5px;color:#555;margin-bottom:8px;">
                                     <input type="checkbox" id="privCheck" required style="width:15px;height:15px;flex-shrink:0;margin-top:2px;accent-color:var(--primary);">
-                                    <label for="privCheck">Acepto la <a href="{{ route('politicaPrivacidad') }}" target="_blank" style="color:var(--primary);font-weight:600;">Política de Privacidad</a> y el tratamiento de mis datos.</label>
+                                    <label for="privCheck">Acepto la <a href="{{ route('politicaPrivacidad') }}" target="_blank" style="color:var(--primary);font-weight:600;">Política de Privacidad</a> y el tratamiento de los datos personales suministrados.</label>
                                 </div>
                             </div>
                         </div>
@@ -156,3 +156,4 @@
     </div>
 </section>
 @endsection
+

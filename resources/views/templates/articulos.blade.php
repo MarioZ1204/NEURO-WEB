@@ -225,3 +225,4 @@ document.getElementById('flipModal').addEventListener('click', function(e) {
 });
 </script>
 @endsection
+

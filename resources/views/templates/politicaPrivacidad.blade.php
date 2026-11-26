@@ -52,11 +52,11 @@
         color: #555;
         line-height: 1.9;
     }
-    .policy-section ul {
+    .policy-section ul, .policy-section ol {
         padding-left: 20px;
         margin: 10px 0;
     }
-    .policy-section ul li {
+    .policy-section ul li, .policy-section ol li {
         margin-bottom: 6px;
     }
     .policy-date {
@@ -64,6 +64,20 @@
         color: var(--primary-light);
         font-weight: 600;
         margin-bottom: 30px;
+    }
+    .intro-banner {
+        background: var(--primary-ultra);
+        border: 1px solid var(--primary-pale);
+        border-radius: 14px;
+        padding: 28px 32px;
+        margin-bottom: 30px;
+        border-left: 4px solid var(--primary);
+    }
+    .intro-banner p {
+        font-size: 14px;
+        color: #444;
+        line-height: 1.9;
+        margin: 0;
     }
     .sic-banner {
         background: var(--primary-ultra);
@@ -97,14 +111,19 @@
     <div class="container" style="max-width: 860px;">
         <p class="policy-date"><i class="fa fa-calendar-alt"></i> &nbsp;Última actualización: {{ date('d \d\e F \d\e Y') }}</p>
 
+        <!-- Declaración introductoria -->
+        <div class="intro-banner">
+            <p>En cumplimiento de lo dispuesto en la Ley 1581 de 2012, el Decreto 1377 de 2013 y demás normas concordantes, el <strong>Instituto Neurociencias de Nariño IPS S.A.S</strong>, con <strong>NIT No. 901164565</strong>, con domicilio en Pasto, Nariño, Colombia, en calidad de responsable del tratamiento de sus datos personales, informa que los datos personales recolectados serán tratados conforme a la Política de Tratamiento de Datos Personales adoptada por la entidad.</p>
+        </div>
+
         <!-- 1 -->
         <div class="policy-section">
             <h2><span class="num">1</span> Responsable del Tratamiento</h2>
             <p><strong>Razón social:</strong> Instituto Neurociencias de Nariño IPS S.A.S<br>
-               <strong>NIT:</strong> (número de identificación tributaria)<br>
+               <strong>NIT:</strong> 901164565<br>
                <strong>Dirección:</strong> Pasto, Nariño, Colombia<br>
-               <strong>Correo electrónico:</strong> info@neurocienciasnariño.com<br>
-               <strong>Teléfono:</strong> (607) XXX XXXX</p>
+               <strong>Correo electrónico:</strong> juridicoinnar@gmail.com<br>
+               <strong>Teléfono:</strong> {{ setting('phone_fixed_display') }} </p>
         </div>
 
         <!-- 2 -->
@@ -123,6 +142,7 @@
                 <li>Datos de salud: historia clínica, diagnósticos, tratamientos (datos sensibles).</li>
                 <li>Datos del responsable o acudiente (en caso de menores de edad).</li>
                 <li>Datos financieros para facturación: entidad prestadora de salud, número de afiliación.</li>
+                <li>Antecedentes judiciales, fiscales, disciplinarios, contravencionales de violencia sexual, de alimentos, de redes sociales, de índice de propietarios, municipales, departamentales y los que puedan ser recaudados mediante los aplicativos dispuestos por la rama judicial.</li>
             </ul>
         </div>
 
@@ -131,12 +151,16 @@
             <h2><span class="num">4</span> Finalidades del Tratamiento</h2>
             <p>Sus datos serán utilizados exclusivamente para:</p>
             <ul>
+                <li>Desarrollar el objeto social y las actividades propias de la entidad.</li>
+                <li>Gestionar relaciones comerciales, contractuales, laborales o civiles.</li>
+                <li>Realizar procesos administrativos, contables, financieros y de facturación.</li>
                 <li>Prestar los servicios de salud solicitados (consultas, terapias, electrodiagnósticos).</li>
                 <li>Gestionar la historia clínica del paciente conforme a la normativa sanitaria.</li>
-                <li>Facturación y gestión de pagos a entidades de salud.</li>
-                <li>Comunicaciones relacionadas con citas, resultados e indicaciones médicas.</li>
-                <li>Cumplimiento de obligaciones legales ante entidades regulatorias de salud.</li>
-                <li>Envío de información institucional (con consentimiento explícito del titular).</li>
+                <li>Contactar al titular mediante correo electrónico, teléfono, mensajes de texto u otros medios autorizados.</li>
+                <li>Enviar información institucional, comercial, publicitaria o de interés (con consentimiento explícito del titular).</li>
+                <li>Publicar sus comentarios en la página web institucional.</li>
+                <li>Dar cumplimiento a obligaciones legales, contractuales y regulatorias ante entidades de salud.</li>
+                <li>Las demás finalidades autorizadas expresamente por el titular.</li>
             </ul>
         </div>
 
@@ -144,14 +168,16 @@
         <div class="policy-section">
             <h2><span class="num">5</span> Derechos del Titular (ARCO)</h2>
             <p>Como titular de datos personales usted tiene derecho a:</p>
-            <ul>
-                <li><strong>Acceder</strong> gratuitamente a sus datos personales en nuestras bases de datos.</li>
-                <li><strong>Rectificar</strong> datos inexactos, incompletos o desactualizados.</li>
-                <li><strong>Cancelar (suprimir)</strong> sus datos cuando no sean necesarios para la finalidad original, salvo obligación legal de conservarlos.</li>
-                <li><strong>Oponerse</strong> al tratamiento de sus datos para finalidades distintas a la prestación de salud.</li>
-                <li><strong>Revocar</strong> el consentimiento otorgado en cualquier momento.</li>
-            </ul>
-            <p style="margin-top:12px;">Para ejercer sus derechos, envíe su solicitud a: <strong>info@neurocienciasnariño.com</strong> con asunto «Solicitud ARCO». Responderemos en un plazo máximo de 15 días hábiles.</p>
+            <ol>
+                <li>Conocer, actualizar y rectificar sus datos personales.</li>
+                <li>Solicitar prueba de la autorización otorgada.</li>
+                <li>Ser informado respecto del uso que se ha dado a sus datos personales.</li>
+                <li>Revocar la autorización y/o solicitar la supresión de sus datos cuando sea procedente.</li>
+                <li>Acceder gratuitamente a sus datos personales objeto de tratamiento.</li>
+                <li>Oponerse al tratamiento de sus datos para finalidades distintas a la prestación de salud.</li>
+            </ol>
+            <p style="margin-top:12px;">Para ejercer sus derechos, envíe su solicitud a: <strong>juridicoinnar@gmail.com</strong> con asunto «Solicitud ARCO». Responderemos en un plazo máximo de <strong>15 días hábiles</strong>.</p>
+            <p style="margin-top:8px;">La Política de Tratamiento de Datos Personales completa puede ser solicitada a través del mismo correo electrónico.</p>
         </div>
 
         <!-- 6 -->
@@ -188,7 +214,7 @@
         <div class="policy-section">
             <h2><span class="num">10</span> Contacto y Reclamaciones</h2>
             <p>Para consultas, solicitudes o reclamaciones relacionadas con el tratamiento de sus datos personales, contáctenos en:<br>
-               <strong>Correo:</strong> info@neurocienciasnariño.com<br>
+               <strong>Correo:</strong> juridicoinnar@gmail.com<br>
                <strong>Dirección:</strong> Pasto, Nariño, Colombia</p>
         </div>
 

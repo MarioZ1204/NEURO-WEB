@@ -59,7 +59,7 @@
 <div class="page-hero">
     <div class="container">
         <h1><i class="fa fa-search" style="margin-right:12px;opacity:0.75;"></i>Buscador</h1>
-        <p style="margin-bottom:24px;color:var(--primary-pale);">Encuentra servicios, especialidades, procedimientos e información sobre el instituto</p>
+        <p style="margin-bottom:24px;color:var(--primary-pale);">Encuentre servicios, especialidades, procedimientos e información sobre el instituto</p>
         <form method="GET" action="{{ route('busqueda') }}" class="search-input-wrap">
             <input type="text" name="q" id="searchInput"
                    value="{{ request('q') }}"
@@ -124,6 +124,38 @@
                 'ruta'       => route('consulta.neuropsicologia'),
             ],
             [
+                'titulo'     => 'Oftalmología',
+                'categoria'  => 'Consulta Especializada',
+                'icono'      => 'fa-eye',
+                'descripcion'=> 'Diagnóstico y tratamiento de enfermedades de los ojos: defectos refractivos, glaucoma, cataratas, retinopatía y alteraciones visuales de origen neurológico.',
+                'keywords'   => ['oftalmología', 'oftalmologo', 'ojos', 'vision', 'visión', 'gafas', 'glaucoma', 'catarata', 'retina', 'miopia', 'astigmatismo', 'fondo de ojo'],
+                'ruta'       => route('consulta.oftalmologia'),
+            ],
+            [
+                'titulo'     => 'Oftalmología Pediátrica',
+                'categoria'  => 'Consulta Especializada',
+                'icono'      => 'fa-child',
+                'descripcion'=> 'Atención visual para bebés, niños y adolescentes: estrabismo, ojo perezoso (ambliopía) y necesidad de gafas.',
+                'keywords'   => ['oftalmología pediátrica', 'oftalmologia infantil', 'niños', 'estrabismo', 'ambliopia', 'ojo perezoso', 'bizco', 'vision infantil'],
+                'ruta'       => route('consulta.oftalmologiaPediatrica'),
+            ],
+            [
+                'titulo'     => 'Fonoaudiología',
+                'categoria'  => 'Consulta Especializada',
+                'icono'      => 'fa-comments',
+                'descripcion'=> 'Evaluación y terapia de lenguaje, habla, voz y deglución. Afasias, disartrias, disfagia, tartamudez y retraso del lenguaje.',
+                'keywords'   => ['fonoaudiología', 'fonoaudiologo', 'lenguaje', 'habla', 'voz', 'deglucion', 'disfagia', 'afasia', 'disartria', 'tartamudez', 'terapia de lenguaje'],
+                'ruta'       => route('consulta.fonoaudiologia'),
+            ],
+            [
+                'titulo'     => 'Terapia Ocupacional',
+                'categoria'  => 'Consulta Especializada',
+                'icono'      => 'fa-hands',
+                'descripcion'=> 'Recuperación de la autonomía en actividades de la vida diaria, motricidad fina, integración sensorial y adaptación del entorno.',
+                'keywords'   => ['terapia ocupacional', 'terapeuta ocupacional', 'motricidad fina', 'vida diaria', 'integracion sensorial', 'autonomia', 'escritura'],
+                'ruta'       => route('consulta.terapiaOcupacional'),
+            ],
+            [
                 'titulo'     => 'Electroencefalograma (EEG)',
                 'categoria'  => 'Electrodiagnóstico',
                 'icono'      => 'fa-wave-square',
@@ -145,7 +177,7 @@
                 'icono'      => 'fa-running',
                 'descripcion'=> 'Terapia física integral, ondas de choque, modalidades mecánicas y eléctricas, tracción lumbar, piso pélvico, rehabilitación pulmonar, terapia neural.',
                 'keywords'   => ['terapia fisica', 'fisioterapia', 'rehabilitacion', 'ondas de choque', 'traccion', 'piso pelvico', 'pulmonar', 'neural', 'osteopatia', 'linfatica', 'esqueletica'],
-                'ruta'       => route('landing.tiposTerapia'),
+                'ruta'       => route('consulta.terapiaFisica'),
             ],
             [
                 'titulo'     => 'Procedimientos Especiales en Neurología',
@@ -207,9 +239,9 @@
                 'titulo'     => 'Contacto y Ubicación',
                 'categoria'  => 'Contacto',
                 'icono'      => 'fa-map-marker-alt',
-                'descripcion'=> 'Dos sedes en Pasto, Nariño. Cll 14 #34-13. Horario Lun–Vie 7:00am–6:00pm. WhatsApp: 305-356-0651, 315-972-9333.',
+                'descripcion'=> 'Dos sedes en Pasto, Nariño. Carrera 34 #13-80 con Calle 14 #33-15, Pasto, Barrio San Ignacio. Horario Lun–Vie 7:30am–7:00pm. WhatsApp: 305-356-0651, 315-972-9333.',
                 'keywords'   => ['contacto', 'ubicacion', 'direccion', 'telefono', 'whatsapp', 'sede', 'pasto', 'nariño', 'horario'],
-                'ruta'       => route('landing.inicio') . '#map',
+                'ruta'       => route('landing.inicio'),
             ],
         ];
 
@@ -241,8 +273,8 @@
         @if($query === '')
         <div class="no-results">
             <i class="fa fa-search" style="color:var(--primary-light);"></i>
-            <h4 style="font-size:18px;font-weight:700;color:var(--dark);margin-bottom:8px;">Escribe algo para buscar</h4>
-            <p style="font-size:14px;max-width:420px;margin:0 auto;">Puedes buscar por nombre de servicio, especialidad, procedimiento o palabra clave.</p>
+            <h4 style="font-size:18px;font-weight:800;color:var(--dark);margin-bottom:8px;">Escriba algo para buscar</h4>
+            <p style="font-size:14px;max-width:420px;margin:0 auto;">Puede buscar por nombre de servicio, especialidad, procedimiento o palabra clave.</p>
         </div>
 
         @elseif(count($results) === 0)
@@ -250,7 +282,7 @@
         <div class="no-results">
             <i class="fa fa-search" style="color:var(--primary-light);"></i>
             <h4 style="font-size:18px;font-weight:700;color:var(--dark);margin-bottom:8px;">No encontramos resultados</h4>
-            <p style="font-size:14px;max-width:440px;margin:0 auto;">Intenta con otros términos. Por ejemplo: <em>EEG, Neurología, Terapia, Psicología, Sueño</em>.</p>
+            <p style="font-size:14px;max-width:440px;margin:0 auto;">Intente con otros términos. Por ejemplo: <em>EEG, Neurología, Terapia, Psicología, Sueño</em>.</p>
         </div>
 
         @else
@@ -278,3 +310,4 @@ function doSearch(term) {
 }
 </script>
 @endsection
+

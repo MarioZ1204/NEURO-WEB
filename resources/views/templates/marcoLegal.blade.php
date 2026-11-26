@@ -101,6 +101,9 @@
             <div class="col-lg-12">
                 <div class="legal-card" style="border-left-color:#c0820a; background:linear-gradient(135deg,#fffbf0,#fff8e6);">
                     <div style="display:flex; align-items:flex-start; gap:18px; flex-wrap:wrap;">
+                        <div style="width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#c0820a,#e0a030);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                            <i class="fa fa-chart-pie" style="color:#fff;font-size:26px;"></i>
+                        </div>
                         <div style="flex:1; min-width:220px;">
                             <span class="badge-ley" style="background:#fff0cc; color:#7a5200;">Transparencia financiera</span>
                             <h4 style="color:#5a3800;">Estados Financieros</h4>
@@ -157,3 +160,4 @@
     </div>
 </section>
 @endsection
+

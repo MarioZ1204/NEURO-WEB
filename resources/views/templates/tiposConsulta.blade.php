@@ -82,12 +82,12 @@
         <div class="breadcrumb-custom">
             <a href="{{ route('landing.inicio') }}">Inicio</a>
             <span>›</span>
-            <a href="{{ route('landing.aboutUs') }}">Servicios</a>
+            <a href="{{ route('landing.portafolio') }}">Servicios</a>
             <span>›</span>
             <span>Tipos de Consulta</span>
         </div>
         <h1>Tipos de Consulta</h1>
-        <p>Atención neurológica especializada y personalizada para cada paciente</p>
+        <p>Neurología, epileptología, salud mental y clínica del sueño</p>
     </div>
 </div>
 
@@ -136,7 +136,7 @@
                         <h5>Epileptología</h5>
                     </div>
                     <div class="c-body">
-                        <p>Diagnóstico y manejo especializado de epilepsia y otras crisis paroxísticas no epilépticas, con seguimiento continuo y ajuste de tratamiento.</p>
+                        <p>Diagnóstico y manejo especializado de epilepsia y otras crisis súbitas no epilépticas, con seguimiento continuo y ajuste de tratamiento.</p>
                         <ul>
                             <li>Diagnóstico y clasificación de epilepsia</li>
                             <li>Optimización antiepiléptica</li>
@@ -192,14 +192,14 @@
 
         </div>
 
-        <!-- CTA -->
-        <div style="text-align:center; margin-top:50px;">
-            <p style="font-size:16px; color:#555; margin-bottom:20px;">¿Deseas agendar una consulta?</p>
-            <a href="#map" class="btn-cta-solid" style="border-radius:25px; padding:13px 35px; font-size:13px; text-decoration:none;">Contáctanos</a>
-            &nbsp;
-            <a href="{{ route('landing.inicio') }}" class="btn-cta-outline" style="border-radius:25px; padding:11px 33px; font-size:13px; text-decoration:none;">Volver al inicio</a>
-        </div>
+        @include('components.page-cta', [
+            'title' => '¿Desea agendar una consulta?',
+            'subtitle' => 'Nuestro equipo le orienta por WhatsApp, llamada o el formulario «Lo llamamos».',
+            'secondaryHref' => route('especialidades'),
+            'secondaryLabel' => 'Ver especialidades',
+        ])
     </div>
 </section>
 
 @endsection
+

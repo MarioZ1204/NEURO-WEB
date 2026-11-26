@@ -70,6 +70,8 @@ return [
     */
 
     'links' => [
+        // Document root real = public_html/ (un nivel arriba de repo/)
+        base_path('../storage') => storage_path('app/public'),
         public_path('storage') => storage_path('app/public'),
     ],
 

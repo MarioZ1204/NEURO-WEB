@@ -23,6 +23,7 @@
         </div>
         <h1><i class="fa fa-moon" style="margin-right:14px;opacity:0.75;"></i>Clínica del Sueño</h1>
         <p>Diagnóstico y tratamiento integral de los trastornos del sueño</p>
+        <p style="font-size:15px;color:rgba(200,222,221,0.95);margin:14px auto 0;max-width:640px;">Dormir bien mejora su calidad de vida; descubra si lo está haciendo bien.</p>
     </div>
 </div>
 
@@ -112,10 +113,24 @@
             <span class="study-badge">Monitoreo ambulatorio del sueño</span>
         </div>
 
-        <div style="text-align:center;">
-            <a href="{{ route('landing.inicio') }}#map" class="btn-cta-solid" style="border-radius:25px;padding:13px 35px;font-size:13px;text-decoration:none;">Solicitar Cita</a>
-            <a href="{{ route('educacion.polisBasal') }}" class="btn-cta-outline" style="border-radius:25px;padding:11px 33px;font-size:13px;text-decoration:none;margin-left:12px;">Preparación para la PSG</a>
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-10">
+                <div style="background:#fff;border-radius:14px;padding:28px 30px;box-shadow:0 4px 20px rgba(0,0,0,0.06);margin-bottom:24px;">
+                    <p style="font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--primary-light);font-weight:700;margin-bottom:8px;">Autoevaluación</p>
+                    <h3 style="font-size:20px;font-weight:800;color:var(--dark);margin-bottom:10px;">Encuesta de evaluación del sueño</h3>
+                    <p style="font-size:14px;color:#555;line-height:1.8;margin:0;">Complete el cuestionario a continuación para detectar signos de alerta relacionados con trastornos del sueño. No reemplaza una consulta médica.</p>
+                </div>
+                @include('partials.encuesta-sueno')
+            </div>
         </div>
+
+        @include('components.page-cta', [
+            'secondaryHref' => route('educacion.polisBasal'),
+            'secondaryLabel' => 'Preparación para la PSG',
+            'title' => '¿Sospecha un trastorno del sueño?',
+            'subtitle' => 'Agende su evaluación en nuestra Clínica del Sueño.',
+        ])
     </div>
 </section>
 @endsection
+

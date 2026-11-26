@@ -3,11 +3,11 @@
 @section('content')
 <style>
     body { padding-top: var(--navbar-h, 80px); }
-    .page-hero { background: linear-gradient(135deg, #0d1b2a 0%, #1a2e4a 100%); padding: 80px 0 60px; text-align: center; color: #fff; }
+    .page-hero { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); padding: 80px 0 60px; text-align: center; color: #fff; }
     .page-hero h1 { font-size: clamp(24px,3.5vw,42px); font-weight: 900; margin-bottom: 12px; }
-    .page-hero p { font-size: 16px; color: rgba(200,222,221,0.85); margin: 0; }
-    .breadcrumb-custom { display: flex; justify-content: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 15px; flex-wrap: wrap; }
-    .breadcrumb-custom a { color: rgba(255,255,255,0.82); text-decoration: none; }
+    .page-hero p { font-size: 16px; color: var(--primary-pale); margin: 0; }
+    .breadcrumb-custom { display: flex; justify-content: center; gap: 8px; font-size: 13px; color: var(--primary-light); margin-bottom: 15px; flex-wrap: wrap; }
+    .breadcrumb-custom a { color: var(--primary-pale); text-decoration: none; }
     .info-card { background:#fff; border-radius:14px; padding:28px; box-shadow:0 4px 20px rgba(0,0,0,0.06); }
     .step-card { background:#fff; border-radius:14px; padding:22px 24px; box-shadow:0 3px 14px rgba(0,0,0,0.06); display:flex; gap:16px; align-items:flex-start; height:100%; }
     .step-num { width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--primary-dark)); color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800; flex-shrink:0; }
@@ -132,13 +132,16 @@
         </div>
 
         <div style="background:var(--primary-ultra);border:1px solid var(--primary-pale);border-radius:14px;padding:26px 30px;margin-bottom:40px;">
-            <p style="font-size:14px;color:#555;margin:0;line-height:1.8;"><i class="fa fa-phone" style="color:var(--primary);margin-right:8px;"></i><strong>¿Tiene dudas?</strong> Llame al Instituto antes de su estudio: <a href="tel:6027238141" style="color:var(--primary);font-weight:700;">(602) 7238141</a> o escríbanos por WhatsApp. Nuestro equipo resolverá todas sus inquietudes.</p>
+            <p style="font-size:14px;color:#555;margin:0;line-height:1.8;"><i class="fa fa-phone" style="color:var(--primary);margin-right:8px;"></i><strong>¿Tiene dudas?</strong> Llame al Instituto antes de su estudio: <a href="tel:{{ setting('phone_fixed') }}" style="color:var(--primary);font-weight:700;">{{ setting('phone_fixed_display') }}</a> (PBX) o escríbanos por WhatsApp. Nuestro equipo resolverá todas sus inquietudes.</p>
         </div>
 
-        <div style="text-align:center;">
-            <a href="{{ route('servicios.clinicaSueno') }}" class="btn-cta-solid" style="border-radius:25px;padding:13px 35px;font-size:13px;text-decoration:none;">Clínica del Sueño</a>
-            <a href="{{ route('landing.inicio') }}" class="btn-cta-outline" style="border-radius:25px;padding:11px 33px;font-size:13px;text-decoration:none;margin-left:12px;">Volver al inicio</a>
-        </div>
+        @include('components.page-cta', [
+            'title' => '¿Listo para su estudio del sueño?',
+            'subtitle' => 'Si tiene dudas sobre la preparación, llámenos o escriba por WhatsApp.',
+            'secondaryHref' => route('servicios.clinicaSueno'),
+            'secondaryLabel' => 'Clínica del Sueño',
+        ])
     </div>
 </section>
 @endsection
+

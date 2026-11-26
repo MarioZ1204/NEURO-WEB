@@ -94,10 +94,22 @@
             </div>
         </div>
 
-        <div style="text-align:center;">
-            <a href="{{ route('servicios.clinicaSueno') }}" class="btn-cta-solid" style="border-radius:25px;padding:13px 35px;font-size:13px;text-decoration:none;">Clínica del Sueño</a>
-            <a href="{{ route('landing.inicio') }}" class="btn-cta-outline" style="border-radius:25px;padding:11px 33px;font-size:13px;text-decoration:none;margin-left:12px;">Volver al inicio</a>
+        <div class="info-card mb-5">
+            <p style="font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--primary-light);font-weight:700;margin-bottom:8px;">Autoevaluación</p>
+            <h3 style="font-size:18px;font-weight:800;color:var(--dark);margin-bottom:10px;">Encuesta de evaluación del sueño</h3>
+            <p style="font-size:14px;color:#555;line-height:1.8;margin-bottom:0;">Si aún no tiene diagnóstico, puede completar esta encuesta de orientación clínica antes de su polisomnografía.</p>
         </div>
+        <div class="mb-5">
+            @include('partials.encuesta-sueno')
+        </div>
+
+        @include('components.page-cta', [
+            'title' => '¿Tiene cita para polisomnografía?',
+            'subtitle' => 'Si necesita orientación adicional, contáctenos o revise la Clínica del Sueño.',
+            'secondaryHref' => route('servicios.clinicaSueno'),
+            'secondaryLabel' => 'Clínica del Sueño',
+        ])
     </div>
 </section>
 @endsection
+

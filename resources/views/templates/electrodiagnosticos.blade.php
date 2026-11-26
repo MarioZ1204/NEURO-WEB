@@ -5,7 +5,7 @@
 <style>
     body { padding-top: var(--navbar-h, 80px); }
     .page-hero {
-        background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
         padding: 80px 0 60px;
         text-align: center;
         color: #fff;
@@ -90,12 +90,12 @@
         <div class="breadcrumb-custom">
             <a href="{{ route('landing.inicio') }}">Inicio</a>
             <span>›</span>
-            <a href="{{ route('landing.aboutUs') }}">Servicios</a>
+            <a href="{{ route('landing.portafolio') }}">Servicios</a>
             <span>›</span>
             <span>Electrodiagnósticos</span>
         </div>
         <h1>Electrodiagnósticos</h1>
-        <p>Estudios de alta precisión</p>
+        <p>EEG, polisomnografía, EMG y estudios neurofisiológicos en nuestra sede</p>
     </div>
 </div>
 
@@ -208,7 +208,7 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="electro-card">
-                    <div class="e-img"><img src="{{ asset('assets/img/ACT.png') }}" alt="Actigrafía"><div class="e-label">Monitoreo Sueño-Vigilia (Actigrafía)</div></div>
+                    <div class="e-img"><img src="{{ asset('assets/img/actigrafia.png') }}" alt="Actigrafía"><div class="e-label">Monitoreo Sueño-Vigilia (Actigrafía)</div></div>
                     <div class="e-body">
                         <p>Registro ambulatorio del ciclo sueño-vigilia durante 7–14 días mediante un acelerómetro de muñeca. Útil para evaluar ritmos circadianos y patrones de insomnio.</p>
                         <div class="e-tags"><span class="e-tag">Actigrafía</span><span class="e-tag">Circadiano</span><span class="e-tag">7–14 días</span></div>
@@ -222,27 +222,36 @@
         <div style="margin-top: 70px;">
             <h3 style="font-size:24px; font-weight:800; color:var(--dark); margin-bottom:30px;">¿Cómo es el proceso?</h3>
             <div class="row g-3">
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-2 col-md-4 col-sm-6">
                     <div class="process-step">
                         <div class="step-num">1</div>
                         <div class="step-content">
                             <h6>Consulta Médica</h6>
-                            <p>El especialista evalúa tu caso y solicita el estudio correspondiente.</p>
+                            <p>El especialista evalúa su caso y solicita el estudio correspondiente.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-2 col-md-4 col-sm-6">
                     <div class="process-step">
                         <div class="step-num">2</div>
                         <div class="step-content">
                             <h6>Agendamiento</h6>
-                            <p>Contacta nuestra recepción para reservar la fecha del estudio.</p>
+                            <p>Contacte nuestra recepción para reservar la fecha del estudio.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-6">
+                    <div class="process-step">
+                        <div class="step-num">3</div>
+                        <div class="step-content">
+                            <h6>Preparación</h6>
+                            <p>Se le entregan las indicaciones previas según el tipo de estudio electrodiagnóstico.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="process-step">
-                        <div class="step-num">3</div>
+                        <div class="step-num">4</div>
                         <div class="step-content">
                             <h6>Realización del Estudio</h6>
                             <p>El técnico neurofisiológico realiza el procedimiento en nuestra sede.</p>
@@ -251,7 +260,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="process-step">
-                        <div class="step-num">4</div>
+                        <div class="step-num">5</div>
                         <div class="step-content">
                             <h6>Entrega de Resultados</h6>
                             <p>El neurólogo interpreta y entrega el informe con los resultados.</p>
@@ -261,12 +270,14 @@
             </div>
         </div>
 
-        <div style="text-align:center; margin-top:50px;">
-            <a href="#map" class="btn-cta-solid" style="border-radius:25px; padding:13px 35px; font-size:13px; text-decoration:none;">Solicitar Estudio</a>
-            &nbsp;
-            <a href="{{ route('landing.inicio') }}" class="btn-cta-outline" style="border-radius:25px; padding:11px 33px; font-size:13px; text-decoration:none;">Volver al inicio</a>
-        </div>
+        @include('components.page-cta', [
+            'title' => '¿Necesita un estudio electrodiagnóstico?',
+            'subtitle' => 'Agende por WhatsApp, llámenos o deje sus datos en «Lo llamamos».',
+            'secondaryHref' => route('especialidades'),
+            'secondaryLabel' => 'Ver especialidades',
+        ])
     </div>
 </section>
 
 @endsection
+

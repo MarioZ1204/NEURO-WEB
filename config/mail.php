@@ -112,6 +112,10 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    'contact' => env('CONTACT_EMAIL', 'neurocienciasnarino@gmail.com'),
+
+    'hojas_de_vida' => env('HOJAS_DE_VIDA_EMAIL', 'institutohojasdevida@gmail.com'),
+
     /*
     |--------------------------------------------------------------------------
     | Markdown Mail Settings

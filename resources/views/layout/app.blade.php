@@ -1,37 +1,81 @@
 <!DOCTYPE html>
-<html lang="es">
-
+<html lang="es" class="{{ empty($adminPreview) ? 'splash-pending ' : 'admin-preview ' }}js">
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Instituto Neurociencias de Nariño IPS S.A.S - Atención especializada en neurología, epileptología y neurorehabilitación en Pasto, Nariño.">
+    <style>
+        html, body { margin: 0; background: #4a6b68; }
+        html.splash-pending, html.splash-pending body {
+            overflow: hidden !important;
+            background: #4a6b68 !important;
+        }
+        html.splash-pending #site-root {
+            display: none !important;
+        }
+        #splash-screen {
+            position: fixed !important;
+            top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+            z-index: 2147483647 !important;
+            visibility: visible !important;
+        }
+    </style>
+    <noscript>
+        <style>
+            #splash-screen { display: none !important; }
+            html.splash-pending, html.splash-pending body { overflow: auto !important; background: #fff !important; }
+            html.splash-pending #site-root { display: block !important; }
+        </style>
+    </noscript>
+    @if(!empty($adminPreview))
+        <meta name="robots" content="noindex, nofollow">
+        <script>window.__INNAR_PREVIEW = true;</script>
+        <style>
+            html.admin-preview, html.admin-preview body { overflow-x: hidden; background: #fff; }
+            html.admin-preview { scroll-behavior: auto !important; }
+            html.admin-preview .fade-up,
+            html.admin-preview .service-card { opacity: 1 !important; transform: none !important; transition: none !important; }
+            html.admin-preview [data-preview-focus] { outline: 3px dashed #e8b84a; outline-offset: 6px; border-radius: 12px; }
+        </style>
+    @endif
+    <link rel="preload" as="image" href="{{ asset('assets/img/LOGO.png') }}" fetchpriority="high">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="description" content="@yield('meta_description', 'Instituto Neurociencias de Nariño IPS S.A.S - Atención especializada en neurología, epileptología y neurorehabilitación en Pasto, Nariño.')">
     <meta name="author" content="Instituto Neurociencias de Nariño">
+    <link rel="canonical" href="@yield('canonical', url()->current())">
     <!-- Open Graph / WhatsApp -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Instituto Neurociencias de Nariño IPS S.A.S">
-    <meta property="og:title" content="Instituto Neurociencias de Nariño IPS S.A.S">
-    <meta property="og:description" content="Atención especializada en neurología, epileptología y neurorehabilitación en Pasto, Nariño. Más de 8 años cuidándote.">
+    <meta property="og:title" content="@yield('og_title', 'Instituto Neurociencias de Nariño IPS S.A.S')">
+    <meta property="og:description" content="@yield('meta_description', 'Atención especializada en neurología, epileptología y neurorehabilitación en Pasto, Nariño. Más de 8 años cuidándote.')">
     <meta property="og:image" content="{{ asset('assets/img/LOGO.png') }}">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta name="twitter:card" content="summary_large_image">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
 
-    <link rel="icon" type="image/png" href="{{ asset('assets/img/LOGO2.png') }}">
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url('/favicon.ico') }}" sizes="any">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/LOGO2.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/img/LOGO2.png') }}">
+    <meta name="theme-color" content="#4a6b68">
 
     <title>Instituto Neurociencias de Nariño | @yield('title')</title>
+</head>
+@if(empty($adminPreview))
+<body class="splash-active" style="margin:0;background:#4a6b68;overflow:hidden">
 
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    @include('components.splash-screen')
+@else
+<body style="margin:0">
+@endif
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-    <!-- Font Awesome & Swiper -->
     <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
         :root {
@@ -131,7 +175,13 @@
             z-index: 200;
             border-top: 3px solid var(--primary);
         }
-        .neuro-navbar .nav-item-drop:hover .dropdown-menu-custom { display: block; }
+        .neuro-navbar .nav-item-drop.open .dropdown-menu-custom { display: block; }
+        .neuro-navbar .nav-item-drop.open .arrow { transform: rotate(180deg); opacity: 1; }
+        .neuro-navbar .nav-item-drop.open .nav-link-custom { color: var(--primary); }
+        @media (hover: hover) and (pointer: fine) {
+            .neuro-navbar .nav-item-drop:hover .dropdown-menu-custom { display: block; }
+            .neuro-navbar .nav-item-drop:hover .arrow { transform: rotate(180deg); opacity: 1; }
+        }
         /* Bridge the hover gap: invisible extension fills space between trigger and panel */
         .neuro-navbar .dropdown-menu-custom::before {
             content: '';
@@ -168,17 +218,17 @@
 
         /* ===== GLOBAL BUTTONS ===== */
         .btn-cta-outline {
-            border: 2px solid var(--primary);
+            border: 1.5px solid var(--primary);
             color: var(--primary);
-            background: transparent;
-            padding: 9px 20px;
-            font-size: 11px;
+            background: rgba(74,107,104,0.06);
+            padding: 10px 24px;
+            font-size: 12px;
             font-weight: 700;
             letter-spacing: 0.8px;
-            border-radius: 30px;
+            border-radius: 999px;
             text-decoration: none;
             text-transform: uppercase;
-            transition: all 0.3s ease;
+            transition: all 0.26s ease;
             cursor: pointer;
             white-space: nowrap;
             position: relative;
@@ -197,28 +247,210 @@
         .btn-cta-outline:hover::before { transform: scaleX(1); transform-origin: left; }
 
         .btn-cta-solid {
-            border: 2px solid var(--primary);
-            color: #fff;
-            background: var(--primary);
-            padding: 9px 22px;
-            font-size: 11px;
+            border: none;
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            padding: 10px 26px;
+            font-size: 12px;
             font-weight: 700;
             letter-spacing: 0.8px;
-            border-radius: 30px;
+            border-radius: 999px;
             text-decoration: none;
             text-transform: uppercase;
-            transition: all 0.3s ease;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
             cursor: pointer;
             white-space: nowrap;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 14px 28px rgba(74,107,104,0.16);
         }
         .btn-cta-solid:hover {
-            background: var(--primary-dark);
-            border-color: var(--primary-dark);
+            filter: brightness(1.05);
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(74,107,104,0.35);
+            box-shadow: 0 18px 34px rgba(74,107,104,0.22);
         }
+
+        /* ===== WHITE LARGE BUTTON (used in hero / CTAs) ===== */
+        .btn-white-lg {
+            background: #fff;
+            color: var(--primary-dark);
+            border: 1px solid rgba(46,74,71,0.06);
+            padding: 10px 18px;
+            font-weight: 800;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(46,74,71,0.06);
+            display: inline-flex; align-items: center; gap:10px;
+            text-decoration: none; cursor: pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+        .btn-white-lg:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(46,74,71,0.10); }
+        .btn-white-lg:active { transform: translateY(0); }
+        .btn-white-lg i { font-size: 15px; color: var(--primary); }
+
+        /* ===== PAGE SHELL (especialidades / servicios) ===== */
+        .page-hero {
+            padding: 80px 0 60px;
+            text-align: center;
+            color: #fff;
+        }
+        .page-cta-bar {
+            margin-top: 48px;
+            padding: 36px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 18px;
+        }
+        /* Foto lateral en consultas: no estirar con el texto */
+        .consulta-proc-row {
+            display: flex;
+            gap: 28px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .consulta-proc-copy { flex: 1 1 280px; min-width: 0; }
+        .consulta-side-photo {
+            flex: 0 0 min(300px, 34%);
+            max-width: 300px;
+            width: 100%;
+            align-self: flex-start;
+            position: sticky;
+            top: calc(var(--navbar-h, 80px) + 20px);
+        }
+        .consulta-side-photo__frame {
+            border-radius: 14px;
+            overflow: hidden;
+            background: #e8efee;
+            aspect-ratio: 4 / 5;
+            max-height: 360px;
+            box-shadow: 0 10px 28px rgba(15, 31, 30, 0.1);
+        }
+        .consulta-side-photo__frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+        .consulta-side-photo__caption {
+            margin: 10px 0 0;
+            font-size: 12px;
+            color: #888;
+            line-height: 1.45;
+        }
+        .consulta-side-photo__panel {
+            border-radius: 14px;
+            padding: 28px 22px;
+            background: linear-gradient(160deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: #fff;
+            box-shadow: 0 10px 28px rgba(15, 31, 30, 0.12);
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 12px;
+        }
+        .consulta-side-photo__icon {
+            width: 48px; height: 48px; border-radius: 12px;
+            background: rgba(255,255,255,0.16);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+        }
+        .consulta-side-photo__panel h4 {
+            margin: 0; font-size: 16px; font-weight: 800; color: #fff;
+        }
+        .consulta-side-photo__panel p {
+            margin: 0; font-size: 13px; line-height: 1.65;
+            color: rgba(255,255,255,0.88);
+        }
+        .consulta-side-photo--inline {
+            position: static;
+            max-width: 100%;
+            flex: none;
+            width: 100%;
+        }
+        .consulta-side-photo--inline .consulta-side-photo__frame {
+            max-height: 340px;
+        }
+        @media (max-width: 991px) {
+            .consulta-side-photo {
+                flex: 1 1 100%;
+                max-width: 420px;
+                margin: 0 auto;
+                position: static;
+                order: -1;
+            }
+            .consulta-side-photo__frame {
+                aspect-ratio: 16 / 10;
+                max-height: 220px;
+            }
+            .consulta-side-photo--inline .consulta-side-photo__frame {
+                aspect-ratio: 4 / 5;
+                max-height: 300px;
+            }
+        }
+        .page-cta-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .page-cta-copy h3 {
+            margin: 0 0 6px;
+            color: #fff;
+            font-size: clamp(18px, 2.4vw, 26px);
+            font-weight: 800;
+        }
+        .page-cta-copy p {
+            margin: 0;
+            color: rgba(255,255,255,0.82);
+            font-size: 14px;
+            max-width: 520px;
+            line-height: 1.55;
+        }
+        .page-cta-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .page-cta-actions .btn-cta-solid {
+            background: #fff;
+            color: var(--primary-dark);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+        }
+        .page-cta-actions .btn-cta-solid:hover { filter: none; color: var(--primary); }
+        .page-cta-actions .page-cta-secondary {
+            border-color: rgba(255,255,255,0.55);
+            color: #fff;
+            background: rgba(255,255,255,0.08);
+        }
+        .page-cta-actions .page-cta-secondary:hover { color: #fff; border-color: #fff; }
+        .page-cta-actions .page-cta-secondary::before { background: rgba(255,255,255,0.16); }
+        @media (max-width: 768px) {
+            .page-hero { padding: 56px 0 40px !important; }
+            .page-cta-bar { margin-top: 36px; padding: 28px 18px; border-radius: 14px; }
+            .page-cta-actions { width: 100%; }
+            .page-cta-actions .btn-cta-solid,
+            .page-cta-actions .page-cta-secondary { flex: 1 1 100%; text-align: center; justify-content: center; }
+        }
+
+        /* Dropdown appearance tweaks for compact contact menus */
+        .dropdown-menu.p-2 {
+            border-radius: 12px;
+            box-shadow: 0 14px 40px rgba(15,31,30,0.12);
+            padding: 8px;
+            min-width: 220px; /* fallback */
+        }
+        .dropdown-item {
+            padding: 10px 12px;
+            border-radius: 8px;
+            display:flex; align-items:center; gap:10px;
+            color: var(--text);
+            font-weight:600;
+        }
+        .dropdown-item:hover { background: var(--primary-ultra); color: var(--primary-dark); }
+        .dropdown-item i { width:20px; text-align:center; color:var(--primary); }
+        .btn-white-lg.dropdown-toggle::after { display:none; }
 
         /* ===== MOBILE HAMBURGER ===== */
         .neuro-hamburger {
@@ -250,6 +482,7 @@
             padding: 0;
             max-height: calc(100vh - var(--navbar-h));
             overflow-y: auto;
+            transition: top 0.3s ease, max-height 0.3s ease;
         }
         .mobile-menu.open { display: block; animation: slideDown 0.3s ease; }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
@@ -310,18 +543,25 @@
         }
 
         /* ===== SCROLL ANIMATIONS ===== */
-        .fade-up {
+        html.js .fade-up {
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.7s ease, transform 0.7s ease;
         }
-        .fade-up.visible {
+        html.js .fade-up.visible {
             opacity: 1;
             transform: translateY(0);
         }
         .fade-up:nth-child(2) { transition-delay: 0.1s; }
         .fade-up:nth-child(3) { transition-delay: 0.2s; }
         .fade-up:nth-child(4) { transition-delay: 0.3s; }
+        @media (prefers-reduced-motion: reduce) {
+            html.js .fade-up {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+        }
 
         @media (max-width: 992px) {
             .neuro-navbar .nav-items { display: none; }
@@ -340,11 +580,15 @@
         .neuro-navbar .nav-cta .btn-cta-outline,
         .neuro-navbar .nav-cta .btn-cta-solid { padding: 8px 14px; font-size: 10.5px; }
 
-        /* ===== 2-COLUMN DROPDOWN ===== */
+        /* ===== 2/3-COLUMN DROPDOWN ===== */
         .dropdown-menu-custom.drop-2col { min-width: 470px; padding: 0; }
-        .neuro-navbar .nav-item-drop:hover .dropdown-menu-custom.drop-2col { display: flex; }
-        .drop-2col .drop-col { flex: 1; padding: 10px 0; min-width: 0; }
-        .drop-2col .drop-col-title {
+        .dropdown-menu-custom.drop-3col { min-width: 720px; padding: 0; }
+        .neuro-navbar .nav-item-drop:hover .dropdown-menu-custom.drop-2col,
+        .neuro-navbar .nav-item-drop:hover .dropdown-menu-custom.drop-3col { display: flex; }
+        .drop-2col .drop-col,
+        .drop-3col .drop-col { flex: 1; padding: 10px 0; min-width: 0; }
+        .drop-2col .drop-col-title,
+        .drop-3col .drop-col-title {
             padding: 12px 20px 8px;
             font-size: 9.5px;
             font-weight: 800;
@@ -354,7 +598,11 @@
             border-bottom: 1px solid var(--primary-ultra);
             margin-bottom: 4px;
         }
-        .drop-2col .drop-col + .drop-col { border-left: 1px solid var(--primary-ultra); }
+        .drop-2col .drop-col + .drop-col,
+        .drop-3col .drop-col + .drop-col { border-left: 1px solid var(--primary-ultra); }
+        @media (max-width: 900px) {
+            .dropdown-menu-custom.drop-3col { min-width: 540px; }
+        }
 
         /* ===== CONTACT DROPDOWN ===== */
         .dropdown-menu-custom.drop-contact { min-width: 295px; }
@@ -422,14 +670,12 @@
         .mobile-menu .mob-contact-item:hover { background: var(--primary-ultra); color: var(--primary); }
         .mobile-menu .mob-contact-item i { color: var(--primary); width: 16px; text-align: center; flex-shrink: 0; }
     </style>
-</head>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-<body>
-
-    <!-- Splash Screen Component -->
-    @include('components.splash-screen')
-
+    <div id="site-root">
     <!-- ===== NAVBAR ===== -->
     <nav class="neuro-navbar">
         <a href="{{ route('landing.inicio') }}" class="navbar-brand me-4">
@@ -437,7 +683,7 @@
         </a>
 
         <div class="nav-items">
-
+        
             {{-- Nuestra Institución --}}
             <div class="nav-item-drop">
                 <a href="{{ route('landing.aboutUs') }}" class="nav-link-custom">
@@ -445,37 +691,50 @@
                 </a>
                 <div class="dropdown-menu-custom">
                     <a href="{{ route('landing.aboutUs') }}">Acerca de Nosotros</a>
-                    <a href="{{ route('landing.portafolio') }}">Portafolio de Servicios</a>
-                    <a href="{{ route('marcoLegal') }}">Marco Legal</a>
-                    <a href="{{ route('estadosFinancieros') }}">Estados Financieros</a>
                     <a href="{{ route('articulos') }}">Artículos y Revistas</a>
+                    <a href="{{ route('marcoLegal') }}">Marco Legal</a>
+                    <a href="{{ route('landing.portafolio') }}">Portafolio de Servicios</a>
                 </div>
             </div>
-
-            {{-- Consulta Especializada (2 columnas) --}}
+        
+            {{-- Servicios Especializados (3 columnas) --}}
             <div class="nav-item-drop">
                 <a href="{{ route('especialidades') }}" class="nav-link-custom">
-                    Consulta Especializada <span class="arrow">▼</span>
+                    Servicios Especializados <span class="arrow">▼</span>
                 </a>
-                <div class="dropdown-menu-custom drop-2col">
+                <div class="dropdown-menu-custom drop-3col">
                     <div class="drop-col">
                         <div class="drop-col-title">Consulta Especializada</div>
                         <a href="{{ route('consulta.neurologia') }}">Neurología</a>
                         <a href="{{ route('consulta.epileptologia') }}">Epileptología</a>
+                        <a href="{{ route('servicios.clinicaSueno') }}">Somnología</a>
+                        <a href="{{ route('consulta.oftalmologia') }}">Oftalmología</a>
+                        <a href="{{ route('consulta.oftalmologiaPediatrica') }}">Oftalmología Pediátrica</a>
+                        <a href="{{ route('consulta.terapiaFisica') }}">Terapia Física</a>
+                        <a href="{{ route('consulta.terapiaOcupacional') }}">Terapia Ocupacional</a>
+                        <a href="{{ route('consulta.fonoaudiologia') }}">Fonoaudiología</a>
                         <a href="{{ route('consulta.psiquiatria') }}">Psiquiatría</a>
-                        <a href="{{ route('consulta.neuropsicologia') }}">Neuropsicología</a>
                         <a href="{{ route('consulta.psicologia') }}">Psicología</a>
+                        <a href="{{ route('consulta.neuropsicologia') }}">Neuropsicología</a>
                     </div>
                     <div class="drop-col">
-                        <div class="drop-col-title">+ Servicios Complementarios</div>
-                        <a href="{{ route('servicios.clinicaSueno') }}">Clínica del Sueño</a>
+                        <div class="drop-col-title">Ayudas Diagnósticas</div>
+                        <a href="{{ route('landing.electrodiagnosticos') }}">Electroencefalograma</a>
+                        <a href="{{ route('landing.electrodiagnosticos') }}">Videotelemetría (VTM)</a>
+                        <a href="{{ route('servicios.clinicaSueno') }}">Polisomnografía</a>
                         <a href="{{ route('landing.electrodiagnosticos') }}">Unidad de Electrodiagnóstico</a>
-                        <a href="{{ route('landing.tiposTerapia') }}">Unidad de Terapia Física</a>
+                    </div>
+                    <div class="drop-col">
+                        <div class="drop-col-title">Servicios Complementarios</div>
+                        <a href="{{ route('servicios.clinicaSueno') }}">Clínica del Sueño</a>
                         <a href="{{ route('consulta.medicinaGeneral') }}">Medicina General</a>
+                        <a href="{{ route('landing.tiposTerapia') }}">Unidad de Terapia Física</a>
+                        <a href="{{ route('consulta.fonoaudiologia') }}">Unidad de Fonoaudiología</a>
+                        <a href="{{ route('consulta.terapiaOcupacional') }}">Unidad de Terapia Ocupacional</a>
                     </div>
                 </div>
             </div>
-
+        
             {{-- Educación al Paciente --}}
             <div class="nav-item-drop">
                 <a href="{{ route('educacion.polisBasal') }}" class="nav-link-custom">
@@ -487,7 +746,7 @@
                     <a href="{{ route('educacion.saludSueno') }}">Evalúe su Salud del Sueño</a>
                 </div>
             </div>
-
+        
             {{-- Trabaje con Nosotros --}}
             <div class="nav-item-drop">
                 <a href="{{ route('trabaje.hojaDeVida') }}" class="nav-link-custom">
@@ -495,54 +754,54 @@
                 </a>
                 <div class="dropdown-menu-custom">
                     <a href="{{ route('trabaje.hojaDeVida') }}">Postule su Hoja de Vida</a>
-                    <a href="{{ route('trabaje.practicas') }}">Realice sus Prácticas</a>
                     <a href="{{ route('trabaje.convenio') }}">Postule su Convenio Interinstitucional</a>
+                    <a href="{{ route('trabaje.practicas') }}">Realice sus Prácticas</a>
                 </div>
             </div>
-
+        
             {{-- Contacto --}}
             <div class="nav-item-drop">
-                <a href="{{ route('landing.inicio') }}#map" class="nav-link-custom">
+                <a href="#" class="nav-link-custom" onclick="return false;">
                     Contacto <span class="arrow">▼</span>
                 </a>
                 <div class="dropdown-menu-custom drop-contact drop-right">
-                    <a href="https://maps.google.com/maps?q=INSTITUTO+NEUROCIENCIAS+DE+NARI%C3%91O+IPS+SAS,+Calle+14A+%2334-13,+Pasto" target="_blank" rel="noopener">
+                    <a href="tel:{{ setting('wa1_tel') }}">
+                        <span class="ci-icon"><i class="fa fa-mobile-alt"></i></span>
+                        <span>
+                            <span class="ci-label">{{ setting('wa1_label') }}</span>
+                            <span class="ci-val">{{ setting('wa1_display') }}</span>
+                        </span>
+                    </a>
+                    <a href="tel:{{ setting('wa2_tel') }}">
+                        <span class="ci-icon"><i class="fa fa-mobile-alt"></i></span>
+                        <span>
+                            <span class="ci-label">{{ setting('wa2_label') }}</span>
+                            <span class="ci-val">{{ setting('wa2_display') }}</span>
+                        </span>
+                    </a>
+                    <a href="{{ setting('maps_url') }}" target="_blank" rel="noopener">
                         <span class="ci-icon"><i class="fa fa-map-marker-alt"></i></span>
                         <span>
                             <span class="ci-label">Dirección</span>
-                            <span class="ci-val">C. 14A #34-13, Pasto, Nariño</span>
+                            <span class="ci-val">Sede Principal · {{ setting('address') }}</span>
                         </span>
                     </a>
-                    <a href="tel:6027238141">
+                    <a href="tel:{{ setting('phone_fixed') }}">
                         <span class="ci-icon"><i class="fa fa-phone"></i></span>
                         <span>
-                            <span class="ci-label">Teléfono</span>
-                            <span class="ci-val">(602) 7238141</span>
-                        </span>
-                    </a>
-                    <a href="tel:3053560651">
-                        <span class="ci-icon"><i class="fa fa-mobile-alt"></i></span>
-                        <span>
-                            <span class="ci-label">Celular</span>
-                            <span class="ci-val">305 356 0651</span>
-                        </span>
-                    </a>
-                    <a href="mailto:neurocienciasnarino@gmail.com">
-                        <span class="ci-icon"><i class="fa fa-envelope"></i></span>
-                        <span>
-                            <span class="ci-label">Correo Electrónico</span>
-                            <span class="ci-val">neurocienciasnarino@gmail.com</span>
+                            <span class="ci-label">PBX</span>
+                            <span class="ci-val">{{ setting('phone_fixed_display') }}</span>
                         </span>
                     </a>
                 </div>
             </div>
-
+        
         </div>
 
         <div class="nav-cta">
             <a href="{{ route('busqueda') }}" class="btn-cta-outline" style="padding:8px 14px;" title="Buscar"><i class="fa fa-search"></i></a>
             <button onclick="openQRModal()" class="btn-cta-outline" style="padding:8px 14px;" title="Pagos y Donaciones">REALICE SU PAGO<i class="fa fa-qrcode"></i></button>
-            <a href="{{ route('landing.inicio') }}#map" class="btn-cta-solid">SOLICITAR CITA</a>
+            <a href="#" class="btn-cta-solid" data-bs-toggle="modal" data-bs-target="#solicitarCitaModal">SOLICITAR CITA</a>
         </div>
 
         <!-- Hamburger -->
@@ -559,20 +818,29 @@
         <a href="{{ route('landing.aboutUs') }}" class="sub">Acerca de Nosotros</a>
         <a href="{{ route('landing.portafolio') }}" class="sub">Portafolio de Servicios</a>
         <a href="{{ route('marcoLegal') }}" class="sub">Marco Legal</a>
-        <a href="{{ route('estadosFinancieros') }}" class="sub">Estados Financieros</a>
         <a href="{{ route('articulos') }}" class="sub">Artículos y Revistas</a>
         <a href="{{ route('busqueda') }}" class="sub"><i class="fa fa-search" style="margin-right:6px;"></i>Buscador</a>
 
-        <div class="mob-section">Consulta Especializada</div>
+        <div class="mob-section">Servicios Especializados</div>
         <a href="{{ route('consulta.neurologia') }}" class="sub">Neurología</a>
         <a href="{{ route('consulta.epileptologia') }}" class="sub">Epileptología</a>
+        <a href="{{ route('servicios.clinicaSueno') }}" class="sub">Somnología</a>
+        <a href="{{ route('consulta.oftalmologia') }}" class="sub">Oftalmología</a>
+        <a href="{{ route('consulta.oftalmologiaPediatrica') }}" class="sub">Oftalmología Pediátrica</a>
+        <a href="{{ route('consulta.terapiaFisica') }}" class="sub">Terapia Física</a>
+        <a href="{{ route('consulta.terapiaOcupacional') }}" class="sub">Terapia Ocupacional</a>
+        <a href="{{ route('consulta.fonoaudiologia') }}" class="sub">Fonoaudiología</a>
         <a href="{{ route('consulta.psiquiatria') }}" class="sub">Psiquiatría</a>
         <a href="{{ route('consulta.neuropsicologia') }}" class="sub">Neuropsicología</a>
         <a href="{{ route('consulta.psicologia') }}" class="sub">Psicología</a>
-        <div class="mob-section" style="font-size:9.5px;">+ Servicios Complementarios</div>
-        <a href="{{ route('servicios.clinicaSueno') }}" class="sub">Clínica del Sueño</a>
+        <div class="mob-section" style="font-size:9.5px;">Ayudas Diagnósticas</div>
         <a href="{{ route('landing.electrodiagnosticos') }}" class="sub">Unidad de Electrodiagnóstico</a>
+        <a href="{{ route('servicios.clinicaSueno') }}" class="sub">Polisomnografía</a>
+        <div class="mob-section" style="font-size:9.5px;">Servicios Complementarios</div>
+        <a href="{{ route('servicios.clinicaSueno') }}" class="sub">Clínica del Sueño</a>
         <a href="{{ route('landing.tiposTerapia') }}" class="sub">Unidad de Terapia Física</a>
+        <a href="{{ route('consulta.fonoaudiologia') }}" class="sub">Unidad de Fonoaudiología</a>
+        <a href="{{ route('consulta.terapiaOcupacional') }}" class="sub">Unidad de Terapia Ocupacional</a>
         <a href="{{ route('consulta.medicinaGeneral') }}" class="sub">Medicina General</a>
 
         <div class="mob-section">Educación al Paciente</div>
@@ -587,15 +855,14 @@
         
 
         <div class="mob-section">Contacto</div>
-        <a href="https://maps.google.com/maps?q=INSTITUTO+NEUROCIENCIAS+DE+NARI%C3%91O+IPS+SAS,+Calle+14A+%2334-13,+Pasto" target="_blank" rel="noopener" class="mob-contact-item"><i class="fa fa-map-marker-alt"></i> C. 14A #34-13, Pasto, Nariño</a>
-        <a href="tel:6027238141" class="mob-contact-item"><i class="fa fa-phone"></i> (602) 7238141</a>
-        <a href="tel:3053560651" class="mob-contact-item"><i class="fa fa-mobile-alt"></i> 305 356 0651</a>
-        <a href="mailto:neurocienciasnarino@gmail.com" class="mob-contact-item"><i class="fa fa-envelope"></i> neurocienciasnarino@gmail.com</a>
+        <a href="{{ setting('maps_url') }}" target="_blank" rel="noopener" class="mob-contact-item"><i class="fa fa-map-marker-alt"></i> {{ setting('address') }}</a>
+        <a href="tel:{{ setting('phone_fixed') }}" class="mob-contact-item"><i class="fa fa-phone"></i> {{ setting('phone_fixed_display') }}</a>
+        <a href="tel:{{ setting('wa1_tel') }}" class="mob-contact-item"><i class="fa fa-mobile-alt"></i> {{ setting('wa1_display') }}</a>
+        <a href="tel:{{ setting('wa2_tel') }}" class="mob-contact-item"><i class="fa fa-mobile-alt"></i> {{ setting('wa2_display') }}</a>
 
         <div class="cta-group">
-            <a href="#" onclick="openContactModal(event); document.getElementById('mobileMenu').classList.remove('open');" class="btn-cta-outline" style="text-align:center;">PQRS</a>
             <button onclick="openQRModal(); document.getElementById('mobileMenu').classList.remove('open');" class="btn-cta-outline" style="text-align:center; width:100%;"><i class="fa fa-qrcode" style="margin-right:6px;"></i>Pagos y Donaciones</button>
-            <a href="{{ route('landing.inicio') }}#map" class="btn-cta-solid" style="text-align:center;">SOLICITAR CITA</a>
+            <a href="#" class="btn-cta-solid" data-bs-toggle="modal" data-bs-target="#solicitarCitaModal" style="text-align:center;">SOLICITAR CITA</a>
         </div>
     </div>
 
@@ -610,11 +877,12 @@
         .qr-overlay.open { display: flex; }
         .qr-modal {
             background: #fff; border-radius: 18px;
-            width: 100%; max-width: 460px;
+            width: 100%; max-width: 660px;
+            max-height: 92vh;
+            overflow-y: auto;
             box-shadow: 0 20px 60px rgba(0,0,0,0.25);
             position: relative;
             animation: llSlidein 0.3s ease;
-            overflow: hidden;
         }
         .qr-header {
             background: linear-gradient(135deg, #2e7d5b, #43a97d);
@@ -649,7 +917,10 @@
         .qr-panel { display: none; }
         .qr-panel.active { display: block; }
         .qr-img-box {
-            width: 200px; height: 200px;
+            width: min(420px, 100%);
+            height: auto;
+            aspect-ratio: 1;
+            max-width: 100%;
             margin: 0 auto 16px;
             border: 2px solid #f0f0f0;
             border-radius: 12px;
@@ -671,6 +942,15 @@
             font-size: 11.5px; font-weight: 700; color: #2e7d5b;
             margin-bottom: 14px;
         }
+        
+        .qr-bank-logo {
+            margin-bottom: 24px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .qr-bank-logo img {
+            max-height: 80px; width: auto; object-fit: contain;
+        }
+        
         .qr-instructions {
             font-size: 12px; color: #666; line-height: 1.7;
             background: #fafafa; border-radius: 10px;
@@ -689,7 +969,7 @@
         <div class="qr-modal">
             <div class="qr-header">
                 <h3><i class="fa fa-qrcode" style="margin-right:8px;"></i>Pagos y Donaciones</h3>
-                <p>Escanea el QR desde tu app Bancolombia</p>
+                <p>Escanee el QR desde su app Bancolombia</p>
             </div>
             <button class="qr-close" onclick="closeQRModal()" aria-label="Cerrar">&#x2715;</button>
 
@@ -701,48 +981,40 @@
             <div class="qr-body">
                 <!-- Panel Pagos -->
                 <div class="qr-panel active" id="qrPanelPagos">
-                    <div class="qr-bank-badge">
-                        <i class="fa fa-university"></i> Bancolombia
+                    <div class="qr-bank-logo">
+                        <img src="{{ asset('assets/img/bre-b.jpg') }}" alt="BRE-B" style="max-height:64px; width:auto;">
                     </div>
                     <div class="qr-img-box">
-                        {{-- Reemplaza la imagen con el QR real de pagos --}}
-                        {{-- <img src="{{ asset('assets/img/qr-pagos.png') }}" alt="QR Pagos Bancolombia"> --}}
-                        <div class="qr-placeholder">
-                            <i class="fa fa-qrcode"></i>
-                            <span>QR próximamente</span>
-                        </div>
+                        <img src="{{ setting_image('qr_pagos_path', 'assets/img/qr-pagos.jpg') }}" alt="QR Pagos Bancolombia">
                     </div>
                     <div class="qr-instructions">
                         <strong style="color:#333;">¿Cómo pagar?</strong>
                         <ol>
-                            <li>Abre la app <strong>Bancolombia</strong></li>
-                            <li>Selecciona <strong>Pagar con QR</strong></li>
-                            <li>Escanea el código y confirma el valor</li>
-                            <li>Envía el comprobante a <a href="mailto:neurocienciasnarino@gmail.com" style="color:#2e7d5b;">neurocienciasnarino@gmail.com</a></li>
+                            <li>Abra su aplicación <strong>bancaria de pagos</strong></li>
+                            <li>Seleccione <strong>Pagar con QR</strong></li>
+                            <li>Escanee el código o gestione el pago con el número de llave y confirme el valor</li>
+                            <li>Guarde el comprobante como respaldo y confirme el pago desde su aplicación bancaria.</li>
                         </ol>
                     </div>
                 </div>
 
                 <!-- Panel Donaciones -->
                 <div class="qr-panel" id="qrPanelDonaciones">
-                    <div class="qr-bank-badge">
-                        <i class="fa fa-heart"></i> Bancolombia
+                    <div class="qr-bank-logo">
+                        <img src="{{ asset('assets/img/bre-b.jpg') }}" alt="BRE-B" style="max-height:64px; width:auto;">
                     </div>
                     <div class="qr-img-box">
-                        {{-- Reemplaza la imagen con el QR real de donaciones --}}
-                        {{-- <img src="{{ asset('assets/img/qr-donaciones.png') }}" alt="QR Donaciones Bancolombia"> --}}
-                        <div class="qr-placeholder">
-                            <i class="fa fa-qrcode"></i>
-                            <span>QR próximamente</span>
-                        </div>
+                        <img src="{{ setting_image('qr_donaciones_path', 'assets/img/qr-donaciones.jpg') }}" alt="QR Donaciones Bancolombia">
                     </div>
                     <div class="qr-instructions">
                         <strong style="color:#333;">¿Cómo donar?</strong>
                         <ol>
-                            <li>Abre la app <strong>Bancolombia</strong></li>
-                            <li>Selecciona <strong>Pagar con QR</strong></li>
-                            <li>Escanea el código e ingresa el valor que desees donar</li>
-                            <li>Tu donación apoya la atención neurológica en Nariño</li>
+                            <li>Abra su aplicación <strong>bancaria de pagos</strong></li>
+                            <li>Seleccione <strong>Pagar con QR</strong></li>
+                            <li>Escanee el código QR o transfiera a la llave</li>
+                            <li>Ingrese el valor que desee donar</li>
+                            <li>Remita el comprobante de pago al correo <strong>{{ setting('payments_email') }}</strong></li>
+                            <li>Dentro de los 2 días hábiles siguientes recibirá la confirmación de recibido de la donación</li>
                         </ol>
                     </div>
                 </div>
@@ -769,11 +1041,13 @@
 
     <!-- Social Sidebar -->
     <div class="social-sidebar">
-        <div class="social-sidebar-label">SíGANOS</div>
-        <a href="https://www.instagram.com/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://www.youtube.com/" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-        <a href="https://api.whatsapp.com/send?phone=3053560651" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <div class="social-sidebar-label">Síganos</div>
+        <a href="{{ setting('facebook') }}" target="_blank" rel="noopener" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="{{ setting('instagram') }}" target="_blank" rel="noopener" title="Instagram"><i class="fab fa-instagram"></i></a>
+        @if(setting('youtube'))<a href="{{ setting('youtube') }}" target="_blank" rel="noopener" title="YouTube"><i class="fab fa-youtube"></i></a>@endif
+        @if(setting('tiktok'))<a href="{{ setting('tiktok') }}" target="_blank" rel="noopener" title="TikTok"><i class="fab fa-tiktok"></i></a>@endif
+        <a href="https://api.whatsapp.com/send?phone={{ setting('wa1') }}" target="_blank" rel="noopener" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="mailto:{{ setting('contact_email') }}" title="Correo"><i class="fa fa-envelope"></i></a>
     </div>
 
     <script>
@@ -782,37 +1056,58 @@
                 $('#mobileMenu').toggleClass('open');
                 $(this).toggleClass('open');
             });
-            // Close mobile menu on outside click
             $(document).on('click', function(e) {
                 if (!$(e.target).closest('.neuro-navbar, .mobile-menu').length) {
                     $('#mobileMenu').removeClass('open');
                     $('#hamburgerBtn').removeClass('open');
+                    $('.nav-item-drop').removeClass('open');
                 }
             });
+
+            // Dropdowns: en táctil abren con tap; el enlace padre no navega (usar ítems del menú)
+            $('.neuro-navbar .nav-item-drop > .nav-link-custom').on('click', function (e) {
+                if (!window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+                e.preventDefault();
+                var $drop = $(this).closest('.nav-item-drop');
+                var wasOpen = $drop.hasClass('open');
+                $('.nav-item-drop').removeClass('open');
+                if (!wasOpen) $drop.addClass('open');
+            });
         });
-        // Navbar shrink on scroll
+        // Navbar shrink on scroll + sync menú móvil
         window.addEventListener('scroll', function() {
             var navbar = document.querySelector('.neuro-navbar');
+            if (!navbar) return;
             if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
+                document.documentElement.style.setProperty('--navbar-h', '68px');
             } else {
                 navbar.classList.remove('scrolled');
+                document.documentElement.style.setProperty('--navbar-h', '80px');
             }
             var btt = document.getElementById('backToTop');
             if (btt) btt.classList.toggle('show', window.scrollY > 500);
         });
         // Scroll fade-up animations — must run after full DOM is ready
         document.addEventListener('DOMContentLoaded', function() {
+            var els = document.querySelectorAll('.fade-up');
+            if (!('IntersectionObserver' in window)) {
+                els.forEach(function(el) { el.classList.add('visible'); });
+                return;
+            }
             var observer = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.12 });
-            document.querySelectorAll('.fade-up').forEach(function(el) {
-                observer.observe(el);
-            });
+            els.forEach(function(el) { observer.observe(el); });
+            // Fallback: nunca dejar contenido invisible
+            setTimeout(function() {
+                els.forEach(function(el) { el.classList.add('visible'); });
+            }, 2500);
         });
     </script>
 
@@ -838,7 +1133,7 @@
     <section id="map" style="padding:0; background:#f5f5f5;">
 
         <style>
-            .sedes-section { background:#f5f5f5; padding:60px 0 0; }
+            .sedes-section { background:#f5f5f5; padding:60px 0 80px; position:relative; z-index:1; }
             .sedes-title {
                 text-align:center; margin-bottom:36px;
             }
@@ -864,6 +1159,7 @@
                 border-radius:12px; overflow:hidden;
                 box-shadow:0 4px 20px rgba(0,0,0,0.14);
                 position:relative;
+                z-index:1;
             }
             .sede-map-box iframe { display:block; width:100%; height:340px; border:0; }
             .btn-sv {
@@ -886,136 +1182,59 @@
             <div class="sedes-title">
                 <h2>¿Dónde estamos ubicados?</h2>
             </div>
-
-            <div class="sedes-cols">
-
-                <!-- Sede 1 -->
-                <!-- <div class="sede-col">
-                    <h3>
-                        <span class="sede-num" style="background:var(--primary);">1</span>
-                        Sede Principal 
-                    </h3>
-                    <div class="sede-map-box">
-                        
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!4v1773754795231!6m8!1m7!1soZ6fv2LQd3Eq6hqLLrZUJw!2m2!1d1.218293332139965!2d-77.28628173728882!3f173.08680620153123!4f-10.743299841954638!5f0.7820865974627469"  
-                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-                            title="Sede Principal Instituto Neurociencias">
-                        </iframe>
+            <div class="sedes-cols" style="display:flex; justify-content:center;">
+                <div class="sede-col" style="max-width:500px; width:100%;">
+                    <div class="sede-map-box" style="position:relative;">
+                        <a href="{{ setting('maps_url') }}" target="_blank" rel="noopener"
+                           style="display:block; width:100%; height:100%;">
+                            <img src="{{ asset('assets/img/SEDE.jpg') }}" alt="Instituto Neurociencias"
+                                 style="width:100%; height:100%; object-fit:cover; display:block;">
+                            <div style="position:absolute; inset:0; background:rgba(0,0,0,0.4);
+                                        display:flex; align-items:center; justify-content:center;
+                                        opacity:0; transition:opacity .3s;"
+                                 onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
+                                <i class="fa fa-map-marker-alt" style="color:#fff; font-size:2.5rem;"></i>
+                            </div>
+                        </a>
                     </div>
-                    <div class="sede-addr"><i class="fa fa-map-marker-alt"></i> Carrera 34 #13-80, Barrio San Ignacio, Pasto, Nariño </div>
-                    <a href="https://maps.app.goo.gl/2Y62iqQ5WPHYPZ5g7"
-                       target="_blank" rel="noopener" class="btn-sv">
-                        <i class="fa fa-street-view"></i> Ver en Street View 360°
-                    </a>
-                </div> -->
-
-<div class="sede-col">
-    <h3>
-        <span class="sede-num" style="background:var(--primary);">1</span>
-        Sede Principal 
-    </h3>
-    <div class="sede-map-box" style="position:relative;">
-        <a href="https://maps.app.goo.gl/2Y62iqQ5WPHYPZ5g7" target="_blank" rel="noopener"
-           style="display:block; width:100%; height:100%;">
-            <img src="{{ asset('assets/img/SEDE.jpg') }}" alt="Sede Principal Instituto Neurociencias"
-                 style="width:100%; height:100%; object-fit:cover; display:block;">
-            <div style="position:absolute; inset:0; background:rgba(0,0,0,0.4);
-                        display:flex; align-items:center; justify-content:center;
-                        opacity:0; transition:opacity .3s;"
-                 onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
-                <i class="fa fa-map-marker-alt" style="color:#fff; font-size:2.5rem;"></i>
-            </div>
-        </a>
-    </div>
-    <div class="sede-addr"><i class="fa fa-map-marker-alt"></i> Carrera 34 #13-80, Barrio San Ignacio, Pasto, Nariño</div>
-    <a href="https://maps.app.goo.gl/2Y62iqQ5WPHYPZ5g7" target="_blank" rel="noopener" class="btn-sv">
-        <i class="fa fa-street-view"></i> Ver en Street View 360°
-    </a>
-</div>
-
-
-                <!-- Sede 2 -->
-                <!-- <div class="sede-col">
-                    <h3>
-                        <span class="sede-num" style="background:var(--primary);">2</span>
-                        Sede 2 · Servicios Complementarios
-                    </h3>
-                    <div class="sede-map-box">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!4v1742168000002!6m8!1m7!1sCAoSLEFGMVFpcE1KbGhIeGpuXzVYc3BJVF9pMHdaM3YtdWRJOHJnY1IwV3FXWQ!2m2!1d1.217846!2d-77.285914!3f180!4f0!5f0.7820865974627469"
-                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-                            title="Sede 2 Servicios Complementarios">
-                        </iframe>
-                    </div>
-                    <div class="sede-addr"><i class="fa fa-map-marker-alt"></i> Carrera 33 #13-84,Barrio San Pasto, Nariño</div>
-                    <a href="https://maps.app.goo.gl/7KrevZf1qQyxNTeH8"
-                       target="_blank" rel="noopener" class="btn-sv">
-                        <i class="fa fa-street-view"></i> Ver en Street View 360°
-                    </a>
-                </div> -->
-
-<div class="sede-col">
-    <h3>
-        <span class="sede-num" style="background:var(--primary);">1</span>
-        Sede 2 · Servicios Complementarios
-    </h3>
-    <div class="sede-map-box" style="position:relative;">
-        <a href="https://maps.app.goo.gl/5df4ev2jYdbgvMN98" target="_blank" rel="noopener"
-           style="display:block; width:100%; height:100%;">
-            <img src="{{ asset('assets/img/SEDE1.jpg') }}" alt="Sede Principal Instituto Neurociencias"
-                 style="width:100%; height:100%; object-fit:cover; display:block;">
-            <div style="position:absolute; inset:0; background:rgba(0,0,0,0.4);
-                        display:flex; align-items:center; justify-content:center;
-                        opacity:0; transition:opacity .3s;"
-                 onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
-                <i class="fa fa-map-marker-alt" style="color:#fff; font-size:2.5rem;"></i>
-            </div>
-        </a>
-    </div>
-    <div class="sede-addr"><i class="fa fa-map-marker-alt"></i> Carrera 34 #13-80, Barrio San Ignacio, Pasto, Nariño</div>
-    <a href="https://maps.app.goo.gl/2Y62iqQ5WPHYPZ5g7" target="_blank" rel="noopener" class="btn-sv">
-        <i class="fa fa-street-view"></i> Ver en Street View 360°
-    </a>
-</div>
-
-
-
+                    <div class="sede-addr"><i class="fa fa-map-marker-alt"></i> {{ setting('address') }}</div>
+                </div>
             </div><!-- /.sedes-cols -->
-        </div><!-- /.sedes-section -->
+        </div><!-- /.sedes-section -->  
 
         <!-- Contact info bar -->
-        <div style="background: linear-gradient(135deg, #2e4a47 0%, #4a6b68 100%); padding: 50px 0; margin-top:50px;">
-            <div class="container">
-                <div class="row text-white g-4">
-                    <div class="col-lg-4 col-md-4 text-center">
-                        <div style="width:56px; height:56px; background:rgba(255,255,255,0.12); border-radius:50%; display:flex; align-items:center; justify-content:center; margin: 0 auto 16px;">
-                            <i class="fa fa-envelope" style="font-size:20px; color:#c8dedd;"></i>
-                        </div>
-                        <h6 style="font-weight:700; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:10px; color:#c8dedd;">Correo Electrónico</h6>
-                        <a href="mailto:neurocienciasnarino@gmail.com" style="color:#fff; text-decoration:none; font-size:13px; font-weight:300; opacity:0.9;">neurocienciasnarino@gmail.com</a>
-                    </div>
-                    <div class="col-lg-4 col-md-4 text-center">
-                        <div style="width:56px; height:56px; background:rgba(255,255,255,0.12); border-radius:50%; display:flex; align-items:center; justify-content:center; margin: 0 auto 16px;">
-                            <i class="fab fa-whatsapp" style="font-size:22px; color:#c8dedd;"></i>
-                        </div>
-                        <h6 style="font-weight:700; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:10px; color:#c8dedd;">WhatsApp</h6>
-                        <a href="https://api.whatsapp.com/send?phone=3053560651" target="_blank" style="color:#fff; text-decoration:none; font-size:12.5px; font-weight:300; display:block; margin-bottom:4px; opacity:0.9;">305-356-0651 · Neurología</a>
-                        <a href="https://api.whatsapp.com/send?phone=3159729333" target="_blank" style="color:#fff; text-decoration:none; font-size:12.5px; font-weight:300; display:block; margin-bottom:4px; opacity:0.9;">315-972-9333 · Terapias</a>
-                        <a href="https://api.whatsapp.com/send?phone=3014701117" target="_blank" style="color:#fff; text-decoration:none; font-size:12.5px; font-weight:300; display:block; opacity:0.9;">301-470-1117</a>
-                    </div>
-                    <div class="col-lg-4 col-md-4 text-center">
-                        <div style="width:56px; height:56px; background:rgba(255,255,255,0.12); border-radius:50%; display:flex; align-items:center; justify-content:center; margin: 0 auto 16px;">
-                            <i class="fa fa-map-marker-alt" style="font-size:20px; color:#c8dedd;"></i>
-                        </div>
-                        <h6 style="font-weight:700; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:10px; color:#c8dedd;">Dirección</h6>
-                        <p style="color:#fff; font-size:13px; margin:0; opacity:0.9; font-weight:300;">Cll 14 #34-13, Pasto, Nariño</p>
-                        <p style="color:#c8dedd; font-size:12px; margin:6px 0 0; font-weight:400;">Lun – Vie · 7:00am – 6:00pm</p>
-                    </div>
+        <div style="background: linear-gradient(135deg, #2e4a47 0%, #4a6b68 100%); padding: 50px 0;">
+          <div class="container">
+            <div class="row text-white g-4 justify-content-center">
+        
+              <div class="col-lg-4 col-md-4 text-center">
+                <div style="width:56px; height:56px; background:rgba(255,255,255,0.12); border-radius:50%; display:flex; align-items:center; justify-content:center; margin: 0 auto 16px;">
+                  <i class="fab fa-whatsapp" style="font-size:22px; color:#c8dedd;"></i>
                 </div>
+                <h6 style="font-weight:700; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:10px; color:#c8dedd;">WhatsApp</h6>
+                <p style="color:#c8dedd; font-size:12px; margin:6px 0 0; font-weight:400;">{{ setting('wa1_label') }}</p>
+                <a href="https://api.whatsapp.com/send?phone={{ setting('wa1') }}" target="_blank" style="color:#fff; text-decoration:none; font-size:12.5px; font-weight:300; display:block; margin-bottom:4px; opacity:0.9;">{{ setting('wa1_display') }}</a>
+
+                <p style="color:#c8dedd; font-size:12px; margin:6px 0 0; font-weight:400;">{{ setting('wa2_label') }}</p>
+                <a href="https://api.whatsapp.com/send?phone={{ setting('wa2') }}" target="_blank" style="color:#fff; text-decoration:none; font-size:12.5px; font-weight:300; display:block; opacity:0.9;">{{ setting('wa2_display') }}</a>
+
+                <p style="color:#c8dedd; font-size:12px; margin:14px 0 0; font-weight:400;">PBX</p>
+                <a href="tel:{{ setting('phone_fixed') }}" style="color:#fff; text-decoration:none; font-size:12.5px; font-weight:300; display:block; opacity:0.9;">{{ setting('phone_fixed_display') }}</a>
+              </div>
+        
+              <div class="col-lg-4 col-md-4 text-center">
+                <div style="width:56px; height:56px; background:rgba(255,255,255,0.12); border-radius:50%; display:flex; align-items:center; justify-content:center; margin: 0 auto 16px;">
+                  <i class="fa fa-map-marker-alt" style="font-size:20px; color:#c8dedd;"></i>
+                </div>
+                <h6 style="font-weight:700; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:10px; color:#c8dedd;">Dirección</h6>
+                <p style="color:#fff; font-size:13px; margin:0 0 6px; opacity:0.9; font-weight:300;">{{ setting('address') }}</p>
+                <p style="color:#c8dedd; font-size:12px; margin:6px 0 0; font-weight:400;">{{ setting('hours_weekdays') }}</p>
+                <p style="color:#c8dedd; font-size:12px; margin:6px 0 0; font-weight:400;">{{ setting('hours_saturday') }}</p>
+              </div>
+        
             </div>
+          </div>
         </div>
-    </section>
 
 
     {{-- FLOATING ACTION BUTTON --}}
@@ -1037,6 +1256,7 @@
             gap: 0;
             align-items: flex-end;
             padding-bottom: 10px;
+            pointer-events: none;
         }
         
         .fab-option {
@@ -1052,7 +1272,7 @@
         }
         .fab-wrapper.fab-open .fab-option {
             opacity: 1;
-            pointer-events: all;
+            pointer-events: auto;
             transform: translateY(0);
         }
         /* Stagger: bottom (WhatsApp=child 5) appears first */
@@ -1098,6 +1318,13 @@
         }
         .fab-main-btn svg { width: 30px; height: 30px; }
 
+        @media (max-width: 400px) {
+            .fab-wrapper { bottom: 16px; right: 14px; }
+            .fab-main-btn { width: 52px; height: 52px; }
+            .fab-option-btn { width: 44px; height: 44px; }
+            .fab-option-label { display: none; }
+        }
+
         /* ===== LO LLAMAMOS MODAL ===== */
         .llamamos-overlay {
             display: none; position: fixed; inset: 0;
@@ -1109,7 +1336,8 @@
         .llamamos-modal {
             background: #fff; border-radius: 18px;
             width: 100%; max-width: 560px; max-height: 92vh;
-            overflow-y: auto;
+            overflow: hidden;
+            display: flex; flex-direction: column;
             box-shadow: 0 20px 60px rgba(0,0,0,0.25);
             position: relative;
             animation: llSlidein 0.3s ease;
@@ -1120,11 +1348,12 @@
         }
         .llamamos-header {
             background: linear-gradient(135deg, #2e4a47, #4a6b68);
-            padding: 22px 28px 18px; border-radius: 18px 18px 0 0;
-            color: #fff; position: sticky; top: 0; z-index: 2;
+            padding: 22px 52px 18px 28px; border-radius: 18px 18px 0 0;
+            color: #fff; position: relative; flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
         }
         .llamamos-header h3 {
-            font-size: 16px; font-weight: 800; margin: 0 36px 4px 0;
+            font-size: 16px; font-weight: 800; margin: 0 0 4px 0;
             font-family: 'Poppins', sans-serif;
         }
         .llamamos-header p { font-size: 12px; color: rgba(255,255,255,0.78); margin: 0; }
@@ -1133,10 +1362,14 @@
             background: rgba(255,255,255,0.15); border: none; color: #fff;
             width: 30px; height: 30px; border-radius: 50%; font-size: 15px;
             cursor: pointer; display: flex; align-items: center; justify-content: center;
-            transition: background 0.2s;
+            transition: background 0.2s; z-index: 3;
         }
         .llamamos-close:hover { background: rgba(255,255,255,0.30); }
-        .llamamos-body { padding: 22px 26px 26px; }
+        .llamamos-body {
+            padding: 22px 26px calc(26px + env(safe-area-inset-bottom, 0px));
+            overflow-y: auto; flex: 1 1 auto;
+            -webkit-overflow-scrolling: touch;
+        }
         .ll-row { display: flex; gap: 12px; }
         .ll-field { flex: 1; margin-bottom: 13px; min-width: 0; }
         .ll-field label {
@@ -1150,7 +1383,7 @@
         .ll-field textarea {
             width: 100%; padding: 9px 11px;
             border: 1.5px solid #dce8e7; border-radius: 8px;
-            font-size: 12.5px; font-family: 'Poppins', sans-serif;
+            font-size: 16px; font-family: 'Poppins', sans-serif;
             color: #2c3e3d; background: #fff; outline: none;
             box-sizing: border-box;
             transition: border-color 0.2s, box-shadow 0.2s;
@@ -1161,9 +1394,26 @@
             border-color: #4a6b68;
             box-shadow: 0 0 0 3px rgba(74,107,104,0.10);
         }
-        .ll-field textarea { resize: vertical; min-height: 68px; }
-        .ll-phone-row { display: flex; gap: 8px; }
-        .ll-prefix-sel { width: 95px; flex-shrink: 0; }
+        .ll-field textarea { resize: vertical; min-height: 68px; font-size: 14px; }
+        .ll-field input[type="datetime-local"] {
+            max-width: 100%; min-width: 0;
+        }
+        .ll-phone-row {
+            display: flex; gap: 8px; align-items: stretch;
+        }
+        .ll-phone-row .ll-prefix-sel {
+            width: auto !important;
+            flex: 0 0 108px;
+            max-width: 42%;
+            min-width: 0;
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+        .ll-phone-row input[type="tel"] {
+            width: auto !important;
+            flex: 1 1 auto;
+            min-width: 0;
+        }
         .ll-section-title {
             font-size: 10.5px; font-weight: 800;
             text-transform: uppercase; letter-spacing: 1px;
@@ -1179,7 +1429,10 @@
             margin-top: 2px; accent-color: #4a6b68; cursor: pointer;
         }
         .ll-privacy label { cursor: pointer; }
-        .ll-privacy a { color: #4a6b68; text-decoration: underline; cursor: pointer; }
+        .ll-privacy a, .ll-privacy button.ll-policy-link {
+            color: #4a6b68; text-decoration: underline; cursor: pointer;
+            background: none; border: none; padding: 0; font: inherit;
+        }
         .ll-policy-panel {
             display: none; background: #f3f8f7;
             border: 1px solid #c8dedd; border-radius: 10px;
@@ -1199,10 +1452,12 @@
         }
         .ll-submit-btn:hover { opacity: 0.88; transform: translateY(-1px); }
         .ll-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-        @media (max-width: 576px) {
-            .llamamos-modal { border-radius: 14px; }
-            .llamamos-body { padding: 18px 16px 22px; }
+        @media (max-width: 640px) {
+            .llamamos-modal { border-radius: 14px; max-height: 94vh; }
+            .llamamos-header { border-radius: 14px 14px 0 0; padding: 18px 48px 16px 18px; }
+            .llamamos-body { padding: 18px 16px calc(22px + env(safe-area-inset-bottom, 0px)); }
             .ll-row { flex-direction: column; gap: 0; }
+            .ll-phone-row .ll-prefix-sel { flex-basis: 96px; }
         }
     </style>
 
@@ -1245,29 +1500,22 @@
             <!-- Opción 5 (abajo, más cerca): WhatsApp -->
             <div class="fab-option">
                 <span class="fab-option-label">WhatsApp</span>
-                <a href="https://api.whatsapp.com/send?phone=3053560651&text=Hola%2C%20necesito%20informaci%C3%B3n" target="_blank" rel="noopener" class="fab-option-btn" style="background:#25d366;" title="WhatsApp">
+                <a href="https://wa.me/{{ setting('wa1') }}?text=%C2%A1Hola!%2C%20necesito%20informaci%C3%B3n." target="_blank" rel="noopener" class="fab-option-btn" style="background:#25d366;" title="WhatsApp">
                     <i class="fab fa-whatsapp" style="font-size:20px;"></i>
                 </a>
             </div>
 
         </div>
 
-        <!-- Botón principal: persona con auricular -->
+        <!-- Botón principal: contacto -->
         <button class="fab-main-btn" id="fabMainBtn" title="Contáctenos" aria-label="Menú de contacto">
-            <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Cabeza -->
+            <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <circle cx="18" cy="10.5" r="4.8" fill="white"/>
-                <!-- Hombros -->
                 <path d="M7.5 30c0-5.799 4.701-10.5 10.5-10.5S28.5 24.201 28.5 30" fill="white" opacity="0.88"/>
-                <!-- Arco del auricular -->
                 <path d="M10.2 12C10.2 7.194 13.698 3.5 18 3.5c4.302 0 7.8 3.694 7.8 8.5" stroke="white" stroke-width="1.9" fill="none" stroke-linecap="round"/>
-                <!-- Orejera izquierda -->
                 <rect x="8" y="11" width="3.4" height="5.4" rx="1.7" fill="white"/>
-                <!-- Orejera derecha -->
                 <rect x="24.6" y="11" width="3.4" height="5.4" rx="1.7" fill="white"/>
-                <!-- Brazo del micrófono -->
                 <path d="M9.8 16.2 Q8.8 21.5 13.8 23.2" stroke="white" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-                <!-- Micrófono -->
                 <circle cx="14.8" cy="23.8" r="1.5" fill="white"/>
             </svg>
         </button>
@@ -1322,15 +1570,15 @@
                     <div class="ll-field">
                         <label>Número de Celular <span class="req">*</span></label>
                         <div class="ll-phone-row">
-                            <select name="phone_prefix" class="ll-prefix-sel">
-                                <option value="+57">🇨🇴 +57</option>
-                                <option value="+1">🇺🇸 +1</option>
-                                <option value="+52">🇲🇽 +52</option>
-                                <option value="+34">🇪🇸 +34</option>
-                                <option value="+51">🇵🇪 +51</option>
-                                <option value="+58">🇻🇪 +58</option>
-                                <option value="+55">🇧🇷 +55</option>
-                                <option value="+54">🇦🇷 +54</option>
+                            <select name="phone_prefix" class="ll-prefix-sel" aria-label="Indicativo">
+                                <option value="+57">+57</option>
+                                <option value="+1">+1</option>
+                                <option value="+52">+52</option>
+                                <option value="+34">+34</option>
+                                <option value="+51">+51</option>
+                                <option value="+58">+58</option>
+                                <option value="+55">+55</option>
+                                <option value="+54">+54</option>
                             </select>
                             <input type="tel" name="phone" placeholder="305 356 0651" required inputmode="tel" style="flex:1;" autocomplete="tel">
                         </div>
@@ -1372,7 +1620,7 @@
                     <!-- Especialidad -->
                     <div class="ll-field">
                         <label>Especialidad</label>
-                        <select name="specialty">
+                        <select name="specialty" id="llSpecialty">
                             <option value="">— Seleccione —</option>
                             <option value="neurologia">Neurología</option>
                             <option value="epileptologia">Epileptología</option>
@@ -1382,7 +1630,7 @@
                             <option value="terapia_fisica">Terapia Física</option>
                             <option value="electrodiagnostico">Electrodiagnóstico</option>
                             <option value="medicina_general">Medicina General</option>
-                            <option value="clinica_sueno">Clínica del Sueño</option>
+                            <option value="clinica_sueno" id="llOptClinicaSueno">Clínica del Sueño</option>
                         </select>
                     </div>
 
@@ -1390,7 +1638,7 @@
                     <div class="ll-privacy">
                         <input type="checkbox" id="llPrivacy" required>
                         <label for="llPrivacy">
-                            He leído y acepto el <a onclick="llTogglePolicy(event)">tratamiento de mis datos personales</a>
+                            He leído y acepto el <button type="button" class="ll-policy-link" onclick="llTogglePolicy(event)">tratamiento de los datos personales suministrados</button>
                         </label>
                     </div>
                     <div class="ll-policy-panel" id="llPolicyPanel">
@@ -1433,6 +1681,17 @@
 
         /* Lo llamamos: open / close */
         function openLlamamos() {
+            var opt = document.getElementById('llOptClinicaSueno');
+            if (opt) {
+                if (window._fromSleepSurvey) {
+                    opt.hidden = true;
+                    if (opt.selected) {
+                        document.getElementById('llSpecialty').value = '';
+                    }
+                } else {
+                    opt.hidden = false;
+                }
+            }
             document.getElementById('llamamosOverlay').classList.add('open');
             document.body.style.overflow = 'hidden';
         }
@@ -1468,21 +1727,56 @@
             var btn = document.getElementById('llSubmitBtn');
             btn.disabled = true;
             btn.textContent = 'Enviando…';
-            /* TODO: replace with real AJAX endpoint */
-            setTimeout(function() {
-                btn.textContent = '✓ ¡Solicitud enviada!';
-                btn.style.background = 'linear-gradient(135deg,#1b6b3a,#27ae60)';
-                setTimeout(function() {
-                    closeLlamamos();
-                    form.reset();
+
+            var fd = new FormData(form);
+            var tokenMeta = document.querySelector('meta[name="csrf-token"]');
+            var token = tokenMeta ? tokenMeta.getAttribute('content') : '';
+
+            fetch('{{ route('llamamos.enviar') }}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': token,
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: fd
+            }).then(function(res) {
+                return res.json().then(function(data) {
+                    return { ok: res.ok && data.ok, message: data.message || (res.ok ? 'Solicitud enviada.' : 'Error al enviar.') };
+                }).catch(function() {
+                    return { ok: false, message: 'Error al procesar la respuesta del servidor.' };
+                });
+            }).then(function(result) {
+                if (result.ok) {
+                    btn.textContent = '✓ ¡Solicitud enviada!';
+                    btn.style.background = 'linear-gradient(135deg,#1b6b3a,#27ae60)';
+                    setTimeout(function() {
+                        closeLlamamos();
+                        form.reset();
+                        btn.disabled = false;
+                        btn.textContent = 'Confirmar Solicitud';
+                        btn.style.background = '';
+                        document.getElementById('llDateField').style.display = 'none';
+                        document.getElementById('llPolicyPanel').classList.remove('open');
+                    }, 1800);
+                } else {
+                    alert(result.message);
                     btn.disabled = false;
                     btn.textContent = 'Confirmar Solicitud';
-                    btn.style.background = '';
-                    document.getElementById('llDateField').style.display = 'none';
-                    document.getElementById('llPolicyPanel').classList.remove('open');
-                }, 2000);
-            }, 1000);
+                }
+            }).catch(function() {
+                alert('No pudimos enviar su solicitud. Intente de nuevo o contáctenos por WhatsApp.');
+                btn.disabled = false;
+                btn.textContent = 'Confirmar Solicitud';
+            });
         }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLlamamos();
+                closeQRModal();
+            }
+        });
     </script>
 
         <!-- ===== COLABORADORES & ALIADOS ===== -->
@@ -1504,11 +1798,11 @@
             /* ===== BACK TO TOP ===== */
             #backToTop {
                 position: fixed;
-                bottom: 30px;
-                left: 50%;
-                right: auto;
-                transform: translateX(-50%) translateY(18px);
-                z-index: 1041;
+                bottom: 96px;
+                left: auto;
+                right: 24px;
+                transform: translateY(18px);
+                z-index: 1060;
                 background: var(--primary, #4a6b68);
                 color: #fff;
                 border: none;
@@ -1521,17 +1815,25 @@
                 cursor: pointer;
                 box-shadow: 0 4px 22px rgba(74,107,104,0.38);
                 opacity: 0;
+                visibility: hidden;
                 pointer-events: none;
-                transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.2s;
+                transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.2s, visibility 0.3s;
             }
             #backToTop.show {
                 opacity: 1;
-                pointer-events: all;
-                transform: translateX(-50%) translateY(0);
+                visibility: visible;
+                pointer-events: auto;
+                transform: translateY(0);
             }
             #backToTop:hover {
                 background: var(--primary-dark, #2e4a47);
                 box-shadow: 0 6px 28px rgba(74,107,104,0.5);
+            }
+            @media (max-width: 400px) {
+                #backToTop { right: 14px; bottom: 84px; }
+            }
+            @media (prefers-reduced-motion: reduce) {
+                .colabs-track { animation: none !important; }
             }
         </style>
         
@@ -1540,39 +1842,31 @@
             <div class="colabs-track-wrap">
                 <div class="colabs-track">
         
+                    @php
+                        $colaboradores = [
+                            ['FOMAG', 'assets/img/fomag.png', 'https://www.fomag.gov.co'],
+                            ['PROINSALUD', 'assets/img/proinsalud.jpg', 'https://www.proinsalud.co/'],
+                            ['PROTEGEMOS', 'assets/img/protegemos.jpg', 'https://revistaprotegemos.com.co'],
+                            ['PREVIRED', 'assets/img/previred.png', 'https://previred.com.co'],
+                            ['GLOBAL SALUD', 'assets/img/global-salud.jpg', 'https://www.globalsalud.com.co'],
+                            ['MEDICAL PREFERENCIAL', 'assets/img/medical-preferencial.jpg', 'https://www.facebook.com/people/Medical-Preferencial-by-Claudia-Mora/61561901228149/#'],
+                            ['UNIDAD CARDIO QUIRURGICA DE NARIÑO', 'assets/img/ucqn.jpg', 'https://www.facebook.com/cardioquirurgica/?locale=es_LA'],
+                            ['VIDA SANA', 'assets/img/vidassanas.png', 'https://www.instagram.com/vidassanaspasto'],
+                            ['NIDO', 'assets/img/nido.jpg', 'https://www.facebook.com/p/Nido-Pasto-100092497038539'],
+                        ];
+                    @endphp
+
                     {{-- Primera pasada --}}
-                    @foreach([
-                        ['FOMAG',                              'assets/img/fomag.png',                'https://www.fomag.gov.co'],
-                        ['PROINSALUD',                         'assets/img/proinsalud.jpg',           'https://www.proinsalud.co/'],
-                        ['PROTEGEMOS',                         'assets/img/protegemos.jpg',           'https://revistaprotegemos.com.co'],
-                        ['PREVIRED',                           'assets/img/previred.png',             'https://previred.com.co'],
-                        ['GLOBAL SALUD',                       'assets/img/global-salud.jpg',         'https://www.globalsalud.com.co'],
-                        ['MEDICAL PREFERENCIAL',               'assets/img/medical-preferencial.jpg', 'https://www.facebook.com/people/Medical-Preferencial-by-Claudia-Mora/61561901228149/#'],
-                        ['MULTISERVICIOS',                     'assets/img/multiservicios.png',       'https://www.multiservicios.com'],
-                        ['UNIDAD CARDIO QUIRURGICA DE NARIÑO', 'assets/img/ucqn.jpg',                 'https://www.facebook.com/cardioquirurgica/?locale=es_LA'],
-                        ['VIDA SANA',                          'assets/img/vidassanas.png',           'https://www.instagram.com/vidassanaspasto'],
-                        ['NIDO',                               'assets/img/nido.jpg',                 'https://www.facebook.com/p/Nido-Pasto-100092497038539'],
-                    ] as $colab)
+                    @foreach($colaboradores as $colab)
                         <a href="{{ $colab[2] }}" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
                             <div class="colab-item">
                                 <img src="{{ asset($colab[1]) }}" alt="{{ $colab[0] }}">
                             </div>
                         </a>
                     @endforeach
-        
+
                     {{-- Duplicado para el loop infinito --}}
-                    @foreach([
-                        ['FOMAG',                              'assets/img/fomag.png',                'https://www.fomag.gov.co'],
-                        ['PROINSALUD',                         'assets/img/proinsalud.jpg',           'https://www.proinsalud.co/'],
-                        ['PROTEGEMOS',                         'assets/img/protegemos.jpg',           'https://revistaprotegemos.com.co'],
-                        ['PREVIRED',                           'assets/img/previred.png',             'https://previred.com.co'],
-                        ['GLOBAL SALUD',                       'assets/img/global-salud.jpg',         'https://www.globalsalud.com.co'],
-                        ['MEDICAL PREFERENCIAL',               'assets/img/medical-preferencial.jpg', 'https://www.facebook.com/people/Medical-Preferencial-by-Claudia-Mora/61561901228149/#'],
-                        ['MULTISERVICIOS',                     'assets/img/multiservicios.png',       'https://www.multiservicios.com'],
-                        ['UNIDAD CARDIO QUIRURGICA DE NARIÑO', 'assets/img/ucqn.jpg',                 'https://www.facebook.com/cardioquirurgica/?locale=es_LA'],
-                        ['VIDA SANA',                          'assets/img/vidassanas.png',           'https://www.instagram.com/vidassanaspasto'],
-                        ['NIDO',                               'assets/img/nido.jpg',                 'https://www.facebook.com/p/Nido-Pasto-100092497038539'],
-                    ] as $colab)
+                    @foreach($colaboradores as $colab)
                         <a href="{{ $colab[2] }}" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
                             <div class="colab-item">
                                 <img src="{{ asset($colab[1]) }}" alt="{{ $colab[0] }}">
@@ -1585,11 +1879,33 @@
         </div>
         
         <!-- Volver arriba -->
-        <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Volver arriba">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+        <button type="button" id="backToTop" aria-label="Volver arriba">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </button>
+        <script>
+            (function () {
+                var btt = document.getElementById('backToTop');
+                if (!btt) return;
+                function syncBackToTop() {
+                    var y = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                    btt.classList.toggle('show', y > 400);
+                }
+                window.addEventListener('scroll', syncBackToTop, { passive: true });
+                syncBackToTop();
+                btt.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    try {
+                        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+                    } catch (err) {
+                        document.documentElement.scrollTop = 0;
+                        document.body.scrollTop = 0;
+                    }
+                });
+            })();
+        </script>
 
 
     <footer style="background:#0f1f1e; color:#ccc; padding: 60px 0 0;">
@@ -1600,10 +1916,15 @@
                     <img src="{{ asset('assets/img/LOGO.png') }}" style="height:48px; filter:brightness(0) invert(1); margin-bottom:18px;" alt="Logo">
                     <p style="font-size:13px; color:#8aada9; line-height:1.8; margin-bottom:20px;">Instituto especializado en neurociencias con más de 8 años brindando atención de calidad en Pasto, Nariño.</p>
                     <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                        <a href="https://www.instagram.com/" target="_blank" style="width:36px; height:36px; background:rgba(255,255,255,0.06); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#7fa8a4; text-decoration:none; font-size:14px; transition:all 0.3s;" onmouseover="this.style.background='#4a6b68'; this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,0.06)'; this.style.color='#7fa8a4';"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.facebook.com/" target="_blank" style="width:36px; height:36px; background:rgba(255,255,255,0.06); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#7fa8a4; text-decoration:none; font-size:14px; transition:all 0.3s;" onmouseover="this.style.background='#4a6b68'; this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,0.06)'; this.style.color='#7fa8a4';"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.youtube.com/" target="_blank" style="width:36px; height:36px; background:rgba(255,255,255,0.06); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#7fa8a4; text-decoration:none; font-size:14px; transition:all 0.3s;" onmouseover="this.style.background='#4a6b68'; this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,0.06)'; this.style.color='#7fa8a4';"><i class="fab fa-youtube"></i></a>
-                        <a href="https://api.whatsapp.com/send?phone=3159729333" target="_blank" style="width:36px; height:36px; background:rgba(255,255,255,0.06); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#7fa8a4; text-decoration:none; font-size:14px; transition:all 0.3s;" onmouseover="this.style.background='#4a6b68'; this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,0.06)'; this.style.color='#7fa8a4';"><i class="fab fa-whatsapp"></i></a>
+                        <a href="{{ setting('facebook') }}" target="_blank" rel="noopener" style="width:36px; height:36px; background:rgba(255,255,255,0.06); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#7fa8a4; text-decoration:none; font-size:14px; transition:all 0.3s;" onmouseover="this.style.background='#4a6b68'; this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,0.06)'; this.style.color='#7fa8a4';" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="{{ setting('instagram') }}" target="_blank" rel="noopener" style="width:36px; height:36px; background:rgba(255,255,255,0.06); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#7fa8a4; text-decoration:none; font-size:14px; transition:all 0.3s;" onmouseover="this.style.background='#4a6b68'; this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,0.06)'; this.style.color='#7fa8a4';" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        @foreach(['youtube' => 'YouTube', 'tiktok' => 'TikTok'] as $socialKey => $socialLabel)
+                            @if(setting($socialKey))
+                                <a href="{{ setting($socialKey) }}" target="_blank" rel="noopener" style="width:36px; height:36px; background:rgba(255,255,255,0.06); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#7fa8a4; text-decoration:none; font-size:14px; transition:all 0.3s;" onmouseover="this.style.background='#4a6b68'; this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,0.06)'; this.style.color='#7fa8a4';" title="{{ $socialLabel }}"><i class="fab fa-{{ $socialKey }}"></i></a>
+                            @endif
+                        @endforeach
+                        <a href="https://api.whatsapp.com/send?phone={{ setting('wa1') }}" target="_blank" rel="noopener" style="width:36px; height:36px; background:rgba(255,255,255,0.06); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#7fa8a4; text-decoration:none; font-size:14px; transition:all 0.3s;" onmouseover="this.style.background='#4a6b68'; this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,0.06)'; this.style.color='#7fa8a4';" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="mailto:{{ setting('contact_email') }}" style="width:36px; height:36px; background:rgba(255,255,255,0.06); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#7fa8a4; text-decoration:none; font-size:14px; transition:all 0.3s;" onmouseover="this.style.background='#4a6b68'; this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,0.06)'; this.style.color='#7fa8a4';" title="Correo"><i class="fa fa-envelope"></i></a>
                     </div>
                 </div>
                 <!-- Links col -->
@@ -1611,11 +1932,10 @@
                     <h6 style="color:#fff; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:20px;">Institución</h6>
                     <ul style="list-style:none; padding:0; margin:0;">
                         <li style="margin-bottom:10px;"><a href="{{ route('landing.inicio') }}#about" style="color:#8aada9; text-decoration:none; font-size:13px; font-weight:300; transition:color 0.2s;" onmouseover="this.style.color='#c8dedd';" onmouseout="this.style.color='#8aada9';">¿Quiénes somos?</a></li>
-                        <li style="margin-bottom:10px;"><a href="{{ route('landing.aboutUs') }}" style="color:#8aada9; text-decoration:none; font-size:13px; font-weight:300; transition:color 0.2s;" onmouseover="this.style.color='#c8dedd';" onmouseout="this.style.color='#8aada9';">Portafolio</a></li>
+                        <li style="margin-bottom:10px;"><a href="{{ route('landing.portafolio') }}" style="color:#8aada9; text-decoration:none; font-size:13px; font-weight:300; transition:color 0.2s;" onmouseover="this.style.color='#c8dedd';" onmouseout="this.style.color='#8aada9';">Portafolio</a></li>
                         <li style="margin-bottom:10px;"><a href="{{ route('marcoLegal') }}" style="color:#8aada9; text-decoration:none; font-size:13px; font-weight:300; transition:color 0.2s;" onmouseover="this.style.color='#c8dedd';" onmouseout="this.style.color='#8aada9';">Marco Legal</a></li>
-                        <li style="margin-bottom:10px;"><a href="{{ route('estadosFinancieros') }}" style="color:#8aada9; text-decoration:none; font-size:13px; font-weight:300; transition:color 0.2s;" onmouseover="this.style.color='#c8dedd';" onmouseout="this.style.color='#8aada9';">Estados Financieros</a></li>
                         <li style="margin-bottom:10px;"><a href="{{ route('articulos') }}" style="color:#8aada9; text-decoration:none; font-size:13px; font-weight:300; transition:color 0.2s;" onmouseover="this.style.color='#c8dedd';" onmouseout="this.style.color='#8aada9';">Artículos y Revistas</a></li>
-                        <li style="margin-bottom:10px;"><a href="{{ route('landing.inicio') }}#map" style="color:#8aada9; text-decoration:none; font-size:13px; font-weight:300; transition:color 0.2s;" onmouseover="this.style.color='#c8dedd';" onmouseout="this.style.color='#8aada9';">Contacto</a></li>
+                        <li style="margin-bottom:10px;"><a href="{{ route('escribanos') }}" style="color:#8aada9; text-decoration:none; font-size:13px; font-weight:300; transition:color 0.2s;" onmouseover="this.style.color='#c8dedd';" onmouseout="this.style.color='#8aada9';">Escríbanos</a></li>
                         <li style="margin-bottom:10px;"><a href="{{ route('politicaPrivacidad') }}" style="color:#8aada9; text-decoration:none; font-size:13px; font-weight:300; transition:color 0.2s;" onmouseover="this.style.color='#c8dedd';" onmouseout="this.style.color='#8aada9';">Pol&iacute;tica de Privacidad</a></li>
                     </ul>
                 </div>
@@ -1633,31 +1953,39 @@
                     <h6 style="color:#fff; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:16px;">Contáctenos</h6>
                     <div style="display:flex; gap:10px; margin-bottom:10px; align-items:flex-start;">
                         <i class="fa fa-map-marker-alt" style="color:#7fa8a4; margin-top:2px; font-size:13px; flex-shrink:0;"></i>
-                        <span style="color:#8aada9; font-size:13px; font-weight:300;">Cll 14 #34-13, Pasto, Nariño</span>
+                        <span style="color:#8aada9; font-size:13px; font-weight:300;">{{ setting('address') }}</span>
                     </div>
-                    <div style="display:flex; gap:10px; margin-bottom:10px; align-items:center;">
-                        <i class="fa fa-clock" style="color:#7fa8a4; font-size:13px; flex-shrink:0;"></i>
-                        <span style="color:#8aada9; font-size:13px; font-weight:300;">Lun – Vie · 7:00am – 6:00pm</span>
-                    </div>
-                    <!-- Correos por área -->
-                    <p style="color:#5a7b78; font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; margin:14px 0 8px;">Correos Institucionales</p>
-                    @foreach([
-                        ['Facturación',  'neurocienciasfactura@gmail.com'],
-                        ['Jurídica',     'juridicoinnar@gmail.com'],
-                        ['Contabilidad', 'contabilidadneurociencias@gmail.com'],
-                        ['Sistemas',     'sistemasinnar1@gmail.com'],
-                    ] as $area)
-                    <div style="display:flex; gap:8px; margin-bottom:7px; align-items:flex-start;">
-                        <i class="fa fa-envelope" style="color:#7fa8a4; font-size:11px; margin-top:3px; flex-shrink:0;"></i>
-                        <div>
-                            <span style="color:#5a7b78; font-size:10px; font-weight:700; text-transform:uppercase; display:block; line-height:1.2;">{{ $area[0] }}</span>
-                            <a href="mailto:{{ $area[1] }}" style="color:#8aada9; text-decoration:none; font-size:11.5px; font-weight:300; transition:color 0.2s;" onmouseover="this.style.color='#c8dedd';" onmouseout="this.style.color='#8aada9';">{{ $area[1] }}</a>
+                    <div style="display:flex; flex-direction:column; gap:4px; margin-bottom:10px;">
+                        <div style="display:flex; gap:10px; align-items:center;">
+                            <i class="fa fa-clock" style="color:#7fa8a4; font-size:13px; flex-shrink:0;"></i>
+                            <span style="color:#8aada9; font-size:13px; font-weight:300;">{{ setting('hours_weekdays') }}</span>
+                        </div>
+                        <div style="display:flex; gap:10px; align-items:center; padding-left:23px;">
+                            <span style="color:#8aada9; font-size:13px; font-weight:300;">{{ setting('hours_saturday') }}</span>
                         </div>
                     </div>
-                    @endforeach
-                    <a href="#" onclick="openContactModal(event)" style="display:inline-block; margin-top:12px; background: rgba(74,107,104,0.5); border: 1px solid rgba(74,107,104,0.8); color:#c8dedd; padding:9px 20px; border-radius:25px; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; text-decoration:none; transition:all 0.3s;" onmouseover="this.style.background='#4a6b68';" onmouseout="this.style.background='rgba(74,107,104,0.5)';">
-                        Enviar PQRS
-                    </a>
+                    <p style="color:#5a7b78; font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; margin:14px 0 8px;">Teléfonos</p>
+                    <div style="display:flex; gap:8px; margin-bottom:7px; align-items:flex-start;">
+                        <i class="fa fa-phone" style="color:#7fa8a4; font-size:11px; margin-top:3px; flex-shrink:0;"></i>
+                        <div>
+                            <span style="color:#5a7b78; font-size:10px; font-weight:700; text-transform:uppercase; display:block; line-height:1.2;">PBX</span>
+                            <a href="tel:{{ setting('phone_fixed') }}" style="color:#8aada9; text-decoration:none; font-size:11.5px; font-weight:300; transition:color 0.2s;" onmouseover="this.style.color='#c8dedd';" onmouseout="this.style.color='#8aada9';">{{ setting('phone_fixed_display') }}</a>
+                        </div>
+                    </div>
+                    <div style="display:flex; gap:8px; margin-bottom:7px; align-items:flex-start;">
+                        <i class="fa fa-mobile-alt" style="color:#7fa8a4; font-size:11px; margin-top:3px; flex-shrink:0;"></i>
+                        <div>
+                            <span style="color:#5a7b78; font-size:10px; font-weight:700; text-transform:uppercase; display:block; line-height:1.2;">{{ setting('wa1_label') }}</span>
+                            <a href="tel:{{ setting('wa1_tel') }}" style="color:#8aada9; text-decoration:none; font-size:11.5px; font-weight:300; transition:color 0.2s;" onmouseover="this.style.color='#c8dedd';" onmouseout="this.style.color='#8aada9';">{{ setting('wa1_display') }}</a>
+                        </div>
+                    </div>
+                    <div style="display:flex; gap:8px; margin-bottom:7px; align-items:flex-start;">
+                        <i class="fa fa-mobile-alt" style="color:#7fa8a4; font-size:11px; margin-top:3px; flex-shrink:0;"></i>
+                        <div>
+                            <span style="color:#5a7b78; font-size:10px; font-weight:700; text-transform:uppercase; display:block; line-height:1.2;">{{ setting('wa2_label') }}</span>
+                            <a href="tel:{{ setting('wa2_tel') }}" style="color:#8aada9; text-decoration:none; font-size:11.5px; font-weight:300; transition:color 0.2s;" onmouseover="this.style.color='#c8dedd';" onmouseout="this.style.color='#8aada9';">{{ setting('wa2_display') }}</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1669,6 +1997,7 @@
                         <p style="font-size:11.5px; color:#5a7372; margin:0; font-weight:300;">
                             &copy; {{ date('Y') }} Instituto Neurociencias de Nariño IPS S.A.S. Todos los derechos reservados.
                         </p>
+                        @include('partials.footer-orgullo')
                     </div>
                     <div class="col-md-6 text-md-end mt-2 mt-md-0">
                         <p style="font-size:11px; color:#3d5250; margin:0; font-weight:300;">
@@ -1680,284 +2009,18 @@
         </div>
     </footer>
 
-    <!-- Modal de Contacto PQRS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    
-    <div id="contactModal" class="contact-modal">
-        <div class="contact-modal-content">
-            <button class="contact-modal-close" onclick="closeContactModal()">&times;</button>
-            <h2 style="margin-bottom: 20px; text-align: center; color: #333;">CONTACTA CON NOSOTROS</h2>
-            <p style="text-align: center; margin-bottom: 20px; color: #666; font-size: 14px;">Envía tus peticiones, quejas o solicitudes</p>
-
-            @if ($errors->any())
-                <div style="background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 5px; margin-bottom: 15px; font-size: 13px;">
-                    <ul style="margin: 0; padding-left: 20px;">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            @if (session('success'))
-                <script>
-                    setTimeout(function() {
-                        toastr.options = {
-                            "closeButton": true,
-                            "debug": false,
-                            "newestOnTop": true,
-                            "progressBar": true,
-                            "positionClass": "toast-top-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "300",
-                            "hideDuration": "1000",
-                            "timeOut": "5000",
-                            "extendedTimeOut": "1000"
-                        };
-                        toastr.success('{{ session('success') }}', '¡Éxito!');
-                        // Cerrar el modal después del éxito
-                        setTimeout(function() {
-                            closeContactModal();
-                        }, 1000);
-                    }, 300);
-                </script>
-            @endif
-
-            @if (session('error'))
-                <script>
-                    setTimeout(function() {
-                        toastr.options = {
-                            "closeButton": true,
-                            "debug": false,
-                            "newestOnTop": true,
-                            "progressBar": true,
-                            "positionClass": "toast-top-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "300",
-                            "hideDuration": "1000",
-                            "timeOut": "5000",
-                            "extendedTimeOut": "1000"
-                        };
-                        toastr.error('{{ session('error') }}', 'Error');
-                    }, 300);
-                </script>
-            @endif
-
-            <form action="{{ route('contact.send') }}" method="POST" id="contactForm">
-                @csrf
-
-                <div style="margin-bottom: 15px;">
-                    <label for="modal-name" style="display: block; margin-bottom: 5px; font-weight: bold; color: #333; font-size: 14px;">Nombre *</label>
-                    <input type="text" id="modal-name" name="name" value="{{ old('name') }}" required
-                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 13px; box-sizing: border-box;">
-                </div>
-
-                <div style="margin-bottom: 15px;">
-                    <label for="modal-email" style="display: block; margin-bottom: 5px; font-weight: bold; color: #333; font-size: 14px;">Correo *</label>
-                    <input type="email" id="modal-email" name="email" value="{{ old('email') }}" required
-                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 13px; box-sizing: border-box;">
-                </div>
-
-                <div style="margin-bottom: 15px;">
-                    <label for="modal-phone" style="display: block; margin-bottom: 5px; font-weight: bold; color: #333; font-size: 14px;">Teléfono</label>
-                    <input type="text" id="modal-phone" name="phone" value="{{ old('phone') }}" inputmode="numeric" placeholder="Ej: 3001234567"
-                        style="width: 100%; padding: 10px; border: 1px solid {{ $errors->has('phone') ? '#dc3545' : '#ddd' }}; border-radius: 5px; font-size: 13px; box-sizing: border-box;">
-                    @if ($errors->has('phone'))
-                        <span style="color: #dc3545; font-size: 12px; margin-top: 3px; display: block;">{{ $errors->first('phone') }}</span>
-                    @endif
-                </div>
-
-                <div style="margin-bottom: 15px;">
-                    <label for="modal-type" style="display: block; margin-bottom: 5px; font-weight: bold; color: #333; font-size: 14px;">Tipo *</label>
-                    <select id="modal-type" name="type" required
-                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 13px; box-sizing: border-box;">
-                        <option value="">Selecciona una opción</option>
-                        <option value="peticion" {{ old('type') === 'peticion' ? 'selected' : '' }}>Petición</option>
-                        <option value="queja" {{ old('type') === 'queja' ? 'selected' : '' }}>Queja</option>
-                        <option value="solicitud" {{ old('type') === 'solicitud' ? 'selected' : '' }}>Solicitud</option>
-                    </select>
-                </div>
-
-                <div style="margin-bottom: 15px;">
-                    <label for="modal-subject" style="display: block; margin-bottom: 5px; font-weight: bold; color: #333; font-size: 14px;">Asunto *</label>
-                    <input type="text" id="modal-subject" name="subject" value="{{ old('subject') }}" required
-                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 13px; box-sizing: border-box;">
-                </div>
-
-                <div style="margin-bottom: 15px;">
-                    <label for="modal-message" style="display: block; margin-bottom: 5px; font-weight: bold; color: #333; font-size: 14px;">Mensaje *</label>
-                    <textarea id="modal-message" name="message" rows="4" required
-                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 13px; font-family: Arial, sans-serif; box-sizing: border-box; resize: none;">{{ old('message') }}</textarea>
-                </div>
-
-                <div style="text-align: center;">
-                    <button type="submit" style="background-color: #627371; color: white; padding: 12px 30px; border: none; border-radius: 5px; font-size: 14px; font-weight: bold; cursor: pointer; transition: background-color 0.3s; width: 100%;">
-                        ENVIAR
-                    </button>
-                </div>
-            </form>
-        </div>
+    @include('components.solicitar-cita-modal')
     </div>
-
-    <style>
-        /* Estilos para el Modal */
-        .contact-modal {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            animation: fadeIn 0.3s ease-in-out;
-        }
-
-        .contact-modal.show {
-            display: flex !important;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .contact-modal-content {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            max-width: 450px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            animation: slideUp 0.3s ease-in-out;
-            position: relative;
-        }
-
-        .contact-modal-close {
-            position: absolute;
-            right: 15px;
-            top: 15px;
-            font-size: 28px;
-            font-weight: bold;
-            color: #999;
-            border: none;
-            background: none;
-            cursor: pointer;
-            padding: 0;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .contact-modal-close:hover {
-            color: #333;
-            background-color: #f0f0f0;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .contact-modal-content {
-                padding: 20px;
-                max-width: 95%;
-            }
-
-            .contact-modal-content h2 {
-                font-size: 18px !important;
-            }
-        }
-    </style>
-
-    <script>
-        function openContactModal(e) {
-            if (e) e.preventDefault();
-            document.getElementById('contactModal').classList.add('show');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeContactModal() {
-            document.getElementById('contactModal').classList.remove('show');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Cerrar modal al hacer click fuera de él
-        window.onclick = function(event) {
-            var modal = document.getElementById('contactModal');
-            if (event.target === modal) {
-                closeContactModal();
-            }
-        }
-
-        // Cerrar modal con tecla ESC
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeContactModal();
-            }
-        });
-
-        // Validar teléfono en el modal - solo números
-        document.addEventListener('DOMContentLoaded', function() {
-            const phoneInput = document.getElementById('modal-phone');
-            
-            // Bloquear caracteres no numéricos al escribir
-            phoneInput.addEventListener('keypress', function(e) {
-                const char = String.fromCharCode(e.which);
-                if (!/[0-9]/.test(char)) {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-
-            // Eliminar caracteres no numéricos al soltar la tecla
-            phoneInput.addEventListener('keyup', function(e) {
-                this.value = this.value.replace(/[^0-9]/g, '');
-            });
-
-            // Eliminar caracteres no numéricos al cambiar el valor
-            phoneInput.addEventListener('input', function(e) {
-                this.value = this.value.replace(/[^0-9]/g, '');
-            });
-
-            // Bloquear pegado de caracteres no numéricos
-            phoneInput.addEventListener('paste', function(e) {
-                e.preventDefault();
-                const pastedText = (e.clipboardData || window.clipboardData).getData('text');
-                const numbersOnly = pastedText.replace(/[^0-9]/g, '');
-                this.value = numbersOnly;
-                return false;
-            });
-
-            // Bloquear drag and drop
-            phoneInput.addEventListener('drop', function(e) {
-                e.preventDefault();
-                return false;
-            });
-        });
-    </script>
+    @if(!empty($adminPreview))
+        <script>
+            document.addEventListener('click', function (e) {
+                var link = e.target.closest('a[href]');
+                if (!link) return;
+                var href = link.getAttribute('href') || '';
+                if (href.charAt(0) !== '#') e.preventDefault();
+            }, true);
+            document.addEventListener('submit', function (e) { e.preventDefault(); }, true);
+        </script>
+    @endif
 </body>
-
 </html>

@@ -24,7 +24,7 @@
             <span>Especialidades</span>
         </div>
         <h1>Nuestras Especialidades</h1>
-        <p>Atención especializada, integral y humanizada en neurociencias</p>
+        <p>Consulta especializada, terapias y estudios en un solo lugar</p>
     </div>
 </div>
 
@@ -52,7 +52,7 @@
                         <h5>Epileptología</h5>
                     </div>
                     <div class="esp-card-body">
-                        <p>Diagnóstico y manejo especializado de epilepsia y crisis paroxísticas, incluyendo epilepsia refractaria y evaluación prequirúrgica.</p>
+                        <p>Diagnóstico y manejo especializado de epilepsia y crisis súbitas, incluyendo epilepsia refractaria y evaluación prequirúrgica.</p>
                         <span class="esp-link">Conocer más ›</span>
                     </div>
                 </a>
@@ -60,52 +60,104 @@
 
             <div class="col-lg-4 col-md-6">
                 <a href="{{ route('consulta.psiquiatria') }}" class="esp-card">
-                    <div class="esp-card-header" style="background:linear-gradient(135deg,#5c35a0,#7e57c2);">
+                    <div class="esp-card-header">
                         <div class="esp-icon"><i class="fa fa-head-side-virus" style="color:#fff;font-size:22px;"></i></div>
                         <h5>Psiquiatría</h5>
                     </div>
                     <div class="esp-card-body">
                         <p>Evaluación y tratamiento de trastornos mentales, del estado de ánimo, ansiedad, esquizofrenia y otras condiciones de salud mental.</p>
-                        <span class="esp-link" style="color:#7e57c2;">Conocer más ›</span>
+                        <span class="esp-link">Conocer más ›</span>
                     </div>
                 </a>
             </div>
 
             <div class="col-lg-4 col-md-6">
                 <a href="{{ route('consulta.neuropsicologia') }}" class="esp-card">
-                    <div class="esp-card-header" style="background:linear-gradient(135deg,#c0620a,#e07d1a);">
+                    <div class="esp-card-header">
                         <div class="esp-icon"><i class="fa fa-puzzle-piece" style="color:#fff;font-size:22px;"></i></div>
                         <h5>Neuropsicología</h5>
                     </div>
                     <div class="esp-card-body">
                         <p>Evaluación de funciones cognitivas: memoria, atención, lenguaje y funciones ejecutivas. Diagnóstico de demencias y deterioro cognitivo.</p>
-                        <span class="esp-link" style="color:#c0620a;">Conocer más ›</span>
+                        <span class="esp-link">Conocer más ›</span>
                     </div>
                 </a>
             </div>
 
             <div class="col-lg-4 col-md-6">
                 <a href="{{ route('consulta.psicologia') }}" class="esp-card">
-                    <div class="esp-card-header" style="background:linear-gradient(135deg,#1455a0,#1976d2);">
+                    <div class="esp-card-header">
                         <div class="esp-icon"><i class="fa fa-heart" style="color:#fff;font-size:22px;"></i></div>
                         <h5>Psicología</h5>
                     </div>
                     <div class="esp-card-body">
                         <p>Intervención psicológica para el bienestar emocional, manejo del estrés, ansiedad, duelo y ajuste ante enfermedades neurológicas crónicas.</p>
-                        <span class="esp-link" style="color:#1455a0;">Conocer más ›</span>
+                        <span class="esp-link">Conocer más ›</span>
                     </div>
                 </a>
             </div>
 
-            <div class="col-lg-4 col-md-6">
-                <a href="{{ route('landing.tiposTerapia') }}" class="esp-card">
+            <div class="col-lg-4 col-md-6" id="terapia-fisica">
+                <a href="{{ route('consulta.terapiaFisica') }}" class="esp-card">
                     <div class="esp-card-header" style="background:linear-gradient(135deg,#1b6b3a,#27ae60);">
                         <div class="esp-icon"><i class="fa fa-running" style="color:#fff;font-size:22px;"></i></div>
                         <h5>Terapia Física</h5>
                     </div>
                     <div class="esp-card-body">
-                        <p>Rehabilitación funcional, fisioterapia, terapia ocupacional, fonoaudiología y neurorrehabilitación para pacientes con condiciones neurológicas.</p>
+                        <p>Rehabilitación funcional, fisioterapia y neurorrehabilitación para pacientes con condiciones neurológicas o músculo-esqueléticas.</p>
                         <span class="esp-link" style="color:#1b6b3a;">Conocer más ›</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-6" id="oftalmologia">
+                <a href="{{ route('consulta.oftalmologia') }}" class="esp-card">
+                    <div class="esp-card-header" style="background:linear-gradient(135deg,#1565c0,#42a5f5);">
+                        <div class="esp-icon"><i class="fa fa-eye" style="color:#fff;font-size:22px;"></i></div>
+                        <h5>Oftalmología</h5>
+                    </div>
+                    <div class="esp-card-body">
+                        <p>Diagnóstico, tratamiento y prevención de las enfermedades de los ojos y la visión, con enfoque neuro-oftalmológico.</p>
+                        <span class="esp-link" style="color:#1565c0;">Conocer más ›</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-6" id="oftalmologia-pediatrica">
+                <a href="{{ route('consulta.oftalmologiaPediatrica') }}" class="esp-card">
+                    <div class="esp-card-header" style="background:linear-gradient(135deg,#0277bd,#4fc3f7);">
+                        <div class="esp-icon"><i class="fa fa-child" style="color:#fff;font-size:22px;"></i></div>
+                        <h5>Oftalmología Pediátrica</h5>
+                    </div>
+                    <div class="esp-card-body">
+                        <p>Atención visual especializada para bebés, niños y adolescentes: estrabismo, ojo perezoso y necesidad de gafas.</p>
+                        <span class="esp-link" style="color:#0277bd;">Conocer más ›</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-6" id="fonoaudiologia">
+                <a href="{{ route('consulta.fonoaudiologia') }}" class="esp-card">
+                    <div class="esp-card-header" style="background:linear-gradient(135deg,#0e6655,#16a085);">
+                        <div class="esp-icon"><i class="fa fa-comments" style="color:#fff;font-size:22px;"></i></div>
+                        <h5>Fonoaudiología</h5>
+                    </div>
+                    <div class="esp-card-body">
+                        <p>Evaluación y tratamiento de lenguaje, habla, voz y deglución, con enfoque en pacientes neurológicos y de rehabilitación.</p>
+                        <span class="esp-link" style="color:#0e6655;">Conocer más ›</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-6" id="terapia-ocupacional">
+                <a href="{{ route('consulta.terapiaOcupacional') }}" class="esp-card">
+                    <div class="esp-card-header" style="background:linear-gradient(135deg,#1a5276,#2980b9);">
+                        <div class="esp-icon"><i class="fa fa-hands" style="color:#fff;font-size:22px;"></i></div>
+                        <h5>Terapia Ocupacional</h5>
+                    </div>
+                    <div class="esp-card-body">
+                        <p>Intervención para recuperar autonomía en actividades cotidianas, motricidad fina y participación funcional tras condiciones neurológicas.</p>
+                        <span class="esp-link" style="color:#1a5276;">Conocer más ›</span>
                     </div>
                 </a>
             </div>
@@ -125,13 +177,13 @@
 
             <div class="col-lg-4 col-md-6">
                 <a href="{{ route('consulta.medicinaGeneral') }}" class="esp-card">
-                    <div class="esp-card-header" style="background:linear-gradient(135deg,#5d6b2e,#7d9140);">
+                    <div class="esp-card-header">
                         <div class="esp-icon"><i class="fa fa-stethoscope" style="color:#fff;font-size:22px;"></i></div>
                         <h5>Medicina General</h5>
                     </div>
                     <div class="esp-card-body">
                         <p>Atención médica general para diagnóstico oportuno, manejo de enfermedades agudas, crónicas y remisión al especialista correspondiente.</p>
-                        <span class="esp-link" style="color:#5d6b2e;">Conocer más ›</span>
+                        <span class="esp-link">Conocer más ›</span>
                     </div>
                 </a>
             </div>
@@ -150,6 +202,12 @@
             </div>
 
         </div>
+
+        @include('components.page-cta', [
+            'title' => '¿Necesita orientación sobre una especialidad?',
+            'subtitle' => 'Agende su cita y le ayudamos a llegar al especialista adecuado.',
+        ])
     </div>
 </section>
 @endsection
+

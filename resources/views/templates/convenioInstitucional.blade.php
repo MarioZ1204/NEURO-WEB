@@ -11,7 +11,7 @@
     .form-box { background:#fff; border-radius:18px; box-shadow:0 8px 40px rgba(0,0,0,0.09); padding:44px 48px; }
     .cf-label { display:block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.7px; color:var(--primary); margin-bottom:6px; }
     .cf-req { color:#cc0033; }
-    .cf-input, .cf-select, .cf-textarea { width:100%; padding:11px 14px; border:1.5px solid #dce8e7; border-radius:9px; font-size:13px; font-family:'Poppins',sans-serif; color:#2c3e3d; background:#fff; outline:none; box-sizing:border-box; transition:border-color 0.2s,box-shadow 0.2s; }
+    .cf-input, .cf-select, .cf-textarea { width:100%; padding:11px 14px; border:1.5px solid #dce8e7; border-radius:9px; font-size:16px; font-family:'Poppins',sans-serif; color:#2c3e3d; background:#fff; outline:none; box-sizing:border-box; transition:border-color 0.2s,box-shadow 0.2s; }
     .cf-input:focus, .cf-select:focus, .cf-textarea:focus { border-color:var(--primary); box-shadow:0 0 0 3px rgba(74,107,104,0.10); }
     .cf-textarea { resize:vertical; min-height:110px; }
     .cf-group { margin-bottom:18px; }
@@ -34,6 +34,12 @@
 
 <section style="background:#f8faf9; padding:70px 0;">
     <div class="container">
+        @if(session('convenio_success'))
+            <div class="alert alert-success d-flex align-items-start gap-2 mb-4" role="alert" style="background:#e8f7ee; border:1px solid #b7e4c7; color:#1b5e20; border-radius:14px; padding:15px 18px;">
+                <i class="fa fa-check-circle" style="margin-right:8px; font-size:18px;"></i>
+                <div>{{ session('convenio_success') }}</div>
+            </div>
+        @endif
         <div class="row g-4 mb-5">
             <div class="col-lg-5">
                 <div style="background:#fff;border-radius:14px;padding:28px;box-shadow:0 4px 20px rgba(0,0,0,0.06);margin-bottom:20px;">
@@ -120,3 +126,4 @@
     </div>
 </section>
 @endsection
+

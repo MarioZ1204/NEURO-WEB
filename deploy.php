@@ -2,13 +2,16 @@
 /**
  * Post-deploy script for Hostinger
  * Run after each git deployment to clear Laravel caches
+ *
+ * CLI: php deploy.php
+ * HTTP: blocked by repo/.htaccess; if reachable, requires DEPLOY_TOKEN
  */
 
-// Security: only allow execution from CLI or with secret token
 if (php_sapi_name() !== 'cli') {
-    $token = $_GET['token'] ?? '';
-    $expected = getenv('DEPLOY_TOKEN') ?: 'change-this-secret';
-    if (!hash_equals($expected, $token)) {
+    $token = (string) ($_GET['token'] ?? '');
+    $expected = (string) (getenv('DEPLOY_TOKEN') ?: '');
+
+    if ($expected === '' || $token === '' || !hash_equals($expected, $token)) {
         http_response_code(403);
         exit('Forbidden');
     }
@@ -18,9 +21,15 @@ $base = dirname(__FILE__);
 chdir($base);
 
 $commands = [
+    'php artisan migrate --force --no-interaction',
+    'php artisan cache:clear',
+    'php artisan config:clear',
+    'php artisan route:clear',
+    'php artisan view:clear',
     'php artisan config:cache',
     'php artisan route:cache',
     'php artisan view:cache',
+    'php artisan storage:link',
 ];
 
 foreach ($commands as $cmd) {

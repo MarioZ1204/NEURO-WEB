@@ -13,7 +13,7 @@
     .cf-req { color:#cc0033; }
     .cf-input, .cf-select, .cf-textarea {
         width:100%; padding:11px 14px; border:1.5px solid #dce8e7; border-radius:9px;
-        font-size:13px; font-family:'Poppins',sans-serif; color:#2c3e3d;
+        font-size:16px; font-family:'Poppins',sans-serif; color:#2c3e3d;
         background:#fff; outline:none; box-sizing:border-box; transition:border-color 0.2s,box-shadow 0.2s;
     }
     .cf-input:focus, .cf-select:focus, .cf-textarea:focus { border-color:var(--primary); box-shadow:0 0 0 3px rgba(74,107,104,0.10); }
@@ -129,7 +129,7 @@
                             <div class="col-12">
                                 <div style="display:flex;align-items:flex-start;gap:10px;font-size:12.5px;color:#555;margin-bottom:8px;">
                                     <input type="checkbox" id="privacyCheck" required style="width:15px;height:15px;flex-shrink:0;margin-top:2px;accent-color:var(--primary);">
-                                    <label for="privacyCheck">Acepto la <a href="{{ route('politicaPrivacidad') }}" target="_blank" style="color:var(--primary);font-weight:600;">Política de Privacidad</a> y el tratamiento de mis datos personales con fines de selección de personal.</label>
+                                    <label for="privacyCheck">Acepto la <a href="{{ route('politicaPrivacidad') }}" target="_blank" style="color:var(--primary);font-weight:600;">Política de Privacidad</a> y el tratamiento de los datos personales suministrados con fines de selección de personal.</label>
                                 </div>
                             </div>
                         </div>
@@ -141,3 +141,4 @@
     </div>
 </section>
 @endsection
+

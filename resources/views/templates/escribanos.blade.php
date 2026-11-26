@@ -13,7 +13,7 @@
     .cf-req { color:#cc0033; }
     .cf-input, .cf-select, .cf-textarea {
         width:100%; padding:11px 14px; border:1.5px solid #dce8e7; border-radius:9px;
-        font-size:13px; font-family:'Poppins',sans-serif; color:#2c3e3d;
+        font-size:16px; font-family:'Poppins',sans-serif; color:#2c3e3d;
         background:#fff; outline:none; box-sizing:border-box;
         transition:border-color 0.2s,box-shadow 0.2s;
     }
@@ -22,7 +22,10 @@
     .cf-group { margin-bottom:18px; }
     .cf-submit { width:100%; padding:14px; background:linear-gradient(135deg,#c0620a,#e07d1a); color:#fff; border:none; border-radius:10px; font-size:13.5px; font-weight:700; letter-spacing:0.8px; text-transform:uppercase; cursor:pointer; font-family:'Poppins',sans-serif; transition:opacity 0.2s,transform 0.2s; margin-top:8px; }
     .cf-submit:hover { opacity:0.88; transform:translateY(-1px); }
-    @media (max-width:576px) { .contact-form-box { padding:28px 20px; } }
+    @media (max-width:576px) {
+        .contact-form-box { padding:28px 20px; }
+        .cf-input, .cf-select, .cf-textarea { font-size:16px; }
+    }
 </style>
 <div class="page-hero">
     <div class="container">
@@ -100,7 +103,7 @@
                             <div class="col-12">
                                 <div style="display:flex;align-items:flex-start;gap:10px;font-size:12.5px;color:#555;margin-bottom:8px;">
                                     <input type="checkbox" id="privacyCheck" required style="width:15px;height:15px;flex-shrink:0;margin-top:2px;accent-color:#4a6b68;">
-                                    <label for="privacyCheck">He leído y acepto la <a href="{{ route('politicaPrivacidad') }}" target="_blank" style="color:#4a6b68;font-weight:600;">Política de Privacidad</a> y el tratamiento de mis datos personales.</label>
+                                    <label for="privacyCheck">He leído y acepto la <a href="{{ route('politicaPrivacidad') }}" target="_blank" style="color:#4a6b68;font-weight:600;">Política de Privacidad</a> y el tratamiento de los datos personales suministrados.</label>
                                 </div>
                             </div>
                         </div>
@@ -112,23 +115,23 @@
                 <div class="row g-3 mt-4">
                     <div class="col-md-4">
                         <div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 3px 14px rgba(0,0,0,0.06);text-align:center;">
-                            <i class="fa fa-envelope" style="font-size:22px;color:#c0620a;margin-bottom:10px;"></i>
-                            <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--dark);margin-bottom:4px;">Correo</p>
-                            <a href="mailto:neurocienciasnarino@gmail.com" style="font-size:12px;color:#555;text-decoration:none;">neurocienciasnarino@gmail.com</a>
+                            <i class="fa fa-phone" style="font-size:22px;color:#c0620a;margin-bottom:10px;"></i>
+                            <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--dark);margin-bottom:4px;">{{ setting('wa1_label') }}</p>
+                            <a href="tel:{{ setting('wa1_tel') }}" style="font-size:12px;color:#555;text-decoration:none;">{{ setting('wa1_display') }}</a>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 3px 14px rgba(0,0,0,0.06);text-align:center;">
                             <i class="fa fa-phone" style="font-size:22px;color:#c0620a;margin-bottom:10px;"></i>
-                            <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--dark);margin-bottom:4px;">Teléfono</p>
-                            <a href="tel:6027238141" style="font-size:12px;color:#555;text-decoration:none;">(602) 7238141</a>
+                            <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--dark);margin-bottom:4px;">{{ setting('wa2_label') }}</p>
+                            <a href="tel:{{ setting('wa2_tel') }}" style="font-size:12px;color:#555;text-decoration:none;">{{ setting('wa2_display') }}</a>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 3px 14px rgba(0,0,0,0.06);text-align:center;">
                             <i class="fa fa-map-marker-alt" style="font-size:22px;color:#c0620a;margin-bottom:10px;"></i>
                             <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--dark);margin-bottom:4px;">Dirección</p>
-                            <span style="font-size:12px;color:#555;">C. 14A #34-13, Pasto, Nariño</span>
+                            <span style="font-size:12px;color:#555;">{{ setting('address') }}</span>
                         </div>
                     </div>
                 </div>
@@ -137,3 +140,4 @@
     </div>
 </section>
 @endsection
+
